@@ -27,7 +27,7 @@ Model's local prediction
     var BigMLModel = require('./lib/BigMLModel');
     var model = new BigMLModel();
     var Model = require('./lib/Model');
-    model.get('model/51922d0b37203f2a8c000010', true, function(error, resource) {
+    model.get('model/51922d0b37203f2a8c000010', function(error, resource) {
         var localModel = new Model(resource);
         console.log(localModel.predict({'petal length': 1}))
     })
