@@ -29,3 +29,12 @@ Local model's prediction
     model.predict({'petal length': 1},
                   function(prediction) {console.log(prediction)});
 ```
+
+Local ensemble's prediction
+
+```js
+    Ensemble = require('./lib/Ensemble');
+    ensemble = new Ensemble('ensemble/51901f4337203f3a9a000215');
+    ensemble.predict({'petal length': 1}, 0, 
+                     function(prediction) {console.log(prediction)});
+```
