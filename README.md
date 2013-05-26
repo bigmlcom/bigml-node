@@ -18,7 +18,7 @@ Retrieve source
 ```js
     var BigMLSource = require('./lib/BigMLSource');
     var source = new BigMLSource();
-    source.get('source/515a1c200c0b5e5b20000000')
+    source.get('source/519feaf337203f3b2d000000')
 ```
 
 Local model's prediction
