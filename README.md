@@ -27,7 +27,7 @@ Local model's prediction
     Model = require('./lib/Model');
     model = new Model('model/51922d0b37203f2a8c000010');
     model.predict({'petal length': 1},
-                  function(prediction) {console.log(prediction)});
+                  function(error, prediction) {console.log(prediction)});
 ```
 
 Local ensemble's prediction
@@ -36,5 +36,5 @@ Local ensemble's prediction
     Ensemble = require('./lib/Ensemble');
     ensemble = new Ensemble('ensemble/51901f4337203f3a9a000215');
     ensemble.predict({'petal length': 1}, 0, 
-                     function(prediction) {console.log(prediction)});
+                     function(error, prediction) {console.log(prediction)});
 ```
