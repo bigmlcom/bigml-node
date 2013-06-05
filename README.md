@@ -35,9 +35,12 @@ The only mandatory third-party dependencies are the
 `request <https://github.com/mikeal/request.git>`_,
 `winston <https://github.com/flatiron/winston.git>`_ and
 `form-data <https://github.com/felixge/node-form-data.git>`_ libraries.
+
 The testing environment requires the additional 
-`mocha <https://github.com/visionmedia/mocha>`_ package. These
-libraries are automatically installed during the setup. 
+`mocha <https://github.com/visionmedia/mocha>`_ package that can be installed
+with the following command::
+
+    $ nmp install mocha -g
 
 Installation
 ------------
@@ -45,12 +48,25 @@ Installation
 To install the latest stable release with
 `npm <https://npmjs.org/>`_::
 
-    $ npm install -g bigml
+    $ npm install bigml
 
 You can also install the development version of the bindings by cloning the
 Git repository to your local computer and issuing::
 
-    $ npm install . -g
+    $ npm install .
+
+Testing
+-------
+
+The test suite is automatically using ``mocha`` as test framework. As all the
+tested api objects perform one or more connections to the remote resources in
+bigml.com, you may have to enlarge the default timeout used by ``mocha`` in
+each test. For instance::
+
+    $ mocha -t 10000
+
+will set the timeout limit to 10 seconds. This limit should typically be
+enough, but you can change it to fit the latencies of your connection.
 
 Importing the modules
 ---------------------
@@ -101,7 +117,7 @@ class as follows::
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291')
 
 Also, you can initialize the library to work in the Sandbox environment by
-setting the third parameter ``dev_mode`` to ``true``::
+setting the third parameter ``devMode`` to ``true``::
 
     connection = new bigml.BigML('myusername',
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',

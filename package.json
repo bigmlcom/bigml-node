@@ -23,12 +23,12 @@
   "dependencies": {
     "request": "2.21.0",
     "winston": "0.7.1",
-    "form-data": "0.0.10"
-  },
-  "devDependencies": {
-    "mocha": "1.10.0"
+    "form-data": "0.0.10",
+    "combined-stream": "0.0.4",
+    "mime": "1.2.2",
+    "async": "0.2.7"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -t 10000"
   }
 }
