@@ -1,11 +1,11 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
-  BigMLDataset = require('../lib/BigMLDataset'),
+  Source = require('../lib/Source'),
+  Dataset = require('../lib/Dataset'),
   constants = require('../lib/constants');
 
 describe('Manage dataset objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv',
-    datasetId, dataset = new BigMLDataset();
+  var sourceId, source = new Source(), path = './data/iris.csv',
+    datasetId, dataset = new Dataset();
 
   before(function (done) {
       source.create(path, undefined, function (error, data) {

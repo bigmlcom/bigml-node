@@ -1,13 +1,13 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
-  BigMLDataset = require('../lib/BigMLDataset'),
-  BigMLModel = require('../lib/BigMLModel'),
+  Source = require('../lib/Source'),
+  Dataset = require('../lib/Dataset'),
+  Model = require('../lib/Model'),
   constants = require('../lib/constants');
 
 describe('Manage model objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv',
-    datasetId, dataset = new BigMLDataset(),
-    modelId, model = new BigMLModel();
+  var sourceId, source = new Source(), path = './data/iris.csv',
+    datasetId, dataset = new Dataset(),
+    modelId, model = new Model();
 
   before(function (done) {
       source.create(path, undefined, function (error, data) {

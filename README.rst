@@ -78,6 +78,7 @@ To use the library, import it with `require`:
 
 this will give you access to the following library structure:
 
+
     - bigml.constants       common constants
     - bigml.BigML           connection object
     - bigml.Resource        common API methods
@@ -89,7 +90,6 @@ this will give you access to the following library structure:
     - bigml.Evaluation      Evaluation API methods
     - bigml.LocalModel      Model for local predictions
     - bigml.LocalEnsemble   Ensemble for local predictions
-
 
 Authentication
 --------------
