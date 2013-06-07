@@ -1,0 +1,34 @@
+{
+  "name": "bigml",
+  "description": "Node bindings for BigML.",
+  "tags": [
+    "REST",
+    "api",
+    "bindings",
+    "BigML"
+  ],
+  "version": "0.0.1",
+  "author": {
+    "name": "BigML",
+    "email": "info@bigml.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bigmlcom/bigml-node"
+  },
+  "engines": [
+    "node >= 0.10.0"
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "request": "2.21.0",
+    "winston": "0.7.1",
+    "form-data": "0.0.10",
+    "combined-stream": "0.0.4",
+    "mime": "1.2.2",
+    "async": "0.2.7"
+  },
+  "scripts": {
+    "test": "mocha -t 10000"
+  }
+}

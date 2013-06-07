@@ -13,7 +13,7 @@ describe('Manage source objects', function(){
       });
     })
   })
-  describe('#get(sourceId, finished, query, callback)', function(){
+  describe('#get(source, finished, query, callback)', function(){
     it('should retrieve a finished source', function(done){
         source.get(sourceId, true, function (error, data) {
             if (data.object.status.code === constants.FINISHED) {
