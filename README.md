@@ -63,9 +63,9 @@ tested api objects perform one or more connections to the remote resources in
 bigml.com, you may have to enlarge the default timeout used by `mocha` in
 each test. For instance:
 
-    $ mocha -t 10000
+    $ mocha -t 20000
 
-will set the timeout limit to 10 seconds. This limit should typically be
+will set the timeout limit to 20 seconds. This limit should typically be
 enough, but you can change it to fit the latencies of your connection.
 
 Importing the modules
@@ -123,40 +123,124 @@ setting the third parameter `devMode` to `true`::
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
                                  true)
 
+Quick Start
+-----------
 
+Let's see the steps that will lead you to [this csv
+file](<https://static.bigml.com/csv/iris.csv>) containing the [Iris
+flower dataset](<http://en.wikipedia.org/wiki/Iris_flower_data_set>) to
+predicting the species of a flower whose `sepal length` is `5` and
+whose `sepal width` is `2.5`. By default, BigML considers the last field
+(`species`) in the row as the
+objective field (i.e., the field that you want to generate predictions
+for). The csv structure is::
 
-Usage
------
+    sepal length,sepal width,petal length,petal width,species
+    5.1,3.5,1.4,0.2,Iris-setosa
+    4.9,3.0,1.4,0.2,Iris-setosa
+    4.7,3.2,1.3,0.2,Iris-setosa
+    ...
 
-Create source 
-```js
-    var BigMLSource = require('./lib/BigMLSource');
-    var source = new BigMLSource();
-    source.create('./data/iris.csv')
-```
-
-Retrieve source
-
-```js
-    var BigMLSource = require('./lib/BigMLSource');
-    var source = new BigMLSource();
-    source.get('source/519feaf337203f3b2d000000')
-```
-
-Local model's prediction
-
-```js
-    Model = require('./lib/Model');
-    model = new Model('model/51922d0b37203f2a8c000010');
-    model.predict({'petal length': 1},
-                  function(error, prediction) {console.log(prediction)});
-```
-
-Local ensemble's prediction
+The previous required steps to generate a prediction are creating a set of
+source, dataset and model objects::
 
 ```js
-    Ensemble = require('./lib/Ensemble');
-    ensemble = new Ensemble('ensemble/51901f4337203f3a9a000215');
-    ensemble.predict({'petal length': 1}, 0, 
-                     function(error, prediction) {console.log(prediction)});
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.create('./data/iris.csv', function(error, sourceInfo) {
+      if (!error && sourceInfo) {
+        var dataset = new bigml.Dataset();
+        dataset.create(sourceInfo, function(error, datasetInfo) {
+          if (!error && datasetInfo) {
+            var model = new bigml.Model();
+            model.create(datasetInfo, function (error, modelInfo) {
+              if (!error && modelInfo) {
+                var prediction = new bigml.Prediction();
+                prediction.create(modelInfo)
+              }
+            });
+          }
+        });
+      }
+    });
 ```
+
+Note that in our example the `prediction.create` call has no associated
+callback. You can
+chose to assign one, but if you don't the default action will be
+printing the results of the `create` method.
+
+    > result: {"code":201,"object":{"category":0,"code":201,"content_type":
+      "text/csv","created":"2013-06-07T22:33:22.494758","credits":0,
+      "description":"","fields_meta":{"count":0,"limit":1000,"offset":0,
+      "total":0},"file_name":"iris.csv",
+      "md5":"d1175c032e1042bec7f974c91e4a65ae","name":"iris.csv",
+      "number_of_datasets":0,"number_of_ensembles":0,"number_of_models":0,
+      "number_of_predictions":0,"private":true,
+      "resource":"source/51b25fb237203f4410000010","size":4608,
+      "source_parser":{},"status":{"code":1,
+      "message":"The request has been queued and will be processed soon"},
+      "subscription":false,"tags":[],"type":0,
+      "updated":"2013-06-07T22:33:22.494791"},
+      "resource":"source/51b25fb237203f4410000010",
+      "location":"https://localhost:1026/andromeda/source/51b25fb237203f4410000010",
+      "error":null}
+
+Any of the generated objects can be retrieved, updated and deleted through the
+corresponding REST methods. For instance, in the previous example you would
+use:
+
+```js
+    bigml = require('bigml');
+    var source = new bigml.Source();
+    source.get('source/51b25fb237203f4410000010' function (error, resource) {
+        if (!error && resource) {
+          console.log(resource);
+        }
+      })
+```
+to recover and show the source information.
+
+You can also generate local predictions using the information of your
+models::
+
+```js
+    bigml = require('bigml');
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    localModel.predict({'petal length': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
+And also, for your ensembles
+
+```js
+    bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
+    localEnsemble.predict({'petal length': 1}, 0, 
+                          function(error, prediction) {console.log(prediction)});
+```
+
+will generate a prediction by combining the predictions of each of the models
+they enclose. The example uses the `plurality` combination method (whose code
+is `0`. Check the docs for more information about the available combination
+methods).
+
+Additional Information
+----------------------
+
+We've just drawn a firs sketch. For additional information, see
+the files included in the docs folder.
+
+How to Contribute
+-----------------
+
+Please follow the next steps:
+
+  1. Fork the project on github.com.
+  2. Create a new branch.
+  3. Commit changes to the new branch.
+  4. Send a [pull request](<https://github.com/bigmlcom/bigml-node/pulls>).
+
+
+For details on the underlying API, see the
+[BigML API documentation](<https://bigml.com/developers>).

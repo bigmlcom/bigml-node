@@ -18,23 +18,22 @@
 module.exports = {
   // Common modules: connection, REST common interface, utilities and constants
   BigML: require('./lib/BigML'),
-  BigMLResource: require('./lib/BigMLResource'),
-  utils: require('./lib/utils'),
+  Resource: require('./lib/Resource'),
   constants: require('./lib/constants'),
   // Source REST api interface
-  BigMLSource: require('./lib/BigMLSource'),
+  Source: require('./lib/Source'),
   // Dataset REST api interface
-  BigMLDataset: require('./lib/BigMLDataset'),
+  Dataset: require('./lib/Dataset'),
   // Model REST api interface
-  BigMLModel: require('./lib/BigMLModel'),
-  // Ensemble REST api interface
-  BigMLEnsemble: require('./lib/BigMLEnsemble'),
-  // Prediction REST api interface
-  BigMLPrediction: require('./lib/BigMLPrediction'),
-  // Evaluation REST api interface
-  BigMLEvaluation: require('./lib/BigMLEvaluation'),
-  // Local Model object for local predictions
   Model: require('./lib/Model'),
+  // Ensemble REST api interface
+  Ensemble: require('./lib/Ensemble'),
+  // Prediction REST api interface
+  Prediction: require('./lib/Prediction'),
+  // Evaluation REST api interface
+  Evaluation: require('./lib/Evaluation'),
+  // Local Model object for local predictions
+  LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
-  Ensemble: require('./lib/Ensemble')
+  LocalEnsemble: require('./lib/LocalEnsemble')
 };
