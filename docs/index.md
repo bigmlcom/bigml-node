@@ -243,22 +243,84 @@ they enclose. The example uses the `plurality` combination method (whose code
 is `0`. Check the docs for more information about the available combination
 methods).
 
-Additional Information
-----------------------
+Creating resources
+------------------
 
-We've just drawn a firs sketch. For additional information, see
-the files included in the docs folder.
+As you've seen in the quick start section, each resource has its own creation
+method. Sources are created by uploading a local csv file:
 
-How to Contribute
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.create('./data/iris.csv', {name: 'my source'},
+      function(error, sourceInfo) {
+          if (!error && sourceInfo) {
+            console.log(sourceInfo);
+          }
+      });
+```
+The first argument in the `create` method is the csv file, the next one is
+an object to set some of the source properties, in this case its name,
+and finally the chosen callback. These last two arguments are optional (for 
+this method and all
+the `create` methods of the rest of resources).
+
+For datasets to be created you need a source object or id or another dataset
+object or id as first argument in the `create` method. In the first case, it
+generates a dataset using the data of the source and in the second,
+the method is used to generate new datasets by splitting the original one.
+
+```js
+    var bigml = require('bigml');
+    var dataset = new bigml.Dataset();
+    dataset.create('source/51b25fb237203f4410000010', {'name': 'my dataset'},
+      function(error, datasetInfo) {
+          if (!error && datasetInfo) {
+            console.log(datasetInfo);
+          }
+      });
+```
+
+Similarly, for models and ensembles you will need a dataset as first argument,
+evaluations will need a model as first argument and a dataset as second one and
+predictions need a model as first argument too:
+
+```js
+    var bigml = require('bigml');
+    var evaluation = new bigml.Evaluation();
+    evaluation.create('model/51922d0b37203f2a8c000010',
+                      'dataset/51b3c4c737203f16230000d1',
+                      {'name': 'my dataset'},
+      function(error, datasetInfo) {
+          if (!error && datasetInfo) {
+            console.log(datasetInfo);
+          }
+      });
+```
+
+Newly-created resources are returned in an object with the following
+keys:
+
+-  **code**: If the request is successful you will get a
+   `constants.HTTP_CREATED` (201) status code. Otherwise, it will be
+   one of the standard HTTP error codes [detailed in the
+   documentation](<https://bigml.com/developers/status_codes>).
+-  **resource**: The identifier of the new resource.
+-  **location**: The location of the new resource.
+-  **object**: The resource itself, as computed by BigML.
+-  **error**: If an error occurs and the resource cannot be created, it
+   will contain an additional code and a description of the error. In
+   this case, **location**, and **resource** will be `undefined`.
+
+Bigml.com will answer your `create` call immediately, even if the resource
+is not finished yet (see the
+[documentation on status
+codes](<https://bigml.com/developers/status_codes>) for the listing of
+potential states and their semantics). To retrieve a finished resource,
+you'll need to use the `get` method described in next section.
+
+Getting resources
 -----------------
 
-Please follow the next steps:
-
-  1. Fork the project on github.com.
-  2. Create a new branch.
-  3. Commit changes to the new branch.
-  4. Send a [pull request](<https://github.com/bigmlcom/bigml-node/pulls>).
 
 
-For details on the underlying API, see the
-[BigML API documentation](<https://bigml.com/developers>).

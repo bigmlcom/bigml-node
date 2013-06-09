@@ -21,7 +21,7 @@ describe('Manage model objects', function(){
       });
   });
 
-  describe('#create(dataset, inputData, args, callback)', function(){
+  describe('#create(dataset, args, callback)', function(){
     it('should create a model from a dataset', function(done){
         model.create(datasetId, undefined, function (error, data) {
             assert.equal(data.code, constants.HTTP_CREATED);
