@@ -74,7 +74,7 @@ Importing the modules
 To use the library, import it with `require`:
 
     $ node
-    > bigml = require('bigml');
+    > var bigml = require('bigml');
 
 this will give you access to the following library structure:
 
@@ -209,7 +209,7 @@ corresponding REST methods. For instance, in the previous example you would
 use:
 
 ```js
-    bigml = require('bigml');
+    var bigml = require('bigml');
     var source = new bigml.Source();
     source.get('source/51b25fb237203f4410000010', function (error, resource) {
         if (!error && resource) {
@@ -223,7 +223,7 @@ You can also generate local predictions using the information of your
 models::
 
 ```js
-    bigml = require('bigml');
+    var bigml = require('bigml');
     var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
     localModel.predict({'petal length': 1},
                        function(error, prediction) {console.log(prediction)});
@@ -232,7 +232,7 @@ models::
 And similarly, for your ensembles
 
 ```js
-    bigml = require('bigml');
+    var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
     localEnsemble.predict({'petal length': 1}, 0, 
                           function(error, prediction) {console.log(prediction)});
@@ -250,24 +250,30 @@ Currently there are six types of resources in bigml.com:
 
 - **sources** Contain the data uploaded from your local data file after
 processing (interpreting field types or missing characters, for instance).
-You can set its locale settings or its field names or types.
+You can set its locale settings or its field names or types. These resources
+are handled through `bigml.Source`.
 
 - **datasets** Contain the information of the source in a structured summarized
-way according to its file types (numeric, categorical or text).
+way according to its file types (numeric, categorical or text). These resources
+are handled through `bigml.Dataset`.
 
 - **models** It's a tree-like structure extracted from a dataset in order to
 predict one field, the objective field, according to the values of other
-fields, the input fields.
+fields, the input fields. These resources
+are handled through `bigml.Model`.
 
-- **prediction** Is the representation of the predicted value for the
-objective field obtained by applying the model to an input data set.
+- **predictions** Is the representation of the predicted value for the
+objective field obtained by applying the model to an input data set. These
+resources are handled through `bigml.Prediction`.
 
-- **ensemble** Is a group of models extracted from a single dataset to be
-used together in order to predict the objective field.
+- **ensembles** Is a group of models extracted from a single dataset to be
+used together in order to predict the objective field. These resources
+are handled through `bigml.Ensemble`.
 
-- **evaluation** Is a set of measures of performance defined on your model
+- **evaluations** Is a set of measures of performance defined on your model
 or ensemble by checking predictions for the objective field of
-a test dataset with its provided values.
+a test dataset with its provided values. These resources
+are handled through `bigml.Evaluation`.
 
 Creating resources
 ------------------
@@ -353,7 +359,7 @@ keys:
 -  **object**: The resource itself, as computed by BigML.
 -  **error**: If an error occurs and the resource cannot be created, it
    will contain an additional code and a description of the error. In
-   this case, **location**, and **resource** will be `undefined`.
+   this case, **location**, and **resource** will be `null`.
 
 Bigml.com will answer your `create` call immediately, even if the resource
 is not finished yet (see the
@@ -369,7 +375,7 @@ Whenever you have to retrieve an existing resource you can use the `get`
 method of the corresponding class. Let's see an example of model retrieval:
 
 ```js
-    bigml = require('bigml');
+    var bigml = require('bigml');
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
@@ -406,7 +412,7 @@ updatable. The `update` method of each resource class will let you update
 such properties. For instance,
 
 ```js
-    bigml = require('bigml');
+    var bigml = require('bigml');
     var ensemble = new bigml.Ensemble();
     ensemble.update('ensemble/51901f4337203f3a9a000215',
       {name: 'my name', tags: 'code example'},
@@ -433,8 +439,8 @@ Resources can be deleted individually using the `delete` method of the
 corresponding class.
 
 ```js
-    bigml = require('bigml');
-    var source = new bigml.source();
+    var bigml = require('bigml');
+    var source = new bigml.Source();
     source.delete('source/51b25fb237203f4410000010',
       function (error, result) {
         if (!error && result) {
@@ -456,5 +462,228 @@ The call will return an object with the following keys:
 
 The callback parameter is optional and a printing function is used as default.
 
+Listing, Filtering and Ordering Resources
+-----------------------------------------
+
+Each type of resource has its own `list` method that allows you to
+retrieve resources of that kind. You can also add some filters to select
+specific subsets of them and even order the results. The returned list will
+show the 20 most recent resources. That limit can be modified by setting
+the `limit` argument in the query string. For more information about the syntax
+of query strings filters and orderings, you can check the fields labeled
+as *filterable* and *sortable* in the listings section of [BigML
+documentation](<https://bigml.com/developers>) for each resource. To write an
+example we can see how to list the first 20 sources 
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.list(function (error, list) {
+        if (!error && list) {
+          console.log(list);
+        }
+      })
+```
+
+and if you want the first 5 sources created before April 1st,
+2013:
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.list('limit=5;created__lt=2013-04-1',
+      function (error, list) {
+        if (!error && list) {
+          console.log(list);
+        }
+      })
+```
+
+and if you want to select the first 5 as ordered by name:
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.list('limit=5;created__lt=2013-04-1;order_by=name',
+      function (error, list) {
+        if (!error && list) {
+          console.log(list);
+        }
+      })
+```
+
+In this method, both parameters are optional and if callback is absent a basic
+printing function is used instead.
+
+The list object will have the following structure:
+
+-  **code**: If the request is successful you will get a
+   `constants.HTTP_OK` (200) status code. Otherwise, it will be one of
+   the standard HTTP error codes. See [BigML documentation on status
+   codes](<https://bigml.com/developers/status_codes>) for more info.
+-  **meta**: An object including the following keys that can help you
+   paginate listings:
+
+   -  **previous**: Path to get the previous page or `null` if there
+      is no previous page.
+   -  **next**: Path to get the next page or `null` if there is no
+      next page.
+   -  **offset**: How far off from the first entry in the resources is
+      the first one listed in the resources key.
+   -  **limit**: Maximum number of resources that you will get listed in
+      the resources key.
+   -  **total\_count**: The total number of resources in BigML.
+
+-  **objects**: A list of resources as returned by BigML.
+-  **error**: If an error occurs and the resource cannot be created, it
+   will contain an additional code and a description of the error. In
+   this case, **meta**, and **resources** will be `null`.
+
+Local Models
+------------
+
+A remote model encloses all the information required to make
+predictions. Thus, once you retrieve them, you can build a local version
+of the remote model and predict locally. This can easily be done using
+the `LocalModel` class.
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    localModel.predict({'petal length': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
+As you see, the first parameter to the `LocalModel` constructor is a model id
+(or object). The constuctor allows a second optional argument, a connection
+object (as described in the Authentication section).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010',
+                                          new bigml.BigML(myUser, myKey));
+    localModel.predict({'petal length': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
+When the first argument is a model object, the constructor creates immediately
+a `LocalModel` instance ready to predict. Then, the `LocalModel.predict`
+method can be immediately called in a synchronous way.
 
 
+```js
+    var bigml = require('bigml');
+    var model = new bigml.Model();
+    model.get('model/51b3c45a37203f16230000b5',
+              true,
+              'limit=-1',
+              function (error, resource) {
+        if (!error && resource) {
+          var localModel = new bigml.LocalModel(resource);
+          var prediction = localModel.predict({'petal length': 3});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields in the model will be downloaded respectively. Beware of using
+filtered fields models to instantiate a local model. If an important field is
+missing (because it has been excluded or
+filtered), an exception will arise.
+
+
+On the other hand, when the first argument for the `LocalModel` constructor
+is a model id, it automatically calls internally
+the `bigml.Model.get` method to retrieve the remote model information. As this
+is an asyncronous procedure, the `LocalModel.predict` method must wait for
+the built process to complete before making predictions. When using the
+previous callback syntax this condition is internally ensured and you need
+not care for these details. However, you may
+want to use the synchronous version of the predict method in this case too.
+Then you must be aware that the `LocalModel`
+`ready` event is triggered on completion and at the same time the
+`LocalModel.ready` attribute is set to true. You can wait for
+the `ready` event to make predictions synchronously from then on like in:
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    function doPredictions() {
+      var prediction = localModel.predict({'petal length': 1});
+      console.log(prediction);
+    }
+    if (localModel.ready) {
+      doPredictions();
+    } else {
+      localModel.on('ready', function () {doPredictions()});
+    }
+```
+
+Local Ensembles
+---------------
+
+As in the local model case, remote ensembles can also be used locally through
+the `LocalEnsemble` class to make local predictions. The simplest way to
+create a `LocalEnsemble` is:
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
+    localEnsemble.predict({'petal length': 1}, 0, 
+                          function(error, prediction) {console.log(prediction)});
+```
+
+This call will download all the ensemble related info (and each of its component
+models) and use it to predict by combining the predictions of each individual
+model using a majority system (classifications) or an average system
+(regressions). The first argument of the `LocalEnsemble.predict` method
+is the input data to predict from, the second one is a code that sets the
+combination method:
+
+- 0 for **plurality**: one vote per each model prediction
+- 1 for **confidence weighted**: each prediction's vote has its confidence as
+    associated weight.
+- 2 for **distribution weighted**: each model contributes to the final
+    prediction with the distribution of possible values in the final
+    prediction node weighted by its distribution weight (the number of
+    instances that have that value over the total number of instances in the
+    node).
+
+As in the `LocalModel`, the constructor of the `LocalEnsemble` has as
+first argument the ensemble id (or object) and a second optional connection
+argument. Building a `LocalEnsemble` is an asynchronous process because the
+constructor will need to call the `get` methods of the remote ensemble object
+and its component models. Thus, the `LocalEnsemble.predict` method will have
+to wait for the object to be entirely built before making the prediction. This
+is internally done when you use the callback syntax for the `predict` method.
+In case you want to call the `LocalEnsemble.predict` method as a synchronous
+function, you should first make sure that the constructor has finished building
+the object by checking the `LocalEnsemble.ready` attribute and listening
+to the `ready` event. For instance,
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
+    function doPredictions() {
+      var prediction = localEnsemble.predict({'petal length': 1}, 2);
+      console.log(prediction);
+    }
+    if (localEnsemble.ready) {
+      doPredictions();
+    } else {
+      localEnsemble.on('ready', function () {doPredictions()});
+    }
+```
+would first download the remote ensemble and its component models, then
+construct a local model for each one and predict using these local models.
+In this case, the final prediction is made by combining the individual local
+model's predictions using a distribution weighted method.
+
+Additional Information
+----------------------
+
+For additional information about the API, see the
+[BigML developer's documentation](<https://bigml.com/developers>).
