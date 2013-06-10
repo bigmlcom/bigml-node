@@ -211,7 +211,7 @@ use:
 ```js
     bigml = require('bigml');
     var source = new bigml.Source();
-    source.get('source/51b25fb237203f4410000010' function (error, resource) {
+    source.get('source/51b25fb237203f4410000010', function (error, resource) {
         if (!error && resource) {
           console.log(resource);
         }
@@ -243,6 +243,32 @@ they enclose. The example uses the `plurality` combination method (whose code
 is `0`. Check the docs for more information about the available combination
 methods).
 
+Types of resources
+------------------
+
+Currently there are six types of resources in bigml.com:
+
+- **sources** Contain the data uploaded from your local data file after
+processing (interpreting field types or missing characters, for instance).
+You can set its locale settings or its field names or types.
+
+- **datasets** Contain the information of the source in a structured summarized
+way according to its file types (numeric, categorical or text).
+
+- **models** It's a tree-like structure extracted from a dataset in order to
+predict one field, the objective field, according to the values of other
+fields, the input fields.
+
+- **prediction** Is the representation of the predicted value for the
+objective field obtained by applying the model to an input data set.
+
+- **ensemble** Is a group of models extracted from a single dataset to be
+used together in order to predict the objective field.
+
+- **evaluation** Is a set of measures of performance defined on your model
+or ensemble by checking predictions for the objective field of
+a test dataset with its provided values.
+
 Creating resources
 ------------------
 
@@ -269,17 +295,34 @@ For datasets to be created you need a source object or id or another dataset
 object or id as first argument in the `create` method. In the first case, it
 generates a dataset using the data of the source and in the second,
 the method is used to generate new datasets by splitting the original one.
+For instance,
 
 ```js
     var bigml = require('bigml');
     var dataset = new bigml.Dataset();
-    dataset.create('source/51b25fb237203f4410000010', {'name': 'my dataset'},
+    dataset.create('source/51b25fb237203f4410000010',
+      {name: 'my dataset', size: 1024},
       function(error, datasetInfo) {
           if (!error && datasetInfo) {
             console.log(datasetInfo);
           }
       });
 ```
+
+will create a dataset named `my dataset` with the first 1024
+bytes of the source. And
+
+```js
+    dataset.create('dataset/51b3c4c737203f16230000d1',
+      {name: 'split dataset', sample_rate: 0.8},
+      function(error, datasetInfo) {
+          if (!error && datasetInfo) {
+            console.log(datasetInfo);
+          }
+      });
+```
+
+will create a new dataset by sampling 80% of the data in the original dataset.
 
 Similarly, for models and ensembles you will need a dataset as first argument,
 evaluations will need a model as first argument and a dataset as second one and
@@ -321,6 +364,97 @@ you'll need to use the `get` method described in next section.
 
 Getting resources
 -----------------
+
+Whenever you have to retrieve an existing resource you can use the `get`
+method of the corresponding class. Let's see an example of model retrieval:
+
+```js
+    bigml = require('bigml');
+    var model = new bigml.Model();
+    model.get('model/51b3c45a37203f16230000b5',
+              true,
+              'limit=-1',
+              function (error, resource) {
+        if (!error && resource) {
+          console.log(resource);
+        }
+      })
+```
+
+The first parameter is, obviously, the model id, and the rest of parameters are
+optional. The second parameter in the example will force the `get` method to
+retrieve a finished model. In the previous section we saw that, right after
+creation, resources evolve
+through a series states until they end up in a `FINISHED` (or `FAULTY`) state.
+Setting this boolean to `true` will force the `get` method to wait for
+the resource to be finished before
+executing the corresponding callback (default is set to `false`).
+The third parameter is a query string
+that can be used to filter the fields returned. In the example we set the
+number of fields to be retrieved to `-1`, which will cause all the fields to
+be retrieved (default is an empty string). The callback parameter is set to
+a default printing function if absent.
+
+
+Updating Resources
+------------------
+
+Each type of resource has a set of properties whose values can be updated.
+Check the properties subsection of each resource in the [developers
+documentation](<https://bigml.com/developers>) to see which are marked as
+updatable. The `update` method of each resource class will let you update
+such properties. For instance,
+
+```js
+    bigml = require('bigml');
+    var ensemble = new bigml.Ensemble();
+    ensemble.update('ensemble/51901f4337203f3a9a000215',
+      {name: 'my name', tags: 'code example'},
+      function (error, resource) {
+        if (!error && resource) {
+          console.log(resource);
+        }
+      })
+```
+
+will set the name `my name` to your ensemble and add the
+tags `code` and `example`. The callback function is optional and a default
+printing function will be used if absent.
+
+If you have a look at the returned resource
+you will see that its status will
+be `constants.HTTP_ACCEPTED` if the resource can be updated without
+problems or one of the HTTP standard error codes otherwise.
+
+Deleting Resources
+------------------
+
+Resources can be deleted individually using the `delete` method of the
+corresponding class.
+
+```js
+    bigml = require('bigml');
+    var source = new bigml.source();
+    source.delete('source/51b25fb237203f4410000010',
+      function (error, result) {
+        if (!error && result) {
+          console.log(result);
+        }
+      })
+```
+
+The call will return an object with the following keys:
+
+-  **code** If the request is successful, the code will be a
+   `constants.HTTP_NO_CONTENT` (204) status code. Otherwise, it wil be
+   one of the standard HTTP error codes. See the [documentation on
+   status codes](<https://bigml.com/developers/status_codes>) for more
+   info.
+-  **error** If the request does not succeed, it will contain an
+   object with an error code and a message. It will be `null`
+   otherwise.
+
+The callback parameter is optional and a printing function is used as default.
 
 
 
