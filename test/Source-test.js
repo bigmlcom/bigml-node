@@ -1,10 +1,10 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
+  Source = require('../lib/Source'),
   constants = require('../lib/constants');
 
 describe('Manage source objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv';
-  describe('#create(path, callback)', function(){
+  var sourceId, source = new Source(), path = './data/iris.csv';
+  describe('#create(path, args, callback)', function(){
     it('should create a source from a file', function(done){
         source.create(path, undefined, function (error, data) {
             assert.equal(data.code, constants.HTTP_CREATED);

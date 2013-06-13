@@ -1,15 +1,15 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
-  BigMLDataset = require('../lib/BigMLDataset'),
-  BigMLModel = require('../lib/BigMLModel'),
-  BigMLEvaluation = require('../lib/BigMLEvaluation'),
+  Source = require('../lib/Source'),
+  Dataset = require('../lib/Dataset'),
+  Model = require('../lib/Model'),
+  Evaluation = require('../lib/Evaluation'),
   constants = require('../lib/constants');
 
 describe('Manage evaluation objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv',
-    datasetId, dataset = new BigMLDataset(),
-    modelId, model = new BigMLModel(),
-    evaluationId, evaluation = new BigMLEvaluation(),
+  var sourceId, source = new Source(), path = './data/iris.csv',
+    datasetId, dataset = new Dataset(),
+    modelId, model = new Model(),
+    evaluationId, evaluation = new Evaluation(),
     trainingDatasetId, testDatasetId;
 
   before(function (done) {

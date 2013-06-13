@@ -1,15 +1,15 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
-  BigMLDataset = require('../lib/BigMLDataset'),
-  BigMLModel = require('../lib/BigMLModel'),
-  BigMLPrediction = require('../lib/BigMLPrediction'),
+  Source = require('../lib/Source'),
+  Dataset = require('../lib/Dataset'),
+  Model = require('../lib/Model'),
+  Prediction = require('../lib/Prediction'),
   constants = require('../lib/constants');
 
 describe('Manage prediction objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv',
-    datasetId, dataset = new BigMLDataset(),
-    modelId, model = new BigMLModel(),
-    predictionId, prediction = new BigMLPrediction(),
+  var sourceId, source = new Source(), path = './data/iris.csv',
+    datasetId, dataset = new Dataset(),
+    modelId, model = new Model(),
+    predictionId, prediction = new Prediction(),
     inputData = {'petal length': 1}, testPrediction = 'Iris-setosa';
 
   before(function (done) {

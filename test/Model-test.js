@@ -1,13 +1,13 @@
 var assert = require("assert"),
-  BigMLSource = require('../lib/BigMLSource'),
-  BigMLDataset = require('../lib/BigMLDataset'),
-  BigMLModel = require('../lib/BigMLModel'),
+  Source = require('../lib/Source'),
+  Dataset = require('../lib/Dataset'),
+  Model = require('../lib/Model'),
   constants = require('../lib/constants');
 
 describe('Manage model objects', function(){
-  var sourceId, source = new BigMLSource(), path = './data/iris.csv',
-    datasetId, dataset = new BigMLDataset(),
-    modelId, model = new BigMLModel();
+  var sourceId, source = new Source(), path = './data/iris.csv',
+    datasetId, dataset = new Dataset(),
+    modelId, model = new Model();
 
   before(function (done) {
       source.create(path, undefined, function (error, data) {
@@ -21,7 +21,7 @@ describe('Manage model objects', function(){
       });
   });
 
-  describe('#create(dataset, inputData, args, callback)', function(){
+  describe('#create(dataset, args, callback)', function(){
     it('should create a model from a dataset', function(done){
         model.create(datasetId, undefined, function (error, data) {
             assert.equal(data.code, constants.HTTP_CREATED);
