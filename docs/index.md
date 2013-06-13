@@ -1,11 +1,12 @@
 BigML Node.js Bindings
 ======================
 
-[BigML](<https://bigml.com>) makes machine learning easy by taking care
+[BigML](https://bigml.com) makes machine learning easy by taking care
 of the details required to add data-driven decisions and predictive
-power to your company. Unlike other machine learning services, BigML
+power to your company.
+Unlike other machine learning services, BigML
 creates
-[beautiful predictive models](<https://bigml.com/gallery/models>) that
+[beautiful predictive models](https://bigml.com/gallery/models) that
 can be easily understood and interacted with.
 
 These BigML Node.js bindings allow you to interact with BigML.io, the API
@@ -14,17 +15,17 @@ delete BigML resources (i.e., sources, datasets, models and
 predictions).
 
 This module is licensed under the [Apache License, Version
-2.0](<http://www.apache.org/licenses/LICENSE-2.0.html>).
+2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 Support
 -------
 
 Please report problems and bugs to our [BigML.io issue
-tracker](<https://github.com/bigmlcom/io/issues>).
+tracker](https://github.com/bigmlcom/io/issues).
 
 Discussions about the different bindings take place in the general
-[BigML mailing list](<http://groups.google.com/group/bigml>). Or join us
-in our [Campfire chatroom](<https://bigmlinc.campfirenow.com/f20a0>).
+[BigML mailing list](http://groups.google.com/group/bigml). Or join us
+in our [Campfire chatroom](https://bigmlinc.campfirenow.com/f20a0).
 
 Requirements
 ------------
@@ -32,21 +33,21 @@ Requirements
 Node 0.10 is currently supported by these bindings.
 
 The only mandatory third-party dependencies are the
-[request](<https://github.com/mikeal/request.git<),
-[winston](<https://github.com/flatiron/winston.git>) and
-[form-data](<https://github.com/felixge/node-form-data.git>) libraries.
+[request](https://github.com/mikeal/request.git),
+[winston](https://github.com/flatiron/winston.git) and
+[form-data](https://github.com/felixge/node-form-data.git) libraries.
 
 The testing environment requires the additional 
-[mocha](<https://github.com/visionmedia/mocha>) package that can be installed
+[mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
-    $ nmp install mocha -g
+    $ nmp install mocha
 
 Installation
 ------------
 
 To install the latest stable release with
-[npm](<https://npmjs.org/>):
+[npm](https://npmjs.org/):
 
     $ npm install bigml
 
@@ -74,7 +75,7 @@ Importing the modules
 To use the library, import it with `require`:
 
     $ node
-    > var bigml = require('bigml');
+    > bigml = require('bigml');
 
 this will give you access to the following library structure:
 
@@ -95,11 +96,11 @@ Authentication
 --------------
 
 All the requests to BigML.io must be authenticated using your username
-and [API key](<https://bigml.com/account/apikey>) and are always
+and [API key](https://bigml.com/account/apikey) and are always
 transmitted over HTTPS.
 
 This module will look for your username and API key in the environment
-variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You canhe 
+variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can 
 add the following lines to your `.bashrc` or `.bash_profile` to set
 those variables automatically when you log in::
 
@@ -126,9 +127,9 @@ setting the third parameter `devMode` to `true`::
 Quick Start
 -----------
 
-Let's see the steps that will lead you to [this csv
-file](<https://static.bigml.com/csv/iris.csv>) containing the [Iris
-flower dataset](<http://en.wikipedia.org/wiki/Iris_flower_data_set>) to
+Let's see the steps that will lead you from [this csv
+file](https://static.bigml.com/csv/iris.csv) containing the [Iris
+flower dataset](http://en.wikipedia.org/wiki/Iris_flower_data_set) to
 predicting the species of a flower whose `sepal length` is `5` and
 whose `sepal width` is `2.5`. By default, BigML considers the last field
 (`species`) in the row as the
@@ -141,7 +142,7 @@ for). The csv structure is::
     4.7,3.2,1.3,0.2,Iris-setosa
     ...
 
-The previous required steps to generate a prediction are creating a set of
+The steps required to generate a prediction are creating a set of
 source, dataset and model objects::
 
 ```js
@@ -169,7 +170,7 @@ Note that in our example the `prediction.create` call has no associated
 callback. All the CRUD methods of any resource allow assigning a callback as
 the last parameter,
 but if you don't the default action will be
-printing the results of the `create` method.
+printing the resulting resource or the error. For the `create` method:
 
     > result: 
     { code: 201,
@@ -209,9 +210,9 @@ corresponding REST methods. For instance, in the previous example you would
 use:
 
 ```js
-    var bigml = require('bigml');
+    bigml = require('bigml');
     var source = new bigml.Source();
-    source.get('source/51b25fb237203f4410000010', function (error, resource) {
+    source.get('source/51b25fb237203f4410000010' function (error, resource) {
         if (!error && resource) {
           console.log(resource);
         }
@@ -223,7 +224,7 @@ You can also generate local predictions using the information of your
 models::
 
 ```js
-    var bigml = require('bigml');
+    bigml = require('bigml');
     var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
     localModel.predict({'petal length': 1},
                        function(error, prediction) {console.log(prediction)});
@@ -232,7 +233,7 @@ models::
 And similarly, for your ensembles
 
 ```js
-    var bigml = require('bigml');
+    bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
     localEnsemble.predict({'petal length': 1}, 0, 
                           function(error, prediction) {console.log(prediction)});
@@ -250,27 +251,27 @@ Currently there are six types of resources in bigml.com:
 
 - **sources** Contain the data uploaded from your local data file after
 processing (interpreting field types or missing characters, for instance).
-You can set its locale settings or its field names or types. These resources
+You can set their locale settings or their field names or types. These resources
 are handled through `bigml.Source`.
 
 - **datasets** Contain the information of the source in a structured summarized
-way according to its file types (numeric, categorical or text). These resources
-are handled through `bigml.Dataset`.
+way according to their file types (numeric, categorical, text or datetime).
+These resources are handled through `bigml.Dataset`.
 
-- **models** It's a tree-like structure extracted from a dataset in order to
+- **models** They are tree-like structures extracted from a dataset in order to
 predict one field, the objective field, according to the values of other
 fields, the input fields. These resources
 are handled through `bigml.Model`.
 
-- **predictions** Is the representation of the predicted value for the
+- **predictions** Are the representation of the predicted value for the
 objective field obtained by applying the model to an input data set. These
 resources are handled through `bigml.Prediction`.
 
-- **ensembles** Is a group of models extracted from a single dataset to be
+- **ensembles** Are a group of models extracted from a single dataset to be
 used together in order to predict the objective field. These resources
 are handled through `bigml.Ensemble`.
 
-- **evaluations** Is a set of measures of performance defined on your model
+- **evaluations** Are a set of measures of performance defined on your model
 or ensemble by checking predictions for the objective field of
 a test dataset with its provided values. These resources
 are handled through `bigml.Evaluation`.
@@ -366,12 +367,12 @@ is not finished yet (see the
 [documentation on status
 codes](<https://bigml.com/developers/status_codes>) for the listing of
 potential states and their semantics). To retrieve a finished resource,
-you'll need to use the `get` method described in next section.
+you'll need to use the `get` method described in the next section.
 
 Getting resources
 -----------------
 
-Whenever you have to retrieve an existing resource you can use the `get`
+To retrieve an existing resource, you use the `get`
 method of the corresponding class. Let's see an example of model retrieval:
 
 ```js
@@ -388,10 +389,12 @@ method of the corresponding class. Let's see an example of model retrieval:
 ```
 
 The first parameter is, obviously, the model id, and the rest of parameters are
-optional. The second parameter in the example will force the `get` method to
+optional. Passing a `true` value as the second argument (as in the example)
+forces the `get` method to
 retrieve a finished model. In the previous section we saw that, right after
 creation, resources evolve
-through a series states until they end up in a `FINISHED` (or `FAULTY`) state.
+through a series of states until they end up in a `FINISHED` (or `FAULTY`)
+state.
 Setting this boolean to `true` will force the `get` method to wait for
 the resource to be finished before
 executing the corresponding callback (default is set to `false`).
@@ -408,7 +411,7 @@ Updating Resources
 Each type of resource has a set of properties whose values can be updated.
 Check the properties subsection of each resource in the [developers
 documentation](<https://bigml.com/developers>) to see which are marked as
-updatable. The `update` method of each resource class will let you update
+updatable. The `update` method of each resource class will let you modify
 such properties. For instance,
 
 ```js
@@ -466,14 +469,15 @@ Listing, Filtering and Ordering Resources
 -----------------------------------------
 
 Each type of resource has its own `list` method that allows you to
-retrieve resources of that kind. You can also add some filters to select
+retrieve groups of available resources of that kind. You can also add some
+filters to select
 specific subsets of them and even order the results. The returned list will
 show the 20 most recent resources. That limit can be modified by setting
 the `limit` argument in the query string. For more information about the syntax
 of query strings filters and orderings, you can check the fields labeled
 as *filterable* and *sortable* in the listings section of [BigML
-documentation](<https://bigml.com/developers>) for each resource. To write an
-example we can see how to list the first 20 sources 
+documentation](<https://bigml.com/developers>) for each resource. As an
+example, we can see how to list the first 20 sources 
 
 ```js
     var bigml = require('bigml');
@@ -512,8 +516,8 @@ and if you want to select the first 5 as ordered by name:
       })
 ```
 
-In this method, both parameters are optional and if callback is absent a basic
-printing function is used instead.
+In this method, both parameters are optional and, if no callback is given,
+a basic printing function is used instead.
 
 The list object will have the following structure:
 
@@ -539,12 +543,80 @@ The list object will have the following structure:
    will contain an additional code and a description of the error. In
    this case, **meta**, and **resources** will be `null`.
 
+a simple example of what a `list` call would retrieve is this one, where
+we asked for the 2 most recent sources:
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.list('limit=2',
+      function (error, list) {
+        if (!error && list) {
+          console.log(list);
+        }
+      })
+    > { code: 200,
+      meta: 
+       { limit: 2,
+         next: '/andromeda/source?username=mmerce&api_key=c972018dc5f2789e65c74ba3170fda31d02e00c0&limit=2&offset=2',
+         offset: 0,
+         previous: null,
+         total_count: 653 },
+      resources: 
+       [ { category: 0,
+           code: 200,
+           content_type: 'text/csv',
+           created: '2013-06-11T00:01:51.526000',
+           credits: 0,
+           description: '',
+           file_name: 'iris.csv',
+           md5: 'd1175c032e1042bec7f974c91e4a65ae',
+           name: 'iris.csv',
+           number_of_datasets: 0,
+           number_of_ensembles: 0,
+           number_of_models: 0,
+           number_of_predictions: 0,
+           private: true,
+           resource: 'source/51b668ef37203f50a4000005',
+           size: 4608,
+           source_parser: [Object],
+           status: [Object],
+           subscription: false,
+           tags: [],
+           type: 0,
+           updated: '2013-06-11T00:02:06.381000' },
+         { category: 0,
+           code: 200,
+           content_type: 'text/csv',
+           created: '2013-06-09T00:15:00.574000',
+           credits: 0,
+           description: '',
+           file_name: 'iris.csv',
+           md5: 'd1175c032e1042bec7f974c91e4a65ae',
+           name: 'my source',
+           number_of_datasets: 0,
+           number_of_ensembles: 0,
+           number_of_models: 0,
+           number_of_predictions: 0,
+           private: true,
+           resource: 'source/51b3c90437203f16230000dd',
+           size: 4608,
+           source_parser: [Object],
+           status: [Object],
+           subscription: false,
+           tags: [],
+           type: 0,
+           updated: '2013-06-09T00:15:00.780000' } ],
+      error: null }
+```
+
+
 Local Models
 ------------
 
 A remote model encloses all the information required to make
-predictions. Thus, once you retrieve them, you can build a local version
-of the remote model and predict locally. This can easily be done using
+predictions. Thus, once you retrieve a remote model, you can build its local
+version and predict locally. This can be easily done using
 the `LocalModel` class.
 
 ```js
@@ -555,8 +627,8 @@ the `LocalModel` class.
 ```
 
 As you see, the first parameter to the `LocalModel` constructor is a model id
-(or object). The constuctor allows a second optional argument, a connection
-object (as described in the Authentication section).
+(or object). The constructor allows a second optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
 
 ```js
     var bigml = require('bigml');
@@ -592,8 +664,10 @@ retrieval waits for the model to be finished before retrieving it and that all
 the fields in the model will be downloaded respectively. Beware of using
 filtered fields models to instantiate a local model. If an important field is
 missing (because it has been excluded or
-filtered), an exception will arise.
-
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote model information.
+The callback code, where the `localModel` and predictions are built, is
+strictly local.
 
 On the other hand, when the first argument for the `LocalModel` constructor
 is a model id, it automatically calls internally
@@ -652,8 +726,8 @@ combination method:
     instances that have that value over the total number of instances in the
     node).
 
-As in the `LocalModel`, the constructor of the `LocalEnsemble` has as
-first argument the ensemble id (or object) and a second optional connection
+As in `LocalModel`, the constructor of `LocalEnsemble` has as
+first argument the ensemble id (or object) as well as a second optional connection
 argument. Building a `LocalEnsemble` is an asynchronous process because the
 constructor will need to call the `get` methods of the remote ensemble object
 and its component models. Thus, the `LocalEnsemble.predict` method will have

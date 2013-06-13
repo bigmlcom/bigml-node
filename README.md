@@ -1,11 +1,11 @@
 BigML Node.js Bindings
 ======================
 
-[BigML](<https://bigml.com>) makes machine learning easy by taking care
+[BigML](https://bigml.com) makes machine learning easy by taking care
 of the details required to add data-driven decisions and predictive
 power to your company. Unlike other machine learning services, BigML
 creates
-[beautiful predictive models](<https://bigml.com/gallery/models>) that
+[beautiful predictive models](https://bigml.com/gallery/models) that
 can be easily understood and interacted with.
 
 These BigML Node.js bindings allow you to interact with BigML.io, the API
@@ -14,17 +14,17 @@ delete BigML resources (i.e., sources, datasets, models and
 predictions).
 
 This module is licensed under the [Apache License, Version
-2.0](<http://www.apache.org/licenses/LICENSE-2.0.html>).
+2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 Support
 -------
 
 Please report problems and bugs to our [BigML.io issue
-tracker](<https://github.com/bigmlcom/io/issues>).
+tracker](https://github.com/bigmlcom/io/issues).
 
 Discussions about the different bindings take place in the general
-[BigML mailing list](<http://groups.google.com/group/bigml>). Or join us
-in our [Campfire chatroom](<https://bigmlinc.campfirenow.com/f20a0>).
+[BigML mailing list](http://groups.google.com/group/bigml). Or join us
+in our [Campfire chatroom](https://bigmlinc.campfirenow.com/f20a0).
 
 Requirements
 ------------
@@ -32,21 +32,21 @@ Requirements
 Node 0.10 is currently supported by these bindings.
 
 The only mandatory third-party dependencies are the
-[request](<https://github.com/mikeal/request.git<),
-[winston](<https://github.com/flatiron/winston.git>) and
-[form-data](<https://github.com/felixge/node-form-data.git>) libraries.
+[request](https://github.com/mikeal/request.git),
+[winston](https://github.com/flatiron/winston.git) and
+[form-data](https://github.com/felixge/node-form-data.git) libraries.
 
 The testing environment requires the additional 
-[mocha](<https://github.com/visionmedia/mocha>) package that can be installed
+[mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
-    $ nmp install mocha -g
+    $ nmp install mocha
 
 Installation
 ------------
 
 To install the latest stable release with
-[npm](<https://npmjs.org/>):
+[npm](https://npmjs.org/):
 
     $ npm install bigml
 
@@ -95,11 +95,11 @@ Authentication
 --------------
 
 All the requests to BigML.io must be authenticated using your username
-and [API key](<https://bigml.com/account/apikey>) and are always
+and [API key](https://bigml.com/account/apikey) and are always
 transmitted over HTTPS.
 
 This module will look for your username and API key in the environment
-variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You canhe 
+variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can 
 add the following lines to your `.bashrc` or `.bash_profile` to set
 those variables automatically when you log in::
 
@@ -126,9 +126,9 @@ setting the third parameter `devMode` to `true`::
 Quick Start
 -----------
 
-Let's see the steps that will lead you to [this csv
-file](<https://static.bigml.com/csv/iris.csv>) containing the [Iris
-flower dataset](<http://en.wikipedia.org/wiki/Iris_flower_data_set>) to
+Let's see the steps that will lead you from [this csv
+file](https://static.bigml.com/csv/iris.csv) containing the [Iris
+flower dataset](http://en.wikipedia.org/wiki/Iris_flower_data_set) to
 predicting the species of a flower whose `sepal length` is `5` and
 whose `sepal width` is `2.5`. By default, BigML considers the last field
 (`species`) in the row as the
@@ -141,7 +141,7 @@ for). The csv structure is::
     4.7,3.2,1.3,0.2,Iris-setosa
     ...
 
-The previous required steps to generate a prediction are creating a set of
+The steps required to generate a prediction are creating a set of
 source, dataset and model objects::
 
 ```js
@@ -169,7 +169,7 @@ Note that in our example the `prediction.create` call has no associated
 callback. All the CRUD methods of any resource allow assigning a callback as
 the last parameter,
 but if you don't the default action will be
-printing the results of the `create` method.
+printing the resulting resource or the error. For the `create` method:
 
     > result: 
     { code: 201,
@@ -246,19 +246,19 @@ methods).
 Additional Information
 ----------------------
 
-We've just drawn a firs sketch. For additional information, see
-the files included in the docs folder.
+We've just drawn a first sketch. For additional information, see
+the files included in the [docs folder](./doc/index.md).
 
 How to Contribute
 -----------------
 
-Please follow the next steps:
+Please follow these steps:
 
   1. Fork the project on github.com.
   2. Create a new branch.
   3. Commit changes to the new branch.
-  4. Send a [pull request](<https://github.com/bigmlcom/bigml-node/pulls>).
+  4. Send a [pull request](https://github.com/bigmlcom/bigml-node/pulls).
 
 
 For details on the underlying API, see the
-[BigML API documentation](<https://bigml.com/developers>).
+[BigML API documentation](https://bigml.com/developers).
