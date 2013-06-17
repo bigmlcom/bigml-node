@@ -41,7 +41,7 @@ The testing environment requires the additional
 [mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
-    $ nmp install mocha
+    $ sudo nmp install mocha -g
 
 Installation
 ------------

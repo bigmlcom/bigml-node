@@ -1,5 +1,5 @@
 var assert = require('assert'),
-  bigml = require('bigml');
+  bigml = require('../index');
 
 describe('Manage source objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv';

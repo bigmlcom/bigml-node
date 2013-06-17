@@ -1,5 +1,5 @@
 var assert = require('assert'),
-  bigml = require('bigml');
+  bigml = require('../index');
 
 describe('Connect with a BigML object', function(){
   var connection = new bigml.BigML(),
