@@ -640,7 +640,8 @@ object (as described in the [Authentication section](#authentication)).
                        function(error, prediction) {console.log(prediction)});
 ```
 
-When the first argument is a model object, the constructor creates immediately
+When the first argument is a finished model object, the constructor creates
+immediately
 a `LocalModel` instance ready to predict. Then, the `LocalModel.predict`
 method can be immediately called in a synchronous way.
 
@@ -727,7 +728,8 @@ combination method:
     node).
 
 As in `LocalModel`, the constructor of `LocalEnsemble` has as
-first argument the ensemble id (or object) as well as a second optional connection
+first argument the ensemble id (or object) or a list of model ids (or objects)
+as well as a second optional connection
 argument. Building a `LocalEnsemble` is an asynchronous process because the
 constructor will need to call the `get` methods of the remote ensemble object
 and its component models. Thus, the `LocalEnsemble.predict` method will have
@@ -755,6 +757,17 @@ would first download the remote ensemble and its component models, then
 construct a local model for each one and predict using these local models.
 In this case, the final prediction is made by combining the individual local
 model's predictions using a distribution weighted method.
+
+The same can be done for an array containing a list of models, regardless of
+whether they belong to an ensemble or not:
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble([
+      'model/51bb69b437203f02b50004ce', 'model/51bb69b437203f02b50004d0']);
+    localEnsemble.predict({'petal length': 1}, 0, 
+                          function(error, prediction) {console.log(prediction)});
+```
 
 Additional Information
 ----------------------
