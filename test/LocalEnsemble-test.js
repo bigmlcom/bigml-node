@@ -1,47 +1,43 @@
 var assert = require('assert'),
-  Source = require('../lib/Source'),
-  Dataset = require('../lib/Dataset'),
-  Ensemble = require('../lib/Ensemble'),
-  Model = require('../lib/Model'),
-  Prediction = require('../lib/Prediction');
-  constants = require('../lib/constants'),
-  LocalEnsemble = require('../lib/LocalEnsemble');
+  bigml = require('../index');
 
 describe('Manage local ensemble objects', function () {
-  var sourceId, source = new Source(), path = './data/iris.csv',
-    datasetId, dataset = new Dataset(),
-    ensembleId, ensemble = new Ensemble(), ensembleResource,
-    prediction = new Prediction(), inputData = {'petal length': 1}, method = 1,
-    ensembleFinishedResource, modelsList, index, model = new Model(), reference,
+  var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+    datasetId, dataset = new bigml.Dataset(),
+    ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
+    prediction = new bigml.Prediction(), inputData = {'petal length': 1}, method = 1,
+    ensembleFinishedResource, modelsList, index, model = new bigml.Model(), reference,
     localEnsemble, len, finishedModelsList = [];
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
-      assert.equal(data.code, constants.HTTP_CREATED);
+      assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
       dataset.create(sourceId, undefined, function (error, data) {
-        assert.equal(data.code, constants.HTTP_CREATED);
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         ensemble.create(datasetId, {number_of_models: 2, sample_rate: 0.99}, function (error, data) {
-          assert.equal(data.code, constants.HTTP_CREATED);
+          assert.equal(data.code, bigml.constants.HTTP_CREATED);
           ensembleId = data.resource;
           ensembleResource = data;
           ensemble.get(ensembleResource, true, 'limit=-1', function (error, data) {
             ensembleFinishedResource = data;
             modelsList = data.object.models;
             len = modelsList.length;
-            for (index = 0; index < len; index++) {
-              model.get(modelsList[index], true, 'limit=-1', function (error, data) {
-                finishedModelsList.push(data);
-                if (finishedModelsList.length === len) {
-                  prediction.create(ensembleId, inputData, {combiner: method}, function (error, data) {
-                    prediction.get(data, true, function (error, data) {
-                      reference = data.object.output;
-                      done();
-                    });
-                  });
-                }
+            function retrievePrediction(error, data) {
+              prediction.get(data, true, function (error, data) {
+                reference = data.object.output;
+                done();
               });
+            }
+            function retrieveModel(error, data) {
+              finishedModelsList.push(data);
+              if (finishedModelsList.length === len) {
+                prediction.create(ensembleId, inputData, {combiner: method}, retrievePrediction);
+              }
+            }
+            for (index = 0; index < len; index++) {
+              model.get(modelsList[index], true, 'limit=-1', retrieveModel);
             }
           });
         });
@@ -51,7 +47,7 @@ describe('Manage local ensemble objects', function () {
 
   describe('LocalEnsemble(ensemble)', function () {
     it('should create a localEnsemble from an ensemble Id', function (done) {
-      localEnsemble = new LocalEnsemble(ensembleId);
+      localEnsemble = new bigml.LocalEnsemble(ensembleId);
       if (localEnsemble.ready) {
         assert.ok(true);
         done();
@@ -78,7 +74,7 @@ describe('Manage local ensemble objects', function () {
   });
   describe('LocalEnsemble(ensembleResource)', function () {
     it('should create a localEnsemble from an ensemble unfinished resource', function (done) {
-      localEnsemble = new LocalEnsemble(ensembleResource);
+      localEnsemble = new bigml.LocalEnsemble(ensembleResource);
       if (localEnsemble.ready) {
         assert.ok(true);
         done();
@@ -99,7 +95,7 @@ describe('Manage local ensemble objects', function () {
   });
   describe('LocalEnsemble(ensembleFinishedResource)', function () {
     it('should create a localEnsemble from an ensemble finished resource', function (done) {
-      localEnsemble = new LocalEnsemble(ensembleFinishedResource);
+      localEnsemble = new bigml.LocalEnsemble(ensembleFinishedResource);
       if (localEnsemble.ready) {
         assert.ok(true);
         done();
@@ -120,7 +116,7 @@ describe('Manage local ensemble objects', function () {
   });
   describe('LocalEnsemble(finishedModelsList)', function () {
     it('should create a localEnsemble from a finished models list', function () {
-      localEnsemble = new LocalEnsemble(finishedModelsList);
+      localEnsemble = new bigml.LocalEnsemble(finishedModelsList);
       assert.ok(localEnsemble.ready);
     });
   });
@@ -149,4 +145,4 @@ describe('Manage local ensemble objects', function () {
     });
   });
 
-})
+});
