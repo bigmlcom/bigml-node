@@ -66,8 +66,10 @@ each test. For instance:
 
     $ mocha -t 20000
 
-will set the timeout limit to 20 seconds. This limit should typically be
-enough, but you can change it to fit the latencies of your connection.
+will set the timeout limit to 20 seconds.
+This limit should typically be enough, but you can change it to fit
+the latencies of your connection. You can also add the `-R spec` flag to see
+the definition of each step as they go.
 
 Importing the modules
 ---------------------

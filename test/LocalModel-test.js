@@ -1,25 +1,21 @@
 var assert = require('assert'),
-  Source = require('../lib/Source'),
-  Dataset = require('../lib/Dataset'),
-  Model = require('../lib/Model'),
-  constants = require('../lib/constants'),
-  LocalModel = require('../lib/LocalModel');
+  bigml = require('bigml');
 
 describe('Manage local model objects', function () {
-  var sourceId, source = new Source(), path = './data/iris.csv',
-    datasetId, dataset = new Dataset(),
-    modelId, model = new Model(), modelResource, modelFinishedResource,
+  var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+    datasetId, dataset = new bigml.Dataset(),
+    modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
-      assert.equal(data.code, constants.HTTP_CREATED);
+      assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
       dataset.create(sourceId, undefined, function (error, data) {
-        assert.equal(data.code, constants.HTTP_CREATED);
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         model.create(datasetId, undefined, function (error, data) {
-          assert.equal(data.code, constants.HTTP_CREATED);
+          assert.equal(data.code, bigml.constants.HTTP_CREATED);
           modelId = data.resource;
           modelResource = data;
           model.get(modelResource, true, 'limit=-1', function (error, data) {
@@ -33,7 +29,7 @@ describe('Manage local model objects', function () {
 
   describe('LocalModel(modelId)', function () {
     it('should create a localModel from a model Id', function (done) {
-      localModel = new LocalModel(modelId);
+      localModel = new bigml.LocalModel(modelId);
       if (localModel.ready) {
         assert.ok(true);
         done();
@@ -60,7 +56,7 @@ describe('Manage local model objects', function () {
   });
   describe('LocalModel(modelResource)', function () {
     it('should create a localModel from a model unfinished resource', function (done) {
-      localModel = new LocalModel(modelResource);
+      localModel = new bigml.LocalModel(modelResource);
       if (localModel.ready) {
         assert.ok(true);
         done();
@@ -81,7 +77,7 @@ describe('Manage local model objects', function () {
   });
   describe('LocalModel(modelFinishedResource)', function () {
     it('should create a localModel from a model finished resource', function () {
-      localModel = new LocalModel(modelFinishedResource);
+      localModel = new bigml.LocalModel(modelFinishedResource);
       assert.ok(localModel.ready);
     });
   });
@@ -111,4 +107,4 @@ describe('Manage local model objects', function () {
       done();
     });
   });
-})
+});

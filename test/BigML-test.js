@@ -1,29 +1,28 @@
-var assert = require("assert"),
-  BigML = require('../lib/BigML'),
-  constants = require('../lib/constants');
+var assert = require('assert'),
+  bigml = require('bigml');
 
 describe('Connect with a BigML object', function(){
-  var bigml = new BigML(),
-      reqOptions = {
+  var connection = new bigml.BigML(),
+    reqOptions = {
       method: 'GET',
       resourceType: 'source',
       endpoint: '',
       query: undefined,
-      headers: constants.ACCEPT_JSON
+      headers: bigml.constants.ACCEPT_JSON
     };
-  describe('#request(options, callback)', function(){
-    it('should connect without error with user\'s credentials', function(done){
-      bigml.request(reqOptions, function (error, data, response) {
-          assert.equal(error, null);
-          done();
-        });
-    })
-    it('should not connect with false credentials', function(done){
-      bigml = new BigML('*', '*');
-      bigml.request(reqOptions, function (error, data, response) {
-          assert.equal(data.code, constants.HTTP_UNAUTHORIZED);
-          done();
-        });
-    })
-  })
-})
+  describe('#request(options, callback)', function () {
+    it('should connect without error with user\'s credentials', function (done) {
+      connection.request(reqOptions, function (error, data, response) {
+        assert.equal(error, null);
+        done();
+      });
+    });
+    it('should not connect with false credentials', function (done) {
+      connection = new bigml.BigML('foo', 'bar');
+      connection.request(reqOptions, function (error, data, response) {
+        assert.equal(data.code, bigml.constants.HTTP_UNAUTHORIZED);
+        done();
+      });
+    });
+  });
+});
