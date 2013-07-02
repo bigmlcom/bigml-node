@@ -41,7 +41,7 @@ The testing environment requires the additional
 [mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
-    $ sudo nmp install mocha -g
+    $ sudo npm install -g mocha
 
 Installation
 ------------
@@ -382,7 +382,7 @@ method of the corresponding class. Let's see an example of model retrieval:
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'limit=-1',
+              'only_model=1',
               function (error, resource) {
         if (!error && resource) {
           console.log(resource);
@@ -402,8 +402,8 @@ the resource to be finished before
 executing the corresponding callback (default is set to `false`).
 The third parameter is a query string
 that can be used to filter the fields returned. In the example we set the
-number of fields to be retrieved to `-1`, which will cause all the fields to
-be retrieved (default is an empty string). The callback parameter is set to
+fields to be retrieved to those used in the model (default is an empty string).
+The callback parameter is set to
 a default printing function if absent.
 
 
@@ -653,7 +653,7 @@ method can be immediately called in a synchronous way.
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'limit=-1',
+              'only_model=true',
               function (error, resource) {
         if (!error && resource) {
           var localModel = new bigml.LocalModel(resource);
@@ -664,7 +664,7 @@ method can be immediately called in a synchronous way.
 ```
 Note that the `get` method's second and third arguments ensure that the
 retrieval waits for the model to be finished before retrieving it and that all
-the fields in the model will be downloaded respectively. Beware of using
+the fields used in the model will be downloaded respectively. Beware of using
 filtered fields models to instantiate a local model. If an important field is
 missing (because it has been excluded or
 filtered), an exception will arise. In this example, the connection to BigML
