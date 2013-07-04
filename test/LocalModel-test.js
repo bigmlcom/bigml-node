@@ -18,7 +18,7 @@ describe('Manage local model objects', function () {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           modelId = data.resource;
           modelResource = data;
-          model.get(modelResource, true, 'limit=-1', function (error, data) {
+          model.get(modelResource, true, 'only_model=true', function (error, data) {
             modelFinishedResource = data;
             done();
           });

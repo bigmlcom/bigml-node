@@ -1,0 +1,9 @@
+=== 0.0.2 / 2013-07-04
+
+* Changing environment variable for customized installs
+* Using only_mode=true to retrieve all the model needed fields
+* Fixing docs typos
+
+=== 0.0.1 / 2013-06-15
+
+* First version of the node.js bindings

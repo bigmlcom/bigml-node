@@ -20,7 +20,7 @@ describe('Manage local ensemble objects', function () {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           ensembleId = data.resource;
           ensembleResource = data;
-          ensemble.get(ensembleResource, true, 'limit=-1', function (error, data) {
+          ensemble.get(ensembleResource, true, undefined, function (error, data) {
             ensembleFinishedResource = data;
             modelsList = data.object.models;
             len = modelsList.length;
@@ -37,7 +37,7 @@ describe('Manage local ensemble objects', function () {
               }
             }
             for (index = 0; index < len; index++) {
-              model.get(modelsList[index], true, 'limit=-1', retrieveModel);
+              model.get(modelsList[index], true, 'only_model=true', retrieveModel);
             }
           });
         });
