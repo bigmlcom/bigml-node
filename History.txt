@@ -1,4 +1,4 @@
-=== 0.0.2 / 2013-07-04
+=== 0.1.0 / 2013-07-04
 
 * Changing environment variable for customized installs
 * Using only_mode=true to retrieve all the model needed fields
