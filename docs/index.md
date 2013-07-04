@@ -382,7 +382,7 @@ method of the corresponding class. Let's see an example of model retrieval:
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=1',
+              'only_model=true',
               function (error, resource) {
         if (!error && resource) {
           console.log(resource);
