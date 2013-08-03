@@ -1,3 +1,7 @@
+=== 0.2.0 / 2013-08-03
+
+* Allowing input data for predictions to be keyed by id
+
 === 0.1.0 / 2013-07-04
 
 * Changing environment variable for customized installs
