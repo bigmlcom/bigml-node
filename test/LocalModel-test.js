@@ -5,7 +5,7 @@ describe('Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
-    localModel;
+    localModel, firstPredictionConfidence, secondPredictionConfidence;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -44,6 +44,7 @@ describe('Manage local model objects', function () {
     it('should predict asynchronously from input data', function (done) {
       localModel.predict({'petal length': 1}, function (error, data) {
         assert.equal(data.prediction, 'Iris-setosa');
+        firstPredictionConfidence = data.confidence;
         done();
       });
     });
@@ -52,6 +53,25 @@ describe('Manage local model objects', function () {
     it('should predict synchronously from input data', function () {
       var prediction = localModel.predict({'petal length': 3});
       assert.equal(prediction.prediction, 'Iris-virginica');
+      secondPredictionConfidence = prediction.confidence;
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data keyed by field id', 
+       function (done) {
+      localModel.predict({'000002': 1}, function (error, data) {
+        assert.equal(data.prediction, 'Iris-setosa');
+        assert.equal(data.confidence, firstPredictionConfidence);
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data keyed by field id',
+       function () {
+      var prediction = localModel.predict({'000002': 3});
+      assert.equal(prediction.prediction, 'Iris-virginica');
+      assert.equal(prediction.confidence, secondPredictionConfidence);
     });
   });
   describe('LocalModel(modelResource)', function () {
