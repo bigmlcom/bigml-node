@@ -642,6 +642,16 @@ object (as described in the [Authentication section](#authentication)).
                        function(error, prediction) {console.log(prediction)});
 ```
 
+The predict method can also be used labelling input data with the corresponding
+field id.
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    localModel.predict({'000002': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
 When the first argument is a finished model object, the constructor creates
 immediately
 a `LocalModel` instance ready to predict. Then, the `LocalModel.predict`
