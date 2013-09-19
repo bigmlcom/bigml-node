@@ -2,7 +2,7 @@ var assert = require('assert'),
   bigml = require('../index');
 
 describe('Manage local model objects', function () {
-  var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+  var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, firstPredictionConfidence, secondPredictionConfidence;
@@ -42,8 +42,8 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict({'Message': 'mobile Mobile call'}, function (error, data) {
+        assert.equal(data.prediction, 'spam');
         firstPredictionConfidence = data.confidence;
         done();
       });
@@ -51,16 +51,16 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data', function () {
-      var prediction = localModel.predict({'petal length': 3});
-      assert.equal(prediction.prediction, 'Iris-virginica');
+      var prediction = localModel.predict({'Message': 'A normal message'});
+      assert.equal(prediction.prediction, 'ham');
       secondPredictionConfidence = prediction.confidence;
     });
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data keyed by field id', 
        function (done) {
-      localModel.predict({'000003': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict({'000001': 'mobile Mobile call'}, function (error, data) {
+        assert.equal(data.prediction, 'spam');
         assert.equal(data.confidence, firstPredictionConfidence);
         done();
       });
@@ -69,8 +69,8 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data keyed by field id',
        function () {
-      var prediction = localModel.predict({'000002': 3});
-      assert.equal(prediction.prediction, 'Iris-virginica');
+      var prediction = localModel.predict({'000001': 'A normal message'});
+      assert.equal(prediction.prediction, 'ham');
       assert.equal(prediction.confidence, secondPredictionConfidence);
     });
   });
@@ -89,8 +89,8 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict({'Message': 'A normal message'}, function (error, data) {
+        assert.equal(data.prediction, 'ham');
         done();
       });
     });
@@ -103,8 +103,8 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict({'Message': 'A normal message'}, function (error, data) {
+        assert.equal(data.prediction, 'ham');
         done();
       });
     });

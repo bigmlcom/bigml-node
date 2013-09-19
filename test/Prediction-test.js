@@ -6,7 +6,7 @@ describe('Manage prediction objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(),
     predictionId, prediction = new bigml.Prediction(),
-    inputData = {'petal length': 1}, testPrediction = 'Iris-setosa';
+    inputData = {'petal width': 0.5}, testPrediction = 'Iris-setosa';
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
