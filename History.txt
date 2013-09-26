@@ -1,3 +1,7 @@
+=== 0.3.0 / 2013-09-26
+
+* Adding text analysis to the local predictions
+
 === 0.2.0 / 2013-08-03
 
 * Allowing input data for predictions to be keyed by id
