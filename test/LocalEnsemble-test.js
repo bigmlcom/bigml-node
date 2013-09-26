@@ -5,7 +5,7 @@ describe('Manage local ensemble objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
-    prediction = new bigml.Prediction(), inputData = {'petal length': 1}, method = 1,
+    prediction = new bigml.Prediction(), inputData = {'petal length': 0.5}, method = 1,
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(), reference,
     localEnsemble, len, finishedModelsList = [];
 
@@ -139,7 +139,7 @@ describe('Manage local ensemble objects', function () {
     });
   });
   after(function (done) {
-    dataset.delete(ensembleId, function (error, data) {
+    ensemble.delete(ensembleId, function (error, data) {
       assert.equal(error, null);
       done();
     });

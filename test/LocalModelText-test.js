@@ -122,7 +122,7 @@ describe('Manage local model objects', function () {
     });
   });
   after(function (done) {
-    dataset.delete(modelId, function (error, data) {
+    model.delete(modelId, function (error, data) {
       assert.equal(error, null);
       done();
     });
