@@ -1,3 +1,8 @@
+=== 0.3.1 / 2013-09-27
+
+* Fixing error in variable declaration
+* Fixing error in text analysis local predictions for token_mode='all'
+
 === 0.3.0 / 2013-09-26
 
 * Adding text analysis to local predictions
