@@ -8,10 +8,11 @@ describe('Manage local model objects', function () {
     localModel, firstPredictionConfidence, secondPredictionConfidence;
 
   before(function (done) {
+    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'tokens_only'}}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
-      dataset.create(sourceId, undefined, function (error, data) {
+      dataset.create(sourceId, tokenMode, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         model.create(datasetId, undefined, function (error, data) {

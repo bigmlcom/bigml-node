@@ -7,7 +7,7 @@
     "bindings",
     "BigML"
   ],
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": {
     "name": "BigML",
     "email": "info@bigml.com"
@@ -29,6 +29,6 @@
     "async": "0.2.7"
   },
   "scripts": {
-    "test": "mocha -t 60000"
+    "test": "mocha -t 80000"
   }
 }
