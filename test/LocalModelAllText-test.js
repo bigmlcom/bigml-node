@@ -8,7 +8,7 @@ describe('Manage local model objects', function () {
     localModel, firstPredictionConfidence, secondPredictionConfidence;
 
   before(function (done) {
-    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}};
+    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
@@ -43,7 +43,7 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({"Message": "FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 87077 Get txting and tell ur mates. zed POBox 36504 W45WQ norm150p/tone 16+"}, function (error, data) {
+      localModel.predict({'Message': 'mobile mobile call'}, function (error, data) {
         assert.equal(data.prediction, 'spam');
         firstPredictionConfidence = data.confidence;
         done();
