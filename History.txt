@@ -1,3 +1,7 @@
+=== 0.3.3 / 2013-10-26
+
+* Fixing error in confidence weighted regression predictions
+
 === 0.3.2 / 2013-09-27
 
 * Fixing typo in objectiveField attribute of Tree.js
