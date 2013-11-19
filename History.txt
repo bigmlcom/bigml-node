@@ -1,3 +1,8 @@
+=== 0.4.0 / 2013-11-20
+
+* New prediction combination method for ensembles: threshold.
+* Fixing error in ensemble's predictions
+
 === 0.3.3 / 2013-10-26
 
 * Fixing error in confidence weighted regression predictions
