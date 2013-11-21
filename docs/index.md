@@ -739,9 +739,10 @@ combination method:
     instances that have that value over the total number of instances in the
     node).
 - 3 for **threshold**: one vote per each model prediction. Needs an additional
-    object with to properties: threshold and category. If the count of models
-    predicting the category surpasses the threshold, the category is predicted.
-    Otherwise, the prediction returns plurality for the rest of predicted
+    object with two properties: threshold and category. The category is
+    predicted if and only if the number of predictions for that category is
+    at least the threshold value.
+    Otherwise, the prediction is plurality for the rest of predicted
     values.
 
 An example of `threshold` combination method would be:
