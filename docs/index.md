@@ -738,6 +738,22 @@ combination method:
     prediction node weighted by its distribution weight (the number of
     instances that have that value over the total number of instances in the
     node).
+- 3 for **threshold**: one vote per each model prediction. Needs an additional
+    object with two properties: threshold and category. The category is
+    predicted if and only if the number of predictions for that category is
+    at least the threshold value.
+    Otherwise, the prediction is plurality for the rest of predicted
+    values.
+
+An example of `threshold` combination method would be:
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/528ba06e37203f5bc3000000');
+    localEnsemble.predict({'petal length': 0.9, 'petal width': 3.0}, 3,
+                          {threshold: 3, category: 'Iris-virginica'},
+                          function(error, prediction) {console.log(prediction)});
+```
 
 As in `LocalModel`, the constructor of `LocalEnsemble` has as
 first argument the ensemble id (or object) or a list of model ids (or objects)
