@@ -1,3 +1,8 @@
+=== 0.4.1 / 2014-01-25
+
+* Fixing error in local model when retrieving all the model fields. Predictions
+  for datasets with many features could be erroneous.
+
 === 0.4.0 / 2013-11-20
 
 * New prediction combination method for ensembles: threshold.

@@ -382,7 +382,7 @@ method of the corresponding class. Let's see an example of model retrieval:
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true',
+              'only_model=true;limit=-1',
               function (error, resource) {
         if (!error && resource) {
           console.log(resource);
@@ -663,7 +663,7 @@ method can be immediately called in a synchronous way.
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true',
+              'only_model=true;limit=-1',
               function (error, resource) {
         if (!error && resource) {
           var localModel = new bigml.LocalModel(resource);
