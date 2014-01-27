@@ -1,5 +1,6 @@
-=== 0.4.1 / 2014-01-25
+=== 0.5.0 / 2014-01-27
 
+* New resource in API: batch predictions
 * Fixing error in local model when retrieving all the model fields. Predictions
   for datasets with many features could be erroneous
 * Fixing wrong syntax error in error string

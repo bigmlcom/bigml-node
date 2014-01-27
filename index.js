@@ -32,6 +32,8 @@ module.exports = {
   Prediction: require('./lib/Prediction'),
   // Evaluation REST api interface
   Evaluation: require('./lib/Evaluation'),
+  // Batch Prediction REST api interface
+  BatchPrediction: require('./lib/BatchPrediction'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions

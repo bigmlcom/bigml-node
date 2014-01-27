@@ -49,7 +49,7 @@ describe('Manage evaluation objects', function () {
     });
   });
   describe('#get(evaluation, finished, query, callback)', function () {
-    it('should retrieve a finished model', function (done) {
+    it('should retrieve a finished evaluation', function (done) {
       evaluation.get(evaluationId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
