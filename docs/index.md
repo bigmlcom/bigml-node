@@ -497,7 +497,7 @@ be stored in a local file by using the download method.
                   // in the local file system
                   batchPrediction.download(batchPredictionInfo,
                                            tmpFileName,
-                    function (cbFilename) {
+                    function (error, cbFilename) {
                       console.log(cbFilename);
                     });
                 }
@@ -506,8 +506,8 @@ be stored in a local file by using the download method.
         });
 ```
 
-If no `filename` is given, the callback function is applied to the request
-object used to download the url.
+If no `filename` is given, the callback receives the error and the
+request object used to download the url.
 
 Listing, Filtering and Ordering Resources
 -----------------------------------------

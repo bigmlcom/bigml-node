@@ -62,14 +62,18 @@ describe('Manage batch prediction objects', function () {
   });
   describe('#download(batchPrediction, filename, callback)', function () {
     it('should download the batch prediction output file', function (done) {
-      batchPrediction.download(batchPredictionId, tmpFileName, function (cbFilename) {
-        fs.exists(cbFilename, function (exists) {
-          assert.ok(exists);
-          try {
-            fs.unlink(cbFilename);
-          } catch (err) {}
-          done();
-        });    
+      batchPrediction.download(batchPredictionId, tmpFileName, function (error, cbFilename) {
+        if (!error && cbFilename) {
+          fs.exists(cbFilename, function (exists) {
+            assert.ok(exists);
+            try {
+              fs.unlink(cbFilename);
+            } catch (err) {}
+            done();
+          });
+        } else {
+          assert.ok(false);
+        } 
       });
     });
   });
