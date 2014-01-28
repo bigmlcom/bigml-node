@@ -89,6 +89,7 @@ this will give you access to the following library structure:
     - bigml.Model           Model API methods
     - bigml.Ensemble        Ensemble API methods
     - bigml.Prediction      Prediction API methods
+    - bigml.BatchPrediction BatchPrediction API methods
     - bigml.Evaluation      Evaluation API methods
     - bigml.LocalModel      Model for local predictions
     - bigml.LocalEnsemble   Ensemble for local predictions
@@ -278,6 +279,10 @@ or ensemble by checking predictions for the objective field of
 a test dataset with its provided values. These resources
 are handled through `bigml.Evaluation`.
 
+- **batch predictions** Are groups of predictions for the objective field
+obtained by applying the model or ensemble to a dataset resource. These
+resources are handled through `bigml.BatchPredictions`.
+
 Creating resources
 ------------------
 
@@ -342,10 +347,10 @@ predictions need a model as first argument too:
     var evaluation = new bigml.Evaluation();
     evaluation.create('model/51922d0b37203f2a8c000010',
                       'dataset/51b3c4c737203f16230000d1',
-                      {'name': 'my dataset'},
-      function(error, datasetInfo) {
-          if (!error && datasetInfo) {
-            console.log(datasetInfo);
+                      {'name': 'my evaluation'},
+      function(error, evaluationInfo) {
+          if (!error && evaluationInfo) {
+            console.log(evaluationInfo);
           }
       });
 ```
@@ -382,7 +387,7 @@ method of the corresponding class. Let's see an example of model retrieval:
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true',
+              'only_model=true;limit=-1',
               function (error, resource) {
         if (!error && resource) {
           console.log(resource);
@@ -466,6 +471,43 @@ The call will return an object with the following keys:
    otherwise.
 
 The callback parameter is optional and a printing function is used as default.
+
+Downloading Batch Predictions' output
+-------------------------------------
+
+Using batch predictions you can obtain the predictions given by a model or
+ensemble on a dataset. The output is accessible through a BigML url and can
+be stored in a local file by using the download method.
+
+```js
+    var bigml = require('bigml');
+    var batchPrediction = new bigml.BatchPrediction(),
+      tmpFileName='/tmp/predictions.csv';
+    // batch prediction creation call
+    batchPrediction.create('model/52e4680f37203f20bb000da7',
+                           'dataset/52e6bd1a37203f3eac000392',
+                           {'name': 'my batch prediction'},
+        function(error, batchPredictionInfo) {
+          if (!error && batchPredictionInfo) {
+            // retrieving batch prediction finished resource
+            batchPrediction.get(batchPredictionInfo, true,
+              function (error, batchPredictionInfo) {
+                if (batchPredictionInfo.object.status.code === bigml.constants.FINISHED) {
+                  // retrieving the batch prediction output file and storing it
+                  // in the local file system
+                  batchPrediction.download(batchPredictionInfo,
+                                           tmpFileName,
+                    function (error, cbFilename) {
+                      console.log(cbFilename);
+                    });
+                }
+              });
+          }
+        });
+```
+
+If no `filename` is given, the callback receives the error and the
+request object used to download the url.
 
 Listing, Filtering and Ordering Resources
 -----------------------------------------
@@ -663,7 +705,7 @@ method can be immediately called in a synchronous way.
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true',
+              'only_model=true;limit=-1',
               function (error, resource) {
         if (!error && resource) {
           var localModel = new bigml.LocalModel(resource);

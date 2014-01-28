@@ -1,12 +1,14 @@
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  fs = require('fs');
 
-describe('Manage evaluation objects', function () {
+describe('Manage batch prediction objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(),
-    evaluationId, evaluation = new bigml.Evaluation(),
-    trainingDatasetId, testDatasetId;
+    batchPredictionId, batchPrediction = new bigml.BatchPrediction(),
+    trainingDatasetId, testDatasetId,
+    tmpFileName = '/tmp/testBatchPrediction.csv';
 
   before(function (done) {
     var seed = 'BigML, Machine Learning made simple',
@@ -39,18 +41,18 @@ describe('Manage evaluation objects', function () {
   });
 
   describe('#create(model, testDatasetId, args, callback)', function () {
-    it('should create an evaluation for a model and a dataset', function (done) {
-      evaluation.create(modelId, testDatasetId, undefined,
-                        function (error, data) {
+    it('should create a batch prediction for a model and a dataset', function (done) {
+      batchPrediction.create(modelId, testDatasetId, undefined,
+                             function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          evaluationId = data.resource;
+          batchPredictionId = data.resource;
           done();
         });
     });
   });
-  describe('#get(evaluation, finished, query, callback)', function () {
-    it('should retrieve a finished evaluation', function (done) {
-      evaluation.get(evaluationId, true, function (error, data) {
+  describe('#get(batchPrediction, finished, query, callback)', function () {
+    it('should retrieve a finished batch prediction', function (done) {
+      batchPrediction.get(batchPredictionId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
           done();
@@ -58,12 +60,29 @@ describe('Manage evaluation objects', function () {
       });
     });
   });
-  describe('#update(evaluation, args, callback)', function () {
-    it('should update properties in the evaluation', function (done) {
+  describe('#download(batchPrediction, filename, callback)', function () {
+    it('should download the batch prediction output file', function (done) {
+      batchPrediction.download(batchPredictionId, tmpFileName, function (error, cbFilename) {
+        if (!error && cbFilename) {
+          fs.exists(cbFilename, function (exists) {
+            assert.ok(exists);
+            try {
+              fs.unlink(cbFilename);
+            } catch (err) {}
+            done();
+          });
+        } else {
+          assert.ok(false);
+        } 
+      });
+    });
+  });
+  describe('#update(batchPrediction, args, callback)', function () {
+    it('should update properties in the batch prediction', function (done) {
       var newName = 'my new name';
-      evaluation.update(evaluationId, {name: newName}, function (error, data) {
+      batchPrediction.update(batchPredictionId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        evaluation.get(evaluationId, true, function (errorcb, datacb) {
+        batchPrediction.get(batchPredictionId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
             assert.ok(true);
@@ -73,9 +92,9 @@ describe('Manage evaluation objects', function () {
       });
     });
   });
-  describe('#delete(evaluation, callback)', function () {
-    it('should delete the remote evaluation', function (done) {
-      evaluation.delete(evaluationId, function (error, data) {
+  describe('#delete(batchPrediction, callback)', function () {
+    it('should delete the remote batch prediction', function (done) {
+      batchPrediction.delete(batchPredictionId, function (error, data) {
         assert.equal(error, null);
         done();
       });

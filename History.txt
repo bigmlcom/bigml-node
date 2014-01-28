@@ -1,6 +1,13 @@
+=== 0.5.0 / 2014-01-27
+
+* New resource in API: batch predictions
+* Fixing error in local model when retrieving all the model fields. Predictions
+  for datasets with many features could be erroneous
+* Fixing wrong syntax error in error string
+
 === 0.4.0 / 2013-11-20
 
-* New prediction combination method for ensembles: threshold.
+* New prediction combination method for ensembles: threshold
 * Fixing error in ensemble's predictions
 
 === 0.3.3 / 2013-10-26

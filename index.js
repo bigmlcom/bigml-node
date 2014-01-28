@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 BigML
+ * Copyright 2012-2014 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -32,6 +32,8 @@ module.exports = {
   Prediction: require('./lib/Prediction'),
   // Evaluation REST api interface
   Evaluation: require('./lib/Evaluation'),
+  // Batch Prediction REST api interface
+  BatchPrediction: require('./lib/BatchPrediction'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
