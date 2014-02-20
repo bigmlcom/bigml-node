@@ -838,6 +838,26 @@ whether they belong to an ensemble or not:
     localEnsemble.predict({'petal length': 1}, 0, 
                           function(error, prediction) {console.log(prediction)});
 ```
+Logging configuration
+---------------------
+
+Logging is configured at startup and uses the
+[winston](https://github.com/flatiron/winston) logging library. Logs are sent
+both to console and a `bigml.log` file by default. You can change this
+behaviour by using:
+
+- BIGML_LOG_FILE: path to the log file.
+- BIGML_LOG_LEVEL: log level (0 - no output at all, 1 - console and file log,
+                              2 - console log only, 3 - file log only)
+
+For instance,
+
+```batch
+export BIGML_LOG_FILE=/tmp/my_log_file.log
+export BIGML_LOG_LEVEL=3
+```
+
+would store log information only in the `/tmp/my_log_file.log` file.
 
 Additional Information
 ----------------------
