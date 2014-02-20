@@ -841,7 +841,7 @@ whether they belong to an ensemble or not:
 Logging configuration
 ---------------------
 
-Logging is configured at startup and uses
+Logging is configured at startup and uses the
 [winston](https://github.com/flatiron/winston) logging library. Logs are sent
 both to console and a `bigml.log` file by default. You can change this
 behaviour by using:
@@ -857,7 +857,7 @@ export BIGML_LOG_FILE=/tmp/my_log_file.log
 export BIGML_LOG_LEVEL=3
 ```
 
-would store log information only to the `/tmp/my_log_file.log` file.
+would store log information only in the `/tmp/my_log_file.log` file.
 
 Additional Information
 ----------------------
