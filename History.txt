@@ -1,3 +1,10 @@
+=== 0.7.0 / 2014-03-14
+
+* Adding new logging option
+* Adding retries to REST API methods
+* Allowing lists of datasets as argument for dataset, model and ensemble
+  creation calls.
+
 === 0.6.0 / 2014-02-20
 
 * Adding environment variables for basic logging configuration

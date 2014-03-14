@@ -1,12 +1,12 @@
 var assert = require('assert'),
   bigml = require('../index');
 
-describe('Manage model objects', function () {
+describe('Manage ensemble objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(), datasetId2,
     dataset2 = new bigml.Dataset(),
-    modelId, model = new bigml.Model(), modelId2,
-    model2 = new bigml.Model();
+    ensembleId, ensemble = new bigml.Ensemble(), ensembleId2,
+    ensemble2 = new bigml.Ensemble();
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -25,17 +25,17 @@ describe('Manage model objects', function () {
   });
 
   describe('#create(dataset, args, callback)', function () {
-    it('should create a model from a dataset', function (done) {
-      model.create(datasetId, undefined, function (error, data) {
+    it('should create an ensemble from a dataset', function (done) {
+      ensemble.create(datasetId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        modelId = data.resource;
+        ensembleId = data.resource;
         done();
       });
     });
   });
-  describe('#get(model, finished, query, callback)', function () {
-    it('should retrieve a finished model', function (done) {
-      model.get(modelId, true, function (error, data) {
+  describe('#get(ensemble, finished, query, callback)', function () {
+    it('should retrieve a finished ensemble', function (done) {
+      ensemble.get(ensembleId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
           done();
@@ -43,12 +43,12 @@ describe('Manage model objects', function () {
       });
     });
   });
-  describe('#update(model, args, callback)', function () {
-    it('should update properties in the model', function (done) {
+  describe('#update(ensemble, args, callback)', function () {
+    it('should update properties in the ensemble', function (done) {
       var newName = 'my new name';
-      model.update(modelId, {name: newName}, function (error, data) {
+      ensemble.update(ensembleId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        model.get(modelId, true, function (errorcb, datacb) {
+        ensemble.get(ensembleId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
             assert.ok(true);
@@ -59,20 +59,20 @@ describe('Manage model objects', function () {
     });
   });
   describe('#create([dataset], args, callback)', function () {
-    it('should create a model from a list of datasets ', function (done) {
-      model2.create([datasetId, datasetId2], undefined,
+    it('should create an ensemble from a list of datasets ', function (done) {
+      ensemble2.create([datasetId, datasetId2], undefined,
                     function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        modelId2 = data.resource;
+        ensembleId2 = data.resource;
         done();
       });
     });
   });
-  describe('#delete(model, callback)', function () {
-    it('should delete the remote model', function (done) {
-      model.delete(modelId, function (error, data) {
+  describe('#delete(ensemble, callback)', function () {
+    it('should delete the remote ensemble', function (done) {
+      ensemble.delete(ensembleId, function (error, data) {
         assert.equal(error, null);
-        model2.delete(modelId2, function (error, data) {
+        ensemble2.delete(ensembleId2, function (error, data) {
           assert.equal(error, null);
           done();
         });
