@@ -1,3 +1,8 @@
+=== 0.6.1 / 2014-03-21
+
+* Fixing bug in requestResponse when remote service is not available. Uncaught
+  exception.
+
 === 0.6.0 / 2014-02-20
 
 * Adding environment variables for basic logging configuration
