@@ -287,23 +287,33 @@ Creating resources
 ------------------
 
 As you've seen in the quick start section, each resource has its own creation
-method. Sources are created by uploading a local csv file:
+method availabe in the corresponding resource object. Sources are created
+by uploading a local csv file:
 
 ```js
     var bigml = require('bigml');
     var source = new bigml.Source();
-    source.create('./data/iris.csv', {name: 'my source'},
+    source.create('./data/iris.csv', {name: 'my source'}, true,
       function(error, sourceInfo) {
           if (!error && sourceInfo) {
             console.log(sourceInfo);
           }
       });
 ```
-The first argument in the `create` method is the csv file, the next one is
-an object to set some of the source properties, in this case its name,
-and finally the chosen callback. These last two arguments are optional (for 
-this method and all
+The first argument in the `create` method of the `bigml.Source` is the csv
+file, the next one is an object to set some of the source properties,
+in this case its name, a boolean that determines if retries will be used
+in case a resumable error occurs, and finally the chosen callback.
+The arguments are optional (for this method and all
 the `create` methods of the rest of resources).
+
+It is important to instantiate a new resource object (`new bigml.Source()` in
+this case) for each different resource, because each one stores internally the
+parameters used in the last REST call. They are available
+to be used if the call needs to be retried. For instance, if your internet
+connection falls for a while, the `create` call will be retried a limited number
+of times using this information unless you explicitely command it by using the
+
 
 For datasets to be created you need a source object or id or another dataset
 object or id as first argument in the `create` method. In the first case, it
@@ -315,7 +325,7 @@ For instance,
     var bigml = require('bigml');
     var dataset = new bigml.Dataset();
     dataset.create('source/51b25fb237203f4410000010',
-      {name: 'my dataset', size: 1024},
+      {name: 'my dataset', size: 1024}, true,
       function(error, datasetInfo) {
           if (!error && datasetInfo) {
             console.log(datasetInfo);
@@ -328,7 +338,7 @@ bytes of the source. And
 
 ```js
     dataset.create('dataset/51b3c4c737203f16230000d1',
-      {name: 'split dataset', sample_rate: 0.8},
+      {name: 'split dataset', sample_rate: 0.8}, true,
       function(error, datasetInfo) {
           if (!error && datasetInfo) {
             console.log(datasetInfo);
@@ -347,7 +357,7 @@ predictions need a model as first argument too:
     var evaluation = new bigml.Evaluation();
     evaluation.create('model/51922d0b37203f2a8c000010',
                       'dataset/51b3c4c737203f16230000d1',
-                      {'name': 'my evaluation'},
+                      {'name': 'my evaluation'}, true,
       function(error, evaluationInfo) {
           if (!error && evaluationInfo) {
             console.log(evaluationInfo);
@@ -397,7 +407,7 @@ method of the corresponding class. Let's see an example of model retrieval:
 
 The first parameter is, obviously, the model id, and the rest of parameters are
 optional. Passing a `true` value as the second argument (as in the example)
-forces the `get` method to
+forces the `get` method to retry to
 retrieve a finished model. In the previous section we saw that, right after
 creation, resources evolve
 through a series of states until they end up in a `FINISHED` (or `FAULTY`)
@@ -425,7 +435,7 @@ such properties. For instance,
     var bigml = require('bigml');
     var ensemble = new bigml.Ensemble();
     ensemble.update('ensemble/51901f4337203f3a9a000215',
-      {name: 'my name', tags: 'code example'},
+      {name: 'my name', tags: 'code example'}, true,
       function (error, resource) {
         if (!error && resource) {
           console.log(resource);
@@ -451,7 +461,7 @@ corresponding class.
 ```js
     var bigml = require('bigml');
     var source = new bigml.Source();
-    source.delete('source/51b25fb237203f4410000010',
+    source.delete('source/51b25fb237203f4410000010', true,
       function (error, result) {
         if (!error && result) {
           console.log(result);
@@ -848,7 +858,8 @@ behaviour by using:
 
 - BIGML_LOG_FILE: path to the log file.
 - BIGML_LOG_LEVEL: log level (0 - no output at all, 1 - console and file log,
-                              2 - console log only, 3 - file log only)
+                              2 - console log only, 3 - file log only,
+                              4 - console and log file with debug info)
 
 For instance,
 
