@@ -6,7 +6,8 @@ describe('Manage prediction objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(),
     predictionId, prediction = new bigml.Prediction(),
-    inputData = {'petal width': 0.5}, testPrediction = 'Iris-setosa';
+    inputData = {'petal width': 0.5}, testPrediction = 'Iris-setosa',
+    inputDataId = {'000003': 0.5};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -27,6 +28,15 @@ describe('Manage prediction objects', function () {
   describe('#create(model, inputData, args, callback)', function () {
     it('should create a prediction from a model', function (done) {
       prediction.create(modelId, inputData, undefined, function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        predictionId = data.resource;
+        done();
+      });
+    });
+  });
+  describe('#create(model, inputDataId, args, callback)', function () {
+    it('should create a prediction from a model using ids in input data', function (done) {
+      prediction.create(modelId, inputDataId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         predictionId = data.resource;
         done();
