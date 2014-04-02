@@ -5,6 +5,12 @@
 * Allowing lists of datasets as argument for dataset, model and ensemble
   creation calls.
 
+=== 0.6.2 / 2014-04-01
+
+* Removes validation for input data in remote prediction create function. This
+  is not needed anymore since the backend can accept both ids and field names
+  as input data keys.
+
 === 0.6.1 / 2014-03-21
 
 * Fixing bug in requestResponse when remote service is not available. Uncaught
