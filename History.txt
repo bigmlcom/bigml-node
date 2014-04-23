@@ -1,4 +1,4 @@
-=== 0.7.0 / 2014-03-23
+=== 0.7.0 / 2014-04-23
 
 * Adding new logging option
 * Adding retries to REST API methods
