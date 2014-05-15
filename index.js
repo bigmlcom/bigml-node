@@ -34,6 +34,12 @@ module.exports = {
   Evaluation: require('./lib/Evaluation'),
   // Batch Prediction REST api interface
   BatchPrediction: require('./lib/BatchPrediction'),
+  // Cluster REST api interface
+  Cluster: require('./lib/Cluster'),
+  // Centroid REST api interface
+  Centroid: require('./lib/Centroid'),
+  // Batch Centroid REST api interface
+  BatchCentroid: require('./lib/BatchCentroid'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
