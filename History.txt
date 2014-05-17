@@ -1,3 +1,8 @@
+=== 0.8.0 / 2014-05-16
+
+* Adding cluster, centroid and batch centroid REST API methods
+* Adding support for shared resources
+
 === 0.7.0 / 2014-04-23
 
 * Adding new logging option
