@@ -14,7 +14,6 @@
  * under the License.
  */
 
-
 module.exports = {
   // Common modules: connection, REST common interface, utilities and constants
   BigML: require('./lib/BigML'),

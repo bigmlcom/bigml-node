@@ -289,7 +289,7 @@ resources are handled through `bigml.BatchPredictions`.
 - **clusters** They are unsupervised learning models that define groups of
 instances in the training dataset according to the similarity of their
 features. Each group has a central instance, named Centroid, and all
-instances in the group form a new dataset. There resources are handled
+instances in the group form a new dataset. These resources are handled
 through `bigml.Cluster`.
 
 - **centroids** Are the central instances of the groups defined in a cluster.
@@ -297,8 +297,9 @@ They are the values predicted by the cluster when new input data is given.
 These resources are handled through `bigml.Centroid`
 
 - **batch centroids** Are lists of centroids obtained by using the cluster to
-classify a dataset of input data. These resources are handled through
-`bigml.BatchCentroid`.
+classify a dataset of input data. They are the analogous to the batch
+predictions generated from models, but for clusters. These resources
+are handled through `bigml.BatchCentroid`.
 
 Creating resources
 ------------------
@@ -504,8 +505,8 @@ Downloading Batch Predictions' (or Centroids') output
 
 Using batch predictions you can obtain the predictions given by a model or
 ensemble on a dataset. Similarly, using batch centroids you will get the
-centroids predicted by a cluster for a dataset.
-The output is accessible through a BigML url and can
+centroids predicted by a cluster for each instance of a dataset.
+The output is accessible through a BigML URL and can
 be stored in a local file by using the download method.
 
 ```js
