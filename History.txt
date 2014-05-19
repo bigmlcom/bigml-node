@@ -1,15 +1,21 @@
+=== 0.8.0 / 2014-05-16
+
+* Adding cluster, centroid and batch centroid REST API methods
+* Adding support for shared resources
+* Fixing bug: error array was growing in each function call
+
 === 0.7.0 / 2014-04-23
 
 * Adding new logging option
 * Adding retries to REST API methods
 * Allowing lists of datasets as argument for dataset, model and ensemble
-  creation calls.
+  creation calls
 
 === 0.6.2 / 2014-04-01
 
 * Removes validation for input data in remote prediction create function. This
   is not needed anymore since the backend can accept both ids and field names
-  as input data keys.
+  as input data keys
 
 === 0.6.1 / 2014-03-21
 
