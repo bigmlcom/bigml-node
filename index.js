@@ -42,5 +42,7 @@ module.exports = {
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
-  LocalEnsemble: require('./lib/LocalEnsemble')
+  LocalEnsemble: require('./lib/LocalEnsemble'),
+  // Local Cluster object for local centroid predictions
+  LocalCluster: require('./lib/LocalCluster')
 };
