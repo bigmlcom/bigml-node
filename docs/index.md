@@ -868,6 +868,75 @@ whether they belong to an ensemble or not:
     localEnsemble.predict({'petal length': 1}, 0, 
                           function(error, prediction) {console.log(prediction)});
 ```
+
+Local Clusters
+--------------
+
+A remote cluster encloses all the information required to predict the centroid
+associated to a given input data set. Thus, you can build a local version of
+a cluster and predict centroids locally using
+the `LocalCluster` class.
+
+```js
+    var bigml = require('bigml');
+    var localCluster = new bigml.LocalCluster('cluster/51922d0b37203f2a8c000010');
+    localCluster.centroid({'petal length': 1, 'petal width': 1,
+                           'sepal length': 1, 'sepal width': 1,
+                           'species': 'Iris-setosa'},
+                          function(error, centroid) {console.log(centroid)});
+```
+
+Note that, to find the associated centroid, input data cannot contain missing
+values in numeric fields. The centroid method can also be used labelling
+input data with the corresponding field id.
+
+As you see, the first parameter to the `LocalCluster` constructor is a cluster
+id (or object). The constructor allows a second optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localCluster = new bigml.LocalCluster('cluster/51922d0b37203f2a8c000010',
+                                              new bigml.BigML(myUser, myKey));
+    localCluster.centroid({'000000': 1, '000001': 1,
+                           '000002': 1, '000003': 1,
+                           '000004': 'Iris-setosa'},
+                          function(error, centroid) {console.log(centroid)});
+```
+
+When the first argument is a finished cluster object, the constructor creates
+immediately
+a `LocalCluster` instance ready to predict. Then, the `LocalCluster.centroid`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var cluster = new bigml.Cluster();
+    cluster.get('cluster/51b3c45a37203f16230000b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localCluster = new bigml.LocalCluster(resource);
+          var centroid = localCluster.centroid({'000000': 1, '000001': 1,
+                                                '000002': 1, '000003': 1,
+                                                '000004': 'Iris-setosa'});
+          console.log(centroid);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the cluster will be downloaded respectively. Beware of using
+filtered fields clusters to instantiate a local cluster. If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote cluster
+information. The callback code, where the `localCluster` and predictions
+are built, is strictly local.
+
 Logging configuration
 ---------------------
 
