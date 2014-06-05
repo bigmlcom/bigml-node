@@ -15,14 +15,16 @@ describe('Manage local cluster objects', function () {
       dataset.create(sourceId, tokenMode, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        cluster.create(datasetId, undefined, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          clusterId = data.resource;
-          clusterResource = data;
-          cluster.get(clusterResource, true, 'only_model=true', function (error, data) {
-            clusterFinishedResource = data;
-            done();
-          });
+        cluster.create(datasetId, {seed: 'BigML tests'},
+          function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            clusterId = data.resource;
+            clusterResource = data;
+            cluster.get(clusterResource, true, 'only_model=true',
+              function (error, data) {
+                clusterFinishedResource = data;
+                done();
+              });
         });
       });
     });
@@ -63,7 +65,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 3, 'petal length': 3, 'sepal length': 3,
                        'sepal width': 3, 'species': 'Iris-virginica'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 5');
+      assert.equal(prediction.centroidName, 'Cluster 2');
       var centroidName = prediction.centroidName;
       secondCentroidDistance = prediction.distance;
       var centroid = new bigml.Centroid();
@@ -92,7 +94,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'000000': 3, '000001': 3, '000002': 3,
                        '000003': 3, '000004': 'Iris-virginica'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 5');
+      assert.equal(prediction.centroidName, 'Cluster 2');
       assert.equal(prediction.distance, secondCentroidDistance);
     });
   });

@@ -53,7 +53,7 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data', function () {
       var prediction = localModel.predict({'petal length': 3});
-      assert.equal(prediction.prediction, 'Iris-virginica');
+      assert.equal(prediction.prediction, 'Iris-versicolor');
       secondPredictionConfidence = prediction.confidence;
     });
   });
@@ -71,7 +71,7 @@ describe('Manage local model objects', function () {
     it('should predict synchronously from input data keyed by field id',
        function () {
       var prediction = localModel.predict({'000002': 3});
-      assert.equal(prediction.prediction, 'Iris-virginica');
+      assert.equal(prediction.prediction, 'Iris-versicolor');
       assert.equal(prediction.confidence, secondPredictionConfidence);
     });
   });

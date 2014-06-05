@@ -15,14 +15,16 @@ describe('Manage local cluster objects', function () {
       dataset.create(sourceId, tokenMode, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        cluster.create(datasetId, undefined, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          clusterId = data.resource;
-          clusterResource = data;
-          cluster.get(clusterResource, true, 'only_model=true', function (error, data) {
-            clusterFinishedResource = data;
-            done();
-          });
+        cluster.create(datasetId, {seed: 'BigML tests'},
+          function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            clusterId = data.resource;
+            clusterResource = data;
+            cluster.get(clusterResource, true, 'only_model=true',
+              function (error, data) {
+                clusterFinishedResource = data;
+                done();
+              });
         });
       });
     });
@@ -45,7 +47,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'spam', "Message": "FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 87077 Get txting and tell ur mates. zed POBox 36504 W45WQ norm150p/tone 16+"};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 5');
+        assert.equal(data.centroidName, 'Cluster 7');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
