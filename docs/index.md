@@ -333,8 +333,10 @@ connection falls for a while, the `create` call will be retried a limited number
 of times using this information unless you explicitely command it by using the
 
 
-For datasets to be created you need a source object or id or another dataset
-object or id as first argument in the `create` method. In the first case, it
+For datasets to be created you need a source object or id, another dataset
+object or id, a list of dataset ids or a cluster id as first argument
+in the `create` method.
+In the first case, it
 generates a dataset using the data of the source and in the second,
 the method is used to generate new datasets by splitting the original one.
 For instance,
@@ -365,6 +367,24 @@ bytes of the source. And
 ```
 
 will create a new dataset by sampling 80% of the data in the original dataset.
+
+Clusters can also be used to generate datasets containing the instances
+grouped around each centroid. You will need the cluster id and the centroid id
+to reference the dataset to be created. For instance,
+
+```js
+    cluster.create(datasetId, function (error, data) {
+      var clusterId = data.resource;
+      var centroidId = '000000';
+      dataset.create(clusterId, {centroid: centroidId},
+                     function (error, data) {
+        console.log(data);
+      });
+    });
+```
+
+would generate a new dataset containing the subset of instances in the cluster
+associated to the centroid id ``000000``.
 
 Similarly, for models and ensembles you will need a dataset as first argument,
 evaluations will need a model as first argument and a dataset as second one and

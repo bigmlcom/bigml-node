@@ -4,7 +4,9 @@ var assert = require('assert'),
 describe('Manage dataset objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(), dataset2 = new bigml.Dataset(),
-    dataset3 = new bigml.Dataset(), datasetId2, datasetId3;
+    dataset3 = new bigml.Dataset(), dataset4 = new bigml.Dataset(),
+    cluster = new bigml.Cluster(),
+    datasetId2, datasetId3, datasetId4, clusterId, centroidId;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -67,6 +69,22 @@ describe('Manage dataset objects', function () {
       });
     });
   });
+  describe('#create(cluster, {centroid: centroidId}, callback)', function () {
+    it('should create a new dataset from cluster and a centroid id',
+      function (done) {
+        cluster.create(datasetId, function (error, data) {
+          clusterId = data.resource;
+          var datasets = data.object['cluster_datasets'];
+          centroidId = Object.getOwnPropertyNames(datasets)[0];
+          dataset4.create(clusterId, {centroid: centroidId},
+                          function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            datasetId4 = data.resource;
+            done();
+          });
+        });
+    });
+  });
   describe('#delete(dataset, callback)', function () {
     it('should delete the remote dataset', function (done) {
       dataset.delete(datasetId, function (error, data) {
@@ -84,6 +102,12 @@ describe('Manage dataset objects', function () {
 
   after(function (done) {
     source.delete(sourceId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+  after(function (done) {
+    cluster.delete(clusterId, function (error, data) {
       assert.equal(error, null);
       done();
     });
