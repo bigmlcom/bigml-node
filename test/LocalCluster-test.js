@@ -98,6 +98,16 @@ describe('Manage local cluster objects', function () {
       assert.equal(prediction.distance, secondCentroidDistance);
     });
   });
+  describe('#centroid(inputData)', function () {
+    it('should predict synchronously from input data keyed by field id and no categorical field',
+       function () {
+      var inputData = {'000000': 3, '000001': 3, '000002': 3,
+                       '000003': 3};
+      var prediction = localCluster.centroid(inputData);
+      assert.equal(prediction.centroidName, 'Cluster 2');
+      assert.equal(prediction.distance, secondCentroidDistance);
+    });
+  });
   describe('LocalCluster(clusterResource)', function () {
     it('should create a localCluster from a cluster unfinished resource', function (done) {
       localCluster = new bigml.LocalCluster(clusterResource);

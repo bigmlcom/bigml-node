@@ -75,6 +75,22 @@ describe('Manage local cluster objects', function () {
       });
     });
   });
+  describe('#centroid(inputData)', function () {
+    it('should predict centroids synchronously from empty input data', function (done) {
+      var inputData = {};
+      var prediction = localCluster.centroid(inputData);
+      assert.equal(prediction.centroidName, 'Cluster 0');
+      secondCentroidDistance = prediction.distance;
+      var centroidName = prediction.centroidName;
+      var centroid = new bigml.Centroid();
+      inputData = {"Type":"", "Message":""};
+      centroid.create(clusterId, inputData, function (error, data) {
+          assert.equal(centroidName, data.object.centroid_name);
+          assert.equal(secondCentroidDistance, data.object.distance);
+          done();
+      });
+    });
+  });
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
