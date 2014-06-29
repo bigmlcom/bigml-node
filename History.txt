@@ -1,3 +1,9 @@
+=== 0.9.3 / 2014-06-29
+
+* Fixing bug: local clusters' centroid method gave wrong results for text
+  fields and case-sensitive content.
+* Checking node.js environment in local objects methods and related modules.
+
 === 0.9.2 / 2014-06-13
 
 * Fixing bug: local clusters' centroid method crashed when a text field was
