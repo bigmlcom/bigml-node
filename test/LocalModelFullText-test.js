@@ -8,20 +8,25 @@ describe('Manage local model objects', function () {
     localModel, firstPredictionConfidence, secondPredictionConfidence;
 
   before(function (done) {
-    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}};
+    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}},
+      textField = {'fields': {'000001': {'optype': 'text'}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
-      dataset.create(sourceId, tokenMode, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        datasetId = data.resource;
-        model.create(datasetId, undefined, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          modelId = data.resource;
-          modelResource = data;
-          model.get(modelResource, true, 'only_model=true', function (error, data) {
-            modelFinishedResource = data;
-            done();
+      source.get(sourceId, true, function (error, data) {
+        source.update(sourceId, textField, function (error, data) {
+          dataset.create(sourceId, tokenMode, function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            datasetId = data.resource;
+            model.create(datasetId, undefined, function (error, data) {
+              assert.equal(data.code, bigml.constants.HTTP_CREATED);
+              modelId = data.resource;
+              modelResource = data;
+              model.get(modelResource, true, 'only_model=true', function (error, data) {
+                modelFinishedResource = data;
+                done();
+              });
+            });
           });
         });
       });

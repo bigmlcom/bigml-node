@@ -8,7 +8,7 @@ describe('Manage centroid objects', function () {
     centroidId, centroid = new bigml.Centroid(),
     inputData = {'petal width': 0.5, 'petal length': 0.1, 'sepal length': 0.5,
                  'sepal width': 0.2, 'species': 'Iris-setosa'},
-    testCentroid = 'Cluster 0',
+    testCentroid = 'Cluster 3',
     inputDataId = {'000003': 0.5, '000002': 0.1, '000001': 0.5,
                    '000000': 0.2, '000004': 'Iris-setosa'};
 

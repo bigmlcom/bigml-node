@@ -72,6 +72,7 @@ describe('Manage batch centroid objects', function () {
             done();
           });
         } else {
+          console.log(error);
           assert.ok(false);
         } 
       });

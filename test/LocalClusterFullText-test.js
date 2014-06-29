@@ -8,23 +8,28 @@ describe('Manage local cluster objects', function () {
     localCluster, firstCentroidDistance, secondCentroidDistance;
 
   before(function (done) {
-    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}};
+    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}},
+      textField = {'fields': {'000001': {'optype': 'text'}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
-      dataset.create(sourceId, tokenMode, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        datasetId = data.resource;
-        cluster.create(datasetId, {seed: 'BigML tests'},
-          function (error, data) {
+      source.get(sourceId, true, function (error, data) {
+        source.update(sourceId, textField, function (error, data) {
+          dataset.create(sourceId, tokenMode, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
-            clusterId = data.resource;
-            clusterResource = data;
-            cluster.get(clusterResource, true, 'only_model=true',
+            datasetId = data.resource;
+            cluster.create(datasetId, {seed: 'BigML tests'},
               function (error, data) {
-                clusterFinishedResource = data;
-                done();
-              });
+                assert.equal(data.code, bigml.constants.HTTP_CREATED);
+                clusterId = data.resource;
+                clusterResource = data;
+                cluster.get(clusterResource, true, 'only_model=true',
+                  function (error, data) {
+                    clusterFinishedResource = data;
+                    done();
+                  });
+            });
+          });
         });
       });
     });
@@ -54,7 +59,10 @@ describe('Manage local cluster objects', function () {
         centroid.create(clusterId, inputData, function (error, data) {
             assert.equal(centroidName, data.object.centroid_name);
             assert.equal(firstCentroidDistance, data.object.distance);
-            done();
+            centroid.delete(data.resource, function (error, data) {
+              assert.equal(error, null);
+              done();
+            });
         });
       });
     });
@@ -70,7 +78,10 @@ describe('Manage local cluster objects', function () {
       centroid.create(clusterId, inputData, function (error, data) {
           assert.equal(centroidName, data.object.centroid_name);
           assert.equal(secondCentroidDistance, data.object.distance);
-          done();
+          centroid.delete(data.resource, function (error, data) {
+            assert.equal(error, null);
+            done();
+          });
       });
     });
   });

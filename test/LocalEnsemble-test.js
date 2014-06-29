@@ -16,7 +16,7 @@ describe('Manage local ensemble objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        ensemble.create(datasetId, {number_of_models: 2, sample_rate: 0.99}, function (error, data) {
+        ensemble.create(datasetId, {number_of_models: 2, sample_rate: 0.80, seed: "BigML"}, function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           ensembleId = data.resource;
           ensembleResource = data;
