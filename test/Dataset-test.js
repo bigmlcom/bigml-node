@@ -1,11 +1,12 @@
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  fs = require('fs');
 
 describe('Manage dataset objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(), dataset2 = new bigml.Dataset(),
     dataset3 = new bigml.Dataset(), dataset4 = new bigml.Dataset(),
-    cluster = new bigml.Cluster(),
+    cluster = new bigml.Cluster(), filename = '/tmp/exported.csv',
     datasetId2, datasetId3, datasetId4, clusterId, centroidId;
 
   before(function (done) {
@@ -85,16 +86,30 @@ describe('Manage dataset objects', function () {
         });
     });
   });
+  describe('#download(dataset, filename, callback)', function () {
+    it('should download the dataset to a CSV file', function (done) {
+      var datap = fs.readFileSync(path, 'utf8');
+      dataset.download(datasetId, filename, function (error, data) {
+        if (error == null) {
+          fs.readFile(filename, "utf8", function (error2, dataf) {
+            assert.equal(dataf, datap);
+            dataset.delete(datasetId, function (error3, data2) {
+              assert.equal(error3, null);
+              fs.unlink(filename);
+              done();
+            });
+          });
+        }
+      });
+    });
+  });
   describe('#delete(dataset, callback)', function () {
     it('should delete the remote dataset', function (done) {
-      dataset.delete(datasetId, function (error, data) {
+      dataset.delete(datasetId2, function (error, data) {
         assert.equal(error, null);
-        dataset.delete(datasetId2, function (error, data) {
+        dataset.delete(datasetId3, function (error, data) {
           assert.equal(error, null);
-          dataset.delete(datasetId3, function (error, data) {
-            assert.equal(error, null);
-            done();
-          });
+          done();
         });
       });
     });

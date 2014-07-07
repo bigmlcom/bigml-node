@@ -383,6 +383,19 @@ to reference the dataset to be created. For instance,
     });
 ```
 
+All datasets can be exported to a local CSV file using the ``download``
+method of ``Dataset`` objects.
+
+```js
+    var bigml = require('bigml');
+    dataset = new bigml.Dataset();
+    dataset.download('dataset/53b0aa6837203f4341000034',
+                     'my_exported_file.csv',
+                     function (error, data) {
+        console.log("dataf:" + data);
+    });
+```
+
 would generate a new dataset containing the subset of instances in the cluster
 associated to the centroid id ``000000``.
 
