@@ -392,7 +392,7 @@ method of ``Dataset`` objects.
     dataset.download('dataset/53b0aa6837203f4341000034',
                      'my_exported_file.csv',
                      function (error, data) {
-        console.log("dataf:" + data);
+        console.log("data:" + data);
     });
 ```
 
