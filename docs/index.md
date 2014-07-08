@@ -814,6 +814,35 @@ the `ready` event to make predictions synchronously from then on like in:
     }
 ```
 
+Predictions Missing Strategy
+----------------------------
+
+There are two different stategies when dealing with missing values
+in input data for the fields used in the model rules. The default
+strategy used in predictions when a missing value is found for the
+field used to split the node is returning the prediction of the previous node.
+
+```js
+    var bigml = require('bigml');
+    var LAST_PREDICTION = 0;
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    localModel.predict({'petal length': 1}, LAST_PREDICTION,
+                       function(error, prediction) {console.log(prediction)});
+```
+
+The other strategy when a missing value is found is considering both splits
+valid and following the rules to the final leaves of the tree. The prediction
+is built considering all the predictions of the leaves reached, averaging
+them in regressions and selecting the majority class for classifications.
+
+```js
+    var bigml = require('bigml');
+    var PROPORTIONAL = 1;
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+    localModel.predict({'petal length': 1}, PROPORTIONAL,
+                       function(error, prediction) {console.log(prediction)});
+```
+
 Local Ensembles
 ---------------
 

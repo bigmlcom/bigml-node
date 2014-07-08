@@ -1,18 +1,19 @@
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  constants = require('../lib/constants');
 
 describe('Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
-    localModel, firstPredictionConfidence, secondPredictionConfidence;
+    localModel, firstPredictionConfidence, secondPredictionConfidence,
+    proportionalConfidence = 0.8407512606105803;
 
   before(function (done) {
-    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'tokens_only'}}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
-      dataset.create(sourceId, tokenMode, function (error, data) {
+      dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         model.create(datasetId, undefined, function (error, data) {
@@ -43,7 +44,7 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
+      localModel.predict({'petal width': 0.5}, 0, function (error, data) {
         assert.equal(data.prediction, 'Iris-setosa');
         firstPredictionConfidence = data.confidence;
         done();
@@ -75,6 +76,14 @@ describe('Manage local model objects', function () {
       assert.equal(prediction.confidence, secondPredictionConfidence);
     });
   });
+  describe('#predict(inputData, constants.PROPORTIONAL)', function () {
+    it('should predict synchronously from input data using proportional missing strategy',
+       function () {
+      var prediction = localModel.predict({'petal length': 3}, constants.PROPORTIONAL);
+      assert.equal(prediction.prediction, 'Iris-versicolor');
+      assert.equal(prediction.confidence, proportionalConfidence);
+    });
+  });
   describe('LocalModel(modelResource)', function () {
     it('should create a localModel from a model unfinished resource', function (done) {
       localModel = new bigml.LocalModel(modelResource);
@@ -102,8 +111,8 @@ describe('Manage local model objects', function () {
       assert.ok(localModel.ready);
     });
   });
-  describe('#predict(inputData)', function () {
-    it('should predict synchronously from input data', function (done) {
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
       localModel.predict({'petal width': 0.5}, function (error, data) {
         assert.equal(data.prediction, 'Iris-setosa');
         done();

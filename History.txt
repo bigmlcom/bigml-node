@@ -1,3 +1,7 @@
+=== 0.11.0 / 2014-07-09
+
+* Adding proportional missing strategy to local model predictions
+
 === 0.10.0 / 2014-07-07
 
 * Adding download method to export datasets' contents as CSV
