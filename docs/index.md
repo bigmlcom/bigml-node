@@ -817,7 +817,7 @@ the `ready` event to make predictions synchronously from then on like in:
 Predictions Missing Strategy
 ----------------------------
 
-There are two different stategies when dealing with missing values
+There are two different strategies when dealing with missing values
 in input data for the fields used in the model rules. The default
 strategy used in predictions when a missing value is found for the
 field used to split the node is returning the prediction of the previous node.
