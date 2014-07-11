@@ -1,3 +1,8 @@
+=== 0.11.0 / 2014-07-11
+
+* Fixing bug: wrong error data when using proportional missing strategy for
+  some input data
+
 === 0.11.0 / 2014-07-09
 
 * Adding proportional missing strategy to local model predictions
