@@ -1,4 +1,4 @@
-=== 0.11.0 / 2014-07-11
+=== 0.11.1 / 2014-07-11
 
 * Fixing bug: wrong error data when using proportional missing strategy for
   some input data
