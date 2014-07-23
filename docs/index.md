@@ -814,6 +814,16 @@ the `ready` event to make predictions synchronously from then on like in:
     }
 ```
 
+You can also create a `LocalModel` from a JSON file containing the model
+structure by setting the path to the file as first parameter:
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel('my_dir/my_model.json');
+    localModel.predict({'000002': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
 Predictions Missing Strategy
 ----------------------------
 
