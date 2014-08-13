@@ -7,7 +7,7 @@ describe('Manage local ensemble objects', function () {
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
     prediction = new bigml.Prediction(), inputData = {'petal width': 0.5}, method = 1,
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(), reference,
-    localEnsemble, len, finishedModelsList = [];
+    localEnsemble, len, finishedModelsList = [], missingStrategy = 1;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -33,7 +33,10 @@ describe('Manage local ensemble objects', function () {
             function retrieveModel(error, data) {
               finishedModelsList.push(data);
               if (finishedModelsList.length === len) {
-                prediction.create(ensembleId, inputData, {combiner: method}, retrievePrediction);
+                prediction.create(ensembleId, inputData,
+                                  {combiner: method,
+                                   'missing_strategy': missingStrategy},
+                                  retrievePrediction);
               }
             }
             for (index = 0; index < len; index++) {
@@ -60,15 +63,17 @@ describe('Manage local ensemble objects', function () {
   });
   describe('#predict(inputData, method, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(data.prediction, reference);
-        done();
+      localEnsemble.predict(inputData, method, {missingStrategy: missingStrategy},
+        function (error, data) {
+          assert.equal(data.prediction, reference);
+          done();
       });
     });
   });
   describe('#predict(inputData, method)', function () {
     it('should predict synchronously from input data', function () {
-      var result = localEnsemble.predict(inputData, method);
+      var result = localEnsemble.predict(inputData, method,
+        {missingStrategy: missingStrategy});
       assert.equal(result.prediction, reference);
     });
   });
@@ -87,9 +92,10 @@ describe('Manage local ensemble objects', function () {
   });
   describe('#predict(inputData, method, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(data.prediction, reference);
-        done();
+      localEnsemble.predict(inputData, method, {missingStrategy: missingStrategy},
+        function (error, data) {
+          assert.equal(data.prediction, reference);
+          done();
       });
     });
   });
@@ -108,9 +114,10 @@ describe('Manage local ensemble objects', function () {
   });
   describe('#predict(inputData, method)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(data.prediction, reference);
-        done();
+      localEnsemble.predict(inputData, method, {missingStrategy: missingStrategy},
+        function (error, data) {
+          assert.equal(data.prediction, reference);
+          done();
       });
     });
   });
@@ -122,7 +129,7 @@ describe('Manage local ensemble objects', function () {
   });
   describe('#predict(inputData, method)', function () {
     it('should predict synchronously from input data', function () {
-      var result = localEnsemble.predict(inputData, method);
+      var result = localEnsemble.predict(inputData, method, {missingStrategy: missingStrategy});
       assert.equal(result.prediction, reference);
     });
   });

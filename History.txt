@@ -1,3 +1,11 @@
+=== 0.12.0 / 2014-08-14
+
+* Adding proportional missing strategy to ensembles
+* Fixing bug: local predictions did not round float values when given as
+  integers and that generated mismatches in predictions
+* Fixing bug: Error for regression models with proportional missing strategy
+  were not returned for 1-instance nodes
+
 === 0.11.2 / 2014-07-23
 
 * Adding the ability to build a local model from a JSON file containing the

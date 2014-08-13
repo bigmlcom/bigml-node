@@ -824,7 +824,7 @@ structure by setting the path to the file as first parameter:
                        function(error, prediction) {console.log(prediction)});
 ```
 
-Predictions Missing Strategy
+Predictions' Missing Strategy
 ----------------------------
 
 There are two different strategies when dealing with missing values
@@ -889,7 +889,21 @@ combination method:
     Otherwise, the prediction is plurality for the rest of predicted
     values.
 
-An example of `threshold` combination method would be:
+An there's an optional third argument named `options` that specify some
+additional configuration values, such as the missing strategy used in each
+model's prediction:
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
+    localEnsemble.predict({'petal length': 1}, 0, {missingStrategy: 1},
+                          function(error, prediction) {console.log(prediction)});
+```
+in this case the proportional missing strategy (default would be last
+prediction missing strategy) will be applied.
+
+Another example would be the `threshold` combination method, where the third
+argument contains the `threshold` and `category` values used in the algorithm:
 
 ```js
     var bigml = require('bigml');
