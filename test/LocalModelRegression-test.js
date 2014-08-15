@@ -8,7 +8,9 @@ describe('Manage local model objects', function () {
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     prediction = new bigml.Prediction(),
     localModel, firstPredictionConfidence, secondPredictionConfidence,
-    firstInput = {'Midterm': 10, 'TakeHome': 10}, firstPrediction;
+    firstInput = {'Midterm': 10, 'TakeHome': 10}, firstPrediction,
+    singleInstanceInput = {"Midterm": 20, "Tutorial": 90, "TakeHome": 100},
+    thirdPrediction, thirdPredictionConfidence;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -25,20 +27,28 @@ describe('Manage local model objects', function () {
             function (error, data) {
             modelFinishedResource = data;
             prediction.create(modelId, firstInput,
-                             {missing_strategy: constants.LAST_PREDICTION},
-                             function (error, data) {
+                              {missing_strategy: constants.LAST_PREDICTION},
+                              function (error, data) {
                 var info = data.object;
                 firstPrediction = info.output;
                 firstPredictionConfidence = info.confidence.toFixed(5);
                 prediction.delete(data.resource, function (error, data) {});
                 prediction.create(modelId, firstInput,
-                                 {missing_strategy: constants.PROPORTIONAL},
-                                 function (error, data) {
+                                  {missing_strategy: constants.PROPORTIONAL},
+                                  function (error, data) {
                     var info = data.object;
                     secondPrediction = info.output;
                     secondPredictionConfidence = info.confidence.toFixed(5);
                     prediction.delete(data.resource, function (error, data) {});
-                    done();
+                    prediction.create(modelId, singleInstanceInput,
+                                      {missing_strategy: constants.PROPORTIONAL},
+                                       function (error, data) {
+                        var info = data.object;
+                        thirdPrediction = info.output;
+                        thirdPredictionConfidence = info.confidence.toFixed(5);
+                        prediction.delete(data.resource, function (error, data) {});
+                        done();
+                    });
                 });
             });
           });
@@ -82,6 +92,14 @@ describe('Manage local model objects', function () {
       var prediction = localModel.predict(firstInput, constants.PROPORTIONAL);
       assert.equal(prediction.prediction, secondPrediction);
       assert.equal(prediction.confidence.toFixed(5), secondPredictionConfidence);
+    });
+  });
+  describe('#predict(inputData, constants.PROPORTIONAL)', function () {
+    it('should predict synchronously from input data using proportional missing strategy 1-instance node',
+       function () {
+      var prediction = localModel.predict(singleInstanceInput, constants.PROPORTIONAL);
+      assert.equal(prediction.prediction, thirdPrediction);
+      assert.equal(prediction.confidence.toFixed(5), thirdPredictionConfidence);
     });
   });
   after(function (done) {
