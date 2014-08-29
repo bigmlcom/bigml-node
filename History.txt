@@ -1,4 +1,4 @@
-=== 0.13.0 / 2014-08-29
+=== 1.0.0 / 2014-08-29
 
 * Adding new missing operators to the local Model predicates. Adapting
   the local predict methods.
