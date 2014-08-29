@@ -4,6 +4,7 @@ var assert = require('assert'),
 describe('Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
+    missingSplits = {"missing_splits": false},
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, firstPredictionConfidence, secondPredictionConfidence;
 
@@ -18,7 +19,7 @@ describe('Manage local model objects', function () {
           dataset.create(sourceId, tokenMode, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             datasetId = data.resource;
-            model.create(datasetId, undefined, function (error, data) {
+            model.create(datasetId, missingSplits, function (error, data) {
               assert.equal(data.code, bigml.constants.HTTP_CREATED);
               modelId = data.resource;
               modelResource = data;

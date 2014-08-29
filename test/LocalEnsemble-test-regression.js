@@ -5,9 +5,11 @@ describe('Manage local ensemble objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/grades.csv',
     datasetId, dataset = new bigml.Dataset(),
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
+    ensembleArgs = {missing_splits: false, number_of_models: 2,
+                    sample_rate: 0.80, seed: "BigML"},
     prediction = new bigml.Prediction(), inputData = {}, method = 1,
-    ensembleFinishedResource, modelsList, index, model = new bigml.Model(), reference,
-    localEnsemble, len, finishedModelsList = [];
+    ensembleFinishedResource, modelsList, index, model = new bigml.Model(),
+    reference, localEnsemble, len, finishedModelsList = [];
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -16,7 +18,7 @@ describe('Manage local ensemble objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        ensemble.create(datasetId, {number_of_models: 2, sample_rate: 0.99}, function (error, data) {
+        ensemble.create(datasetId, ensembleArgs, function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           ensembleId = data.resource;
           ensembleResource = data;

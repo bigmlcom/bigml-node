@@ -3,14 +3,14 @@ var assert = require('assert'),
   constants = require('../lib/constants');
 
 describe('Manage local model objects', function () {
-  var sourceId, source = new bigml.Source(), path = './data/grades.csv',
+  var sourceId, source = new bigml.Source(), path = './data/iris_missing.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     prediction = new bigml.Prediction(),
-    missingSplits = {"missing_splits": false},
+    missingSplits = {"missing_splits": true},
     localModel, firstPredictionConfidence, secondPredictionConfidence,
-    firstInput = {'Midterm': 10, 'TakeHome': 10}, firstPrediction,
-    singleInstanceInput = {"Midterm": 20, "Tutorial": 90, "TakeHome": 100},
+    firstInput = {"petal width": 1} , firstPrediction,
+    thirdInput = {"petal width": 1, "petal length": 4},
     thirdPrediction, thirdPredictionConfidence;
 
   before(function (done) {
@@ -41,7 +41,7 @@ describe('Manage local model objects', function () {
                     secondPrediction = info.output;
                     secondPredictionConfidence = info.confidence.toFixed(5);
                     prediction.delete(data.resource, function (error, data) {});
-                    prediction.create(modelId, singleInstanceInput,
+                    prediction.create(modelId, thirdInput,
                                       {missing_strategy: constants.PROPORTIONAL},
                                        function (error, data) {
                         var info = data.object;
@@ -98,7 +98,7 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData, constants.PROPORTIONAL)', function () {
     it('should predict synchronously from input data using proportional missing strategy 1-instance node',
        function () {
-      var prediction = localModel.predict(singleInstanceInput, constants.PROPORTIONAL);
+      var prediction = localModel.predict(thirdInput, constants.PROPORTIONAL);
       assert.equal(prediction.prediction, thirdPrediction);
       assert.equal(prediction.confidence.toFixed(5), thirdPredictionConfidence);
     });
