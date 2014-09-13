@@ -94,6 +94,8 @@ this will give you access to the following library structure:
     - bigml.Cluster         Cluster API methods
     - bigml.Centroid        Centroid API methods
     - bigml.BatchCentroid   BatchCentroid API methods
+    - bigml.Anomaly         Anomaly detector API methods
+    - bigml.AnomalyScore    Anomaly score API methods
     - bigml.LocalModel      Model for local predictions
     - bigml.LocalEnsemble   Ensemble for local predictions
 
@@ -300,6 +302,17 @@ These resources are handled through `bigml.Centroid`
 classify a dataset of input data. They are the analogous to the batch
 predictions generated from models, but for clusters. These resources
 are handled through `bigml.BatchCentroid`.
+
+- **anomaly detectors** They are unsupervised learning models
+that detect instances in the training dataset that are anomalous.
+The information it returns encloses a `top_anomalies` block
+that contains a list of the most anomalous
+points. For each instance, a `score` from 0 to 1 is computed.  The closer to 1,
+the more anomalous. These resources are handled
+through `bigml.Anomaly`.
+
+- **anomaly scores** Are scores computed for any user-given input data using
+an anomaly detector. These resources are handled through `bigml.AnomalyScore`
 
 Creating resources
 ------------------

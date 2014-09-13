@@ -1,3 +1,7 @@
+=== 1.1.0 / 2014-09-12
+
+* Adding the anomaly detector and anomaly score REST API methods.
+
 === 1.0.0 / 2014-08-29
 
 * Adding new missing operators to the local Model predicates. Adapting

@@ -39,6 +39,10 @@ module.exports = {
   Centroid: require('./lib/Centroid'),
   // Batch Centroid REST api interface
   BatchCentroid: require('./lib/BatchCentroid'),
+  // Anomaly REST api interface
+  Anomaly: require('./lib/Anomaly'),
+  // Anomaly score REST api interface
+  AnomalyScore: require('./lib/AnomalyScore'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
