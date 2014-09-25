@@ -1,3 +1,8 @@
+=== 1.1.1 / 2014-09-25
+
+* Fixing bug: local predictions with models that had missing splits operators
+  failed or had wrong limit cases.
+
 === 1.1.0 / 2014-09-12
 
 * Adding the anomaly detector and anomaly score REST API methods.
