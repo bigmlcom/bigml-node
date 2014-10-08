@@ -302,7 +302,7 @@ They are the values predicted by the cluster when new input data is given.
 These resources are handled through `bigml.Centroid`
 
 - **batch centroids** Are lists of centroids obtained by using the cluster to
-classify a dataset of input data. They are the analogous to the batch
+classify a dataset of input data. They are analogous to the batch
 predictions generated from models, but for clusters. These resources
 are handled through `bigml.BatchCentroid`.
 
@@ -319,7 +319,7 @@ an anomaly detector. These resources are handled through `bigml.AnomalyScore`
 
 - **batch anomaly scores** Are lists of anomaly scores obtained by using
 the anomaly detector to
-classify a dataset of input data. They are the analogous to the batch
+classify a dataset of input data. They are analogous to the batch
 predictions generated from models, but for anomalies. These resources
 are handled through `bigml.BatchAnomalyScore`.
 

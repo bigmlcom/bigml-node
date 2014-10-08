@@ -1,4 +1,4 @@
-=== 1.2.0 / 2014-09-25
+=== 1.2.0 / 2014-10-08
 
 * Adding Batch Anomaly Scores and local Anomaly detector.
 
