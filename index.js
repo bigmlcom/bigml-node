@@ -43,10 +43,14 @@ module.exports = {
   Anomaly: require('./lib/Anomaly'),
   // Anomaly score REST api interface
   AnomalyScore: require('./lib/AnomalyScore'),
+  // Batch Anomaly Score REST api interface
+  BatchAnomalyScore: require('./lib/BatchAnomalyScore'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
   LocalEnsemble: require('./lib/LocalEnsemble'),
   // Local Cluster object for local centroid predictions
-  LocalCluster: require('./lib/LocalCluster')
+  LocalCluster: require('./lib/LocalCluster'),
+  // Local Anomaly detector object for local anomaly score predictions
+  LocalAnomaly: require('./lib/LocalAnomaly')
 };

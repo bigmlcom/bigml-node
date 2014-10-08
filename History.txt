@@ -1,3 +1,7 @@
+=== 1.2.0 / 2014-09-25
+
+* Adding Batch Anomaly Scores and local Anomaly detector.
+
 === 1.1.1 / 2014-09-25
 
 * Fixing bug: local predictions with models that had missing splits operators

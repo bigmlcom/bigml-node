@@ -5,7 +5,7 @@ describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
     clusterId, cluster = new bigml.Cluster(), clusterResource,
-    clusterFinishedResource,
+    clusterFinishedResource, seed = 'BigML tests',
     localCluster, firstCentroidDistance, secondCentroidDistance;
 
   before(function (done) {
@@ -19,7 +19,7 @@ describe('Manage local cluster objects', function () {
           dataset.create(sourceId, tokenMode, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             datasetId = data.resource;
-            cluster.create(datasetId, {seed: 'BigML tests'},
+            cluster.create(datasetId, {seed: seed, cluster_seed: seed},
               function (error, data) {
                 assert.equal(data.code, bigml.constants.HTTP_CREATED);
                 clusterId = data.resource;
@@ -53,7 +53,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'mobile mobile call'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 0');
+        assert.equal(data.centroidName, 'Cluster 1');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
@@ -72,7 +72,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids synchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'Ok'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 7');
+      assert.equal(prediction.centroidName, 'Cluster 2');
       secondCentroidDistance = prediction.distance;
       var centroidName = prediction.centroidName;
       var centroid = new bigml.Centroid();

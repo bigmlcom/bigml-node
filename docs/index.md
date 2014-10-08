@@ -81,23 +81,26 @@ To use the library, import it with `require`:
 
 this will give you access to the following library structure:
 
-    - bigml.constants       common constants
-    - bigml.BigML           connection object
-    - bigml.Resource        common API methods
-    - bigml.Source          Source API methods
-    - bigml.Dataset         Dataset API methods
-    - bigml.Model           Model API methods
-    - bigml.Ensemble        Ensemble API methods
-    - bigml.Prediction      Prediction API methods
-    - bigml.BatchPrediction BatchPrediction API methods
-    - bigml.Evaluation      Evaluation API methods
-    - bigml.Cluster         Cluster API methods
-    - bigml.Centroid        Centroid API methods
-    - bigml.BatchCentroid   BatchCentroid API methods
-    - bigml.Anomaly         Anomaly detector API methods
-    - bigml.AnomalyScore    Anomaly score API methods
-    - bigml.LocalModel      Model for local predictions
-    - bigml.LocalEnsemble   Ensemble for local predictions
+    - bigml.constants          common constants
+    - bigml.BigML              connection object
+    - bigml.Resource           common API methods
+    - bigml.Source             Source API methods
+    - bigml.Dataset            Dataset API methods
+    - bigml.Model              Model API methods
+    - bigml.Ensemble           Ensemble API methods
+    - bigml.Prediction         Prediction API methods
+    - bigml.BatchPrediction    BatchPrediction API methods
+    - bigml.Evaluation         Evaluation API methods
+    - bigml.Cluster            Cluster API methods
+    - bigml.Centroid           Centroid API methods
+    - bigml.BatchCentroid      BatchCentroid API methods
+    - bigml.Anomaly            Anomaly detector API methods
+    - bigml.AnomalyScore       Anomaly score API methods
+    - bigml.BatchAnomalyScore  BatchAnomalyScore API methods
+    - bigml.LocalModel         Model for local predictions
+    - bigml.LocalEnsemble      Ensemble for local predictions
+    - bigml.LocalCluster       Cluster for local centroids
+    - bigml.LocalAnomaly       Anomaly detector for local anomaly scores
 
 
 Authentication
@@ -313,6 +316,12 @@ through `bigml.Anomaly`.
 
 - **anomaly scores** Are scores computed for any user-given input data using
 an anomaly detector. These resources are handled through `bigml.AnomalyScore`
+
+- **batch anomaly scores** Are lists of anomaly scores obtained by using
+the anomaly detector to
+classify a dataset of input data. They are the analogous to the batch
+predictions generated from models, but for anomalies. These resources
+are handled through `bigml.BatchAnomalyScore`.
 
 Creating resources
 ------------------
@@ -1034,6 +1043,76 @@ is missing (because it has been excluded or
 filtered), an exception will arise. In this example, the connection to BigML
 is used only in the `get` method call to retrieve the remote cluster
 information. The callback code, where the `localCluster` and predictions
+are built, is strictly local.
+
+Local Anomaly Detectors
+-----------------------
+
+A remote anomaly detector encloses all the information required to predict the
+anomaly score
+associated to a given input data set. Thus, you can build a local version of
+an anomaly detector and predict anomaly scores locally using
+the `LocalAnomaly` class.
+
+```js
+    var bigml = require('bigml');
+    var localAnomaly = new bigml.LocalAnomaly('anomaly/51922d0b37203f2a8c003010');
+    localAnomaly.anomalyScore({'srv_serror_rate': 0.0, 'src_bytes': 181.0,
+                               'srv_count': 8.0, 'serror_rate': 0.0},
+                          function(error, anomalyScore) {
+                                console.log(anomalyScore)});
+```
+
+The anomaly score method can also be used labelling
+input data with the corresponding field id.
+
+As you see, the first parameter to the `LocalAnomaly` constructor is an anomaly
+detector id (or object). The constructor allows a second optional argument,
+a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localAnomaly = new bigml.LocalAnomaly('anomaly/51922d0b37203f2a8c003010',
+                                              new bigml.BigML(myUser, myKey));
+    localAnomaly.anomalyScore({'000020': 9.0, '000004': 181.0, '000016': 8.0,
+                               '000024': 0.0, '000025': 0.0},
+                          function(error, anomalyScore) {console.log(anomalyScore)});
+```
+
+When the first argument is a finished anomaly detector object, the constructor creates
+immediately
+a `LocalAnomaly` instance ready to predict. Then, the `LocalAnomaly.anomalyScore`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var anomaly = new bigml.Anomaly();
+    anomaly.get('anomaly/51b3c45a37203f16230030b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localAnomaly = new bigml.LocalAnomaly(resource);
+          var anomalyScore = localAnomaly.anomalyScore(
+            {'000020': 9.0, '000004': 181.0, '000016': 8.0,
+             '000024': 0.0, '000025': 0.0});
+          console.log(anomalyScore);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the anomaly detector will be downloaded respectively.
+Beware of using
+filtered fields anomaly detectors to instantiate a local anomaly detector.
+If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote anomaly detector
+information. The callback code, where the `localAnomaly` and scores
 are built, is strictly local.
 
 Logging configuration
