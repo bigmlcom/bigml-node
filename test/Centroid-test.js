@@ -10,7 +10,9 @@ describe('Manage centroid objects', function () {
                  'sepal width': 0.2, 'species': 'Iris-setosa'},
     testCentroid = 'Cluster 3',
     inputDataId = {'000003': 0.5, '000002': 0.1, '000001': 0.5,
-                   '000000': 0.2, '000004': 'Iris-setosa'};
+                   '000000': 0.2, '000004': 'Iris-setosa'},
+    seed = "BigML tests",
+    clusterArgs = {k: 8};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -19,7 +21,7 @@ describe('Manage centroid objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        cluster.create(datasetId, undefined, function (error, data) {
+        cluster.create(datasetId, clusterArgs, function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           clusterId = data.resource;
           done();

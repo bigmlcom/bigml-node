@@ -8,7 +8,9 @@ describe('Manage batch centroid objects', function () {
     clusterId, cluster = new bigml.Cluster(),
     batchCentroidId, batchCentroid = new bigml.BatchCentroid(),
     trainingDatasetId, testDatasetId,
-    tmpFileName = '/tmp/testBatchCentroid.csv';
+    tmpFileName = '/tmp/testBatchCentroid.csv',
+    seed = "BigML tests",
+    clusterArgs = {seed: seed, cluster_seed: seed, k: 8};
 
   before(function (done) {
     var seed = 'BigML, Machine Learning made simple',
@@ -29,7 +31,7 @@ describe('Manage batch centroid objects', function () {
                            function (error, data) {
                 assert.equal(data.code, bigml.constants.HTTP_CREATED);
                 testDatasetId = data.resource;
-                cluster.create(trainingDatasetId, undefined, function (error, data) {
+                cluster.create(trainingDatasetId, clusterArgs, function (error, data) {
                   assert.equal(data.code, bigml.constants.HTTP_CREATED);
                   clusterId = data.resource;
                   done();

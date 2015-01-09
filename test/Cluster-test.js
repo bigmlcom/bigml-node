@@ -6,7 +6,9 @@ describe('Manage cluster objects', function () {
     datasetId, dataset = new bigml.Dataset(), datasetId2,
     dataset2 = new bigml.Dataset(),
     clusterId, cluster = new bigml.Cluster(), clusterId2,
-    cluster2 = new bigml.Cluster();
+    cluster2 = new bigml.Cluster(),
+    seed = "BigML tests",
+    clusterArgs = {seed: seed, cluster_seed: seed, k: 8};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -26,7 +28,7 @@ describe('Manage cluster objects', function () {
 
   describe('#create(dataset, args, callback)', function () {
     it('should create a cluster from a dataset', function (done) {
-      cluster.create(datasetId, undefined, function (error, data) {
+      cluster.create(datasetId, clusterArgs, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         clusterId = data.resource;
         done();
@@ -60,7 +62,7 @@ describe('Manage cluster objects', function () {
   });
   describe('#create([dataset], args, callback)', function () {
     it('should create a cluster from a list of datasets ', function (done) {
-      cluster2.create([datasetId, datasetId2], undefined,
+      cluster2.create([datasetId, datasetId2], clusterArgs,
                     function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         clusterId2 = data.resource;

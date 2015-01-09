@@ -16,7 +16,7 @@ describe('Manage local cluster objects', function () {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         cluster.create(datasetId, {seed: seed,
-                                   cluster_seed: seed},
+                                   cluster_seed: seed, k: 8},
           function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             clusterId = data.resource;

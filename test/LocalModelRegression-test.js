@@ -11,7 +11,7 @@ describe('Manage local model objects', function () {
     localModel, firstPredictionConfidence, secondPredictionConfidence,
     firstInput = {'Midterm': 10, 'TakeHome': 10}, firstPrediction,
     singleInstanceInput = {"Midterm": 20, "Tutorial": 90, "TakeHome": 100},
-    thirdPrediction, thirdPredictionConfidence;
+    thirdPrediction, thirdPredictionConfidence, medianPrediction = 35.83;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -101,6 +101,13 @@ describe('Manage local model objects', function () {
       var prediction = localModel.predict(singleInstanceInput, constants.PROPORTIONAL);
       assert.equal(prediction.prediction, thirdPrediction);
       assert.equal(prediction.confidence.toFixed(5), thirdPredictionConfidence);
+    });
+  });
+  describe('#predict(inputData, constants.PROPORTIONAL, true)', function () {
+    it('should predict synchronously from input data using proportional missing strategy and median',
+       function () {
+      var prediction = localModel.predict(firstInput, constants.PROPORTIONAL, true);
+      assert.equal(prediction.prediction, medianPrediction);
     });
   });
   after(function (done) {

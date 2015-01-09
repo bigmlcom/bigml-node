@@ -73,7 +73,7 @@ describe('Manage dataset objects', function () {
   describe('#create(cluster, {centroid: centroidId}, callback)', function () {
     it('should create a new dataset from cluster and a centroid id',
       function (done) {
-        cluster.create(datasetId, function (error, data) {
+        cluster.create(datasetId, {k:8}, function (error, data) {
           clusterId = data.resource;
           var datasets = data.object['cluster_datasets'];
           centroidId = Object.getOwnPropertyNames(datasets)[0];
