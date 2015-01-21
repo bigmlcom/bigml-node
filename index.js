@@ -45,6 +45,8 @@ module.exports = {
   AnomalyScore: require('./lib/AnomalyScore'),
   // Batch Anomaly Score REST api interface
   BatchAnomalyScore: require('./lib/BatchAnomalyScore'),
+  // Projects REST api interface
+  Project: require('./lib/Project'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions

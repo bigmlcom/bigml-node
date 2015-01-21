@@ -97,6 +97,7 @@ this will give you access to the following library structure:
     - bigml.Anomaly            Anomaly detector API methods
     - bigml.AnomalyScore       Anomaly score API methods
     - bigml.BatchAnomalyScore  BatchAnomalyScore API methods
+    - bigml.Project            Project API methods
     - bigml.LocalModel         Model for local predictions
     - bigml.LocalEnsemble      Ensemble for local predictions
     - bigml.LocalCluster       Cluster for local centroids
@@ -322,6 +323,12 @@ the anomaly detector to
 classify a dataset of input data. They are analogous to the batch
 predictions generated from models, but for anomalies. These resources
 are handled through `bigml.BatchAnomalyScore`.
+
+- **projects** These resources are meant for organizational purposes only.
+The rest of resources can be related to one `project` that groups them.
+Only sources can be assigned to a `project`, the rest of resources inherit
+the `project` reference from its originating source. Projects are handled
+through `bigml.Project`.
 
 Creating resources
 ------------------

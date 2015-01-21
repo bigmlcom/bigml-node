@@ -114,7 +114,6 @@ describe('Manage dataset objects', function () {
       });
     });
   });
-
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
@@ -123,6 +122,12 @@ describe('Manage dataset objects', function () {
   });
   after(function (done) {
     cluster.delete(clusterId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+  after(function (done) {
+    dataset.delete(datasetId4, function (error, data) {
       assert.equal(error, null);
       done();
     });
