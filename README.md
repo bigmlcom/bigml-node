@@ -247,7 +247,7 @@ Additional Information
 ----------------------
 
 We've just drawn a first sketch. For additional information, see
-the files included in the [docs folder](./doc/index.md).
+the files included in the [docs folder](./docs/index.md).
 
 How to Contribute
 -----------------
