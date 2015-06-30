@@ -53,7 +53,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'mobile mobile call'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 1');
+        assert.equal(data.centroidName, 'Cluster 0');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();

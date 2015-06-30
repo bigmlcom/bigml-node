@@ -52,7 +52,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'spam', "Message": "FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 87077 Get txting and tell ur mates. zed POBox 36504 W45WQ norm150p/tone 16+"};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 2');
+        assert.equal(data.centroidName, 'Cluster 1');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();

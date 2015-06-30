@@ -53,7 +53,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'Type': 'ham', 'Message': 'mobile Mobile call'};
       localCluster.centroid(inputData,
         function (error, data) {
-          assert.equal(data.centroidName, 'Cluster 1');
+          assert.equal(data.centroidName, 'Cluster 0');
           var centroidName = data.centroidName;
           firstCentroidDistance = data.distance;
           var centroid = new bigml.Centroid();
@@ -72,7 +72,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids synchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'A normal message'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 6');
+      assert.equal(prediction.centroidName, 'Cluster 0');
       var centroidName = prediction.centroidName;
       secondCentroidDistance = prediction.distance;
           var centroid = new bigml.Centroid();
@@ -87,10 +87,10 @@ describe('Manage local cluster objects', function () {
     });
   });
   describe('#centroid(inputData, callback)', function () {
-    it('should predict centroids asynchronously from input data keyed by field id', 
+    it('should predict centroids asynchronously from input data keyed by field id',
        function (done) {
       localCluster.centroid({'000000': 'ham', '000001': 'mobile Mobile call'}, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 1');
+        assert.equal(data.centroidName, 'Cluster 0');
         assert.equal(data.distance, firstCentroidDistance);
         done();
       });
@@ -100,7 +100,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids synchronously from input data keyed by field id',
        function () {
       var prediction = localCluster.centroid({'000000': 'ham', '000001': 'A normal message'});
-      assert.equal(prediction.centroidName, 'Cluster 6');
+      assert.equal(prediction.centroidName, 'Cluster 0');
       assert.equal(prediction.distance, secondCentroidDistance);
     });
   });
@@ -120,7 +120,7 @@ describe('Manage local cluster objects', function () {
   describe('#centroid(inputData, callback)', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       localCluster.centroid({'Type': 'ham', 'Message': 'A normal message'}, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 6');
+        assert.equal(data.centroidName, 'Cluster 0');
         done();
       });
     });
@@ -134,7 +134,7 @@ describe('Manage local cluster objects', function () {
   describe('#centroid(inputData)', function () {
     it('should predict centroids synchronously from input data', function (done) {
       localCluster.centroid({'Type': 'ham', 'Message': 'A normal message'}, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 6');
+        assert.equal(data.centroidName, 'Cluster 0');
         done();
       });
     });

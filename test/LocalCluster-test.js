@@ -49,7 +49,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 1, 'petal length': 1, 'sepal length': 1,
                        'sepal width': 1, 'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 7');
+        assert.equal(data.centroidName, 'Cluster 6');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
@@ -66,7 +66,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 3, 'petal length': 3, 'sepal length': 3,
                        'sepal width': 3, 'species': 'Iris-virginica'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 4');
+      assert.equal(prediction.centroidName, 'Cluster 1');
       var centroidName = prediction.centroidName;
       secondCentroidDistance = prediction.distance;
       var centroid = new bigml.Centroid();
@@ -82,7 +82,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 3, 'petal length': 3, 'sepal length': 3,
                        'sepal width': 3, 'species': ''};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 2');
+      assert.equal(prediction.centroidName, 'Cluster 1');
       var centroidName = prediction.centroidName;
       thirdCentroidDistance = prediction.distance;
       var centroid = new bigml.Centroid();
@@ -94,12 +94,12 @@ describe('Manage local cluster objects', function () {
     });
   });
   describe('#centroid(inputData, callback)', function () {
-    it('should predict centroids asynchronously from input data keyed by field id', 
+    it('should predict centroids asynchronously from input data keyed by field id',
        function (done) {
       var inputData = {'000000': 1, '000001': 1, '000002': 1,
                        '000003': 1, '000004': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 7');
+        assert.equal(data.centroidName, 'Cluster 6');
         assert.equal(data.distance, firstCentroidDistance);
         done();
       });
@@ -111,7 +111,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'000000': 3, '000001': 3, '000002': 3,
                        '000003': 3, '000004': 'Iris-virginica'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 4');
+      assert.equal(prediction.centroidName, 'Cluster 1');
       assert.equal(prediction.distance, secondCentroidDistance);
     });
   });
@@ -121,7 +121,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'000000': 3, '000001': 3, '000002': 3,
                        '000003': 3};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 2');
+      assert.equal(prediction.centroidName, 'Cluster 1');
       assert.equal(prediction.distance, thirdCentroidDistance);
     });
   });
@@ -143,7 +143,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 1, 'petal length': 1, 'sepal length': 1,
                        'sepal width': 1, 'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 7');
+        assert.equal(data.centroidName, 'Cluster 6');
         done();
       });
     });
@@ -159,7 +159,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'petal width': 1, 'petal length': 1, 'sepal length': 1,
                        'sepal width': 1, 'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 7');
+        assert.equal(data.centroidName, 'Cluster 6');
         done();
       });
     });
