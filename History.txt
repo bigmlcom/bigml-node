@@ -1,3 +1,8 @@
+=== 1.4.1 / 2015-06-30
+
+* Adding method to LocalAnomaly to get the filter that excludes or includes
+  the top anomalies in the dataset.
+
 === 1.4.0 / 2015-02-19
 
 * Adding the Samples object to support samples' REST calls.

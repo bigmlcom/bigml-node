@@ -18,7 +18,8 @@ describe('Manage local anomaly objects', function () {
                  'dst_host_srv_serror_rate': 0.0, 'hot': '0',
                  'dst_host_srv_diff_host_rate': 0.0, 'dst_host_srv_count': 9.0,
                  'srv_diff_host_rate': 0.0, 'dst_host_count': 9.0,
-                 'dst_bytes': 5450.0, 'dst_host_serror_rate': 0.0}
+                 'dst_bytes': 5450.0, 'dst_host_serror_rate': 0.0},
+    firstAnomaly = '(and (= (f "000004") 183) (= (f "000005") 8654) (= (f "000009") "0") (= (f "000016") 4) (= (f "000017") 4) (= (f "000018") 0.25) (= (f "000019") 0.25) (= (f "00001e") 0) (= (f "00001f") 123) (= (f "000020") 255) (= (f "000023") 0.01) (= (f "000024") 0.04) (= (f "000025") 0.01) (= (f "000026") 0))',
     seed = 'BigML tests';
 
   before(function (done) {
@@ -29,7 +30,8 @@ describe('Manage local anomaly objects', function () {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
         anomaly.create(datasetId, {seed: seed,
-                                   anomaly_seed: seed},
+                                   anomaly_seed: seed,
+                                   top_n: 1},
           function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             anomalyId = data.resource;
@@ -82,7 +84,7 @@ describe('Manage local anomaly objects', function () {
   });
 
   describe('#anomalyScore(inputData, callback)', function () {
-    it('should predict anomaly scores asynchronously from input data keyed by field id', 
+    it('should predict anomaly scores asynchronously from input data keyed by field id',
        function (done) {
       localAnomaly.anomalyScore(inputDataById, function (error, data) {
         assert.equal(data, firstScore);
@@ -128,6 +130,14 @@ describe('Manage local anomaly objects', function () {
     it('should predict anomaly score synchronously from input data', function (done) {
       localAnomaly.anomalyScore(inputData, function (error, data) {
         assert.equal(data, firstScore);
+        done();
+      });
+    });
+  });
+  describe('#anomaliesFilter(true)', function () {
+    it('should produce the filter to select the anomalies from the dataset', function (done) {
+      localAnomaly.anomaliesFilter(true, function (error, data) {
+        assert.equal(data, firstAnomaly);
         done();
       });
     });

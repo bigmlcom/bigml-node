@@ -37,7 +37,7 @@ The only mandatory third-party dependencies are the
 [winston](https://github.com/flatiron/winston.git) and
 [form-data](https://github.com/felixge/node-form-data.git) libraries.
 
-The testing environment requires the additional 
+The testing environment requires the additional
 [mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
@@ -112,7 +112,7 @@ and [API key](https://bigml.com/account/apikey) and are always
 transmitted over HTTPS.
 
 This module will look for your username and API key in the environment
-variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can 
+variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can
 add the following lines to your `.bashrc` or `.bash_profile` to set
 those variables automatically when you log in::
 
@@ -184,9 +184,9 @@ the last parameter,
 but if you don't the default action will be
 printing the resulting resource or the error. For the `create` method:
 
-    > result: 
+    > result:
     { code: 201,
-      object: 
+      object:
        { category: 0,
          code: 201,
          content_type: 'text/csv',
@@ -205,7 +205,7 @@ printing the resulting resource or the error. For the `create` method:
          resource: 'source/51b34c3c37203f4678000020',
          size: 4608,
          source_parser: {},
-         status: 
+         status:
           { code: 1,
             message: 'The request has been queued and will be processed soon' },
          subscription: false,
@@ -247,7 +247,7 @@ And similarly, for your ensembles
 ```js
     bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
-    localEnsemble.predict({'petal length': 1}, 0, 
+    localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
 
@@ -613,7 +613,7 @@ the `limit` argument in the query string. For more information about the syntax
 of query strings filters and orderings, you can check the fields labeled
 as *filterable* and *sortable* in the listings section of [BigML
 documentation](<https://bigml.com/developers>) for each resource. As an
-example, we can see how to list the first 20 sources 
+example, we can see how to list the first 20 sources
 
 ```js
     var bigml = require('bigml');
@@ -692,13 +692,13 @@ we asked for the 2 most recent sources:
         }
       })
     > { code: 200,
-      meta: 
+      meta:
        { limit: 2,
          next: '/andromeda/source?username=mmerce&api_key=c972018dc5f2789e65c74ba3170fda31d02e00c0&limit=2&offset=2',
          offset: 0,
          previous: null,
          total_count: 653 },
-      resources: 
+      resources:
        [ { category: 0,
            code: 200,
            content_type: 'text/csv',
@@ -892,7 +892,7 @@ create a `LocalEnsemble` is:
 ```js
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
-    localEnsemble.predict({'petal length': 1}, 0, 
+    localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
 
@@ -980,7 +980,7 @@ whether they belong to an ensemble or not:
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble([
       'model/51bb69b437203f02b50004ce', 'model/51bb69b437203f02b50004d0']);
-    localEnsemble.predict({'petal length': 1}, 0, 
+    localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
 
@@ -1121,6 +1121,21 @@ filtered), an exception will arise. In this example, the connection to BigML
 is used only in the `get` method call to retrieve the remote anomaly detector
 information. The callback code, where the `localAnomaly` and scores
 are built, is strictly local.
+
+The top anomalies in the `LocalAnomaly` can be extracted from the original
+dataset by filtering the rows that have the highest score. The filter
+expression that can single out these rows can be extracted using the
+`anomaliesFilter` method:
+
+```js
+    localAnomaly.anomaliesFilter(true,
+                                 function(error, data) {console.log(data);});
+```
+
+When the first argument is set to `true`, the filter corresponds to the top
+anomalies. On the contrary, if set to `false` the filter will exclude
+the top anomalies from the dataset.
+
 
 Logging configuration
 ---------------------
