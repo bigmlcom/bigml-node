@@ -1,3 +1,8 @@
+=== 1.5.0 / 2015-07-29
+
+* Adding REST methods for Correlation object calls.
+* Adding REST methods for Test object calls.
+
 === 1.4.1 / 2015-06-30
 
 * Adding method to LocalAnomaly to get the filter that excludes or includes

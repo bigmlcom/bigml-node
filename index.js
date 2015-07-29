@@ -49,6 +49,10 @@ module.exports = {
   Project: require('./lib/Project'),
   // Samples REST api interface
   Sample: require('./lib/Sample'),
+  // Correlations REST api interface
+  Correlation: require('./lib/Correlation'),
+  // Tests REST api interface
+  Test: require('./lib/Test'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions

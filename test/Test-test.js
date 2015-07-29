@@ -1,10 +1,10 @@
 var assert = require('assert'),
   bigml = require('../index');
 
-describe('Manage sample objects', function () {
+describe('Manage tests objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
-    sampleId, sample = new bigml.Sample();
+    testId, test = new bigml.Test();
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -19,17 +19,17 @@ describe('Manage sample objects', function () {
   });
 
   describe('#create(dataset, args, callback)', function () {
-    it('should create a sample from a dataset', function (done) {
-      sample.create(datasetId, undefined, function (error, data) {
+    it('should create a test from a dataset', function (done) {
+      test.create(datasetId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        sampleId = data.resource;
+        testId = data.resource;
         done();
       });
     });
   });
-  describe('#get(sample, finished, query, callback)', function () {
-    it('should retrieve a finished sample', function (done) {
-      sample.get(sampleId, true, function (error, data) {
+  describe('#get(test, finished, query, callback)', function () {
+    it('should retrieve a finished test', function (done) {
+      test.get(testId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
           done();
@@ -37,12 +37,12 @@ describe('Manage sample objects', function () {
       });
     });
   });
-  describe('#update(sample, args, callback)', function () {
-    it('should update properties in the sample', function (done) {
+  describe('#update(test, args, callback)', function () {
+    it('should update properties in the test', function (done) {
       var newName = 'my new name';
-      sample.update(sampleId, {name: newName}, function (error, data) {
+      test.update(testId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        sample.get(sampleId, true, function (errorcb, datacb) {
+        test.get(testId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
             assert.ok(true);
@@ -52,9 +52,9 @@ describe('Manage sample objects', function () {
       });
     });
   });
-  describe('#delete(sample, callback)', function () {
-    it('should delete the remote sample', function (done) {
-      sample.delete(sampleId, function (error, data) {
+  describe('#delete(test, callback)', function () {
+    it('should delete the remote test', function (done) {
+      test.delete(testId, function (error, data) {
         assert.equal(error, null);
         done();
       });
