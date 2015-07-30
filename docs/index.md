@@ -341,7 +341,10 @@ degree of dependence between the field set as objective for your predictions
 and the rest of fields in your dataset. The dependence degree is obtained by
 comparing the distributions in every objective and non-objective field pair,
 as independent fields should have probabilistic
-independent distributions. Correlations are handled
+independent distributions. Depending on the types of the fields to compare,
+the metrics used to compute the correlation degree will change. Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/correlations#retrieving-correlation)
+for a detailed description. Correlations are handled
 through `bigml.Correlation`.
 
 - **tests** These resources contain a series of statistical tests that
