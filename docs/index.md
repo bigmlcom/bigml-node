@@ -330,6 +330,30 @@ Only sources can be assigned to a `project`, the rest of resources inherit
 the `project` reference from its originating source. Projects are handled
 through `bigml.Project`.
 
+- **samples** These resources provide quick acces to your raw data. They are
+in-memory objects that can be queried for subsets of data by limiting
+their size, the fields or the rows returned. Samples are handled
+through `bigml.Sample`.
+
+- **correlations** These resources contain a series of computations that
+reflect the
+degree of dependence between the field set as objective for your predictions
+and the rest of fields in your dataset. The dependence degree is obtained by
+comparing the distributions in every objective and non-objective field pair,
+as independent fields should have probabilistic
+independent distributions. Correlations are handled
+through `bigml.Correlation`.
+
+- **tests** These resources contain a series of statistical tests that
+compare the
+distribution of data in each numeric field to certain canonical distributions,
+such as the
+[normal distribution](https://en.wikipedia.org/wiki/Normal_distribution)
+or [Benford's law](https://en.wikipedia.org/wiki/Benford%27s_law)
+distribution. Tests are handled
+through `bigml.Test`.
+
+
 Creating resources
 ------------------
 
@@ -451,7 +475,7 @@ keys:
 -  **code**: If the request is successful you will get a
    `constants.HTTP_CREATED` (201) status code. Otherwise, it will be
    one of the standard HTTP error codes [detailed in the
-   documentation](<https://bigml.com/developers/status_codes>).
+   documentation](https://bigml.com/developers/status_codes).
 -  **resource**: The identifier of the new resource.
 -  **location**: The location of the new resource.
 -  **object**: The resource itself, as computed by BigML.
@@ -462,7 +486,7 @@ keys:
 Bigml.com will answer your `create` call immediately, even if the resource
 is not finished yet (see the
 [documentation on status
-codes](<https://bigml.com/developers/status_codes>) for the listing of
+codes](https://bigml.com/developers/status_codes) for the listing of
 potential states and their semantics). To retrieve a finished resource,
 you'll need to use the `get` method described in the next section.
 
@@ -507,7 +531,7 @@ Updating Resources
 
 Each type of resource has a set of properties whose values can be updated.
 Check the properties subsection of each resource in the [developers
-documentation](<https://bigml.com/developers>) to see which are marked as
+documentation](https://bigml.com/developers) to see which are marked as
 updatable. The `update` method of each resource class will let you modify
 such properties. For instance,
 
@@ -554,7 +578,7 @@ The call will return an object with the following keys:
 -  **code** If the request is successful, the code will be a
    `constants.HTTP_NO_CONTENT` (204) status code. Otherwise, it wil be
    one of the standard HTTP error codes. See the [documentation on
-   status codes](<https://bigml.com/developers/status_codes>) for more
+   status codes](https://bigml.com/developers/status_codes) for more
    info.
 -  **error** If the request does not succeed, it will contain an
    object with an error code and a message. It will be `null`
@@ -612,7 +636,7 @@ show the 20 most recent resources. That limit can be modified by setting
 the `limit` argument in the query string. For more information about the syntax
 of query strings filters and orderings, you can check the fields labeled
 as *filterable* and *sortable* in the listings section of [BigML
-documentation](<https://bigml.com/developers>) for each resource. As an
+documentation](https://bigml.com/developers) for each resource. As an
 example, we can see how to list the first 20 sources
 
 ```js
@@ -660,7 +684,7 @@ The list object will have the following structure:
 -  **code**: If the request is successful you will get a
    `constants.HTTP_OK` (200) status code. Otherwise, it will be one of
    the standard HTTP error codes. See [BigML documentation on status
-   codes](<https://bigml.com/developers/status_codes>) for more info.
+   codes](https://bigml.com/developers/status_codes) for more info.
 -  **meta**: An object including the following keys that can help you
    paginate listings:
 
@@ -1163,4 +1187,4 @@ Additional Information
 ----------------------
 
 For additional information about the API, see the
-[BigML developer's documentation](<https://bigml.com/developers>).
+[BigML developer's documentation](https://bigml.com/developers).
