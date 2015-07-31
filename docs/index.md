@@ -331,7 +331,8 @@ the `project` reference from its originating source. Projects are handled
 through `bigml.Project`.
 
 - **samples** These resources provide quick acces to your raw data. They are
-in-memory objects that can be queried for subsets of data by limiting
+objects cached in-memory by the server that can be queried for subsets
+of data by limiting
 their size, the fields or the rows returned. Samples are handled
 through `bigml.Sample`.
 
