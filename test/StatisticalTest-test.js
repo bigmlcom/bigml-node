@@ -4,7 +4,7 @@ var assert = require('assert'),
 describe('Manage tests objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
-    testId, test = new bigml.Test();
+    testId, statisticalTest = new bigml.StatisticalTest();
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -20,7 +20,7 @@ describe('Manage tests objects', function () {
 
   describe('#create(dataset, args, callback)', function () {
     it('should create a test from a dataset', function (done) {
-      test.create(datasetId, undefined, function (error, data) {
+      statisticalTest.create(datasetId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         testId = data.resource;
         done();
@@ -29,7 +29,7 @@ describe('Manage tests objects', function () {
   });
   describe('#get(test, finished, query, callback)', function () {
     it('should retrieve a finished test', function (done) {
-      test.get(testId, true, function (error, data) {
+      statisticalTest.get(testId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
           done();
@@ -40,9 +40,9 @@ describe('Manage tests objects', function () {
   describe('#update(test, args, callback)', function () {
     it('should update properties in the test', function (done) {
       var newName = 'my new name';
-      test.update(testId, {name: newName}, function (error, data) {
+      statisticalTest.update(testId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        test.get(testId, true, function (errorcb, datacb) {
+        statisticalTest.get(testId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
             assert.ok(true);
@@ -54,7 +54,7 @@ describe('Manage tests objects', function () {
   });
   describe('#delete(test, callback)', function () {
     it('should delete the remote test', function (done) {
-      test.delete(testId, function (error, data) {
+      statisticalTest.delete(testId, function (error, data) {
         assert.equal(error, null);
         done();
       });

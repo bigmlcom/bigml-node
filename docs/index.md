@@ -98,6 +98,9 @@ this will give you access to the following library structure:
     - bigml.AnomalyScore       Anomaly score API methods
     - bigml.BatchAnomalyScore  BatchAnomalyScore API methods
     - bigml.Project            Project API methods
+    - bigml.Sample             Sample API methods
+    - bigml.Correlation        Correlation API methods
+    - bigml.StatisticalTests   StatisticalTest API methods
     - bigml.LocalModel         Model for local predictions
     - bigml.LocalEnsemble      Ensemble for local predictions
     - bigml.LocalCluster       Cluster for local centroids
@@ -348,14 +351,14 @@ the metrics used to compute the correlation degree will change. Check the
 for a detailed description. Correlations are handled
 through `bigml.Correlation`.
 
-- **tests** These resources contain a series of statistical tests that
-compare the
+- **statistical tests** These resources contain a series of statistical tests
+that compare the
 distribution of data in each numeric field to certain canonical distributions,
 such as the
 [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution)
 or [Benford's law](https://en.wikipedia.org/wiki/Benford%27s_law)
-distribution. Tests are handled
-through `bigml.Test`.
+distribution. Statistical tests are handled
+through `bigml.StatisticalTest`.
 
 
 Creating resources
