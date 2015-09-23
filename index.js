@@ -53,6 +53,12 @@ module.exports = {
   Correlation: require('./lib/Correlation'),
   // Statistical Tests REST api interface
   StatisticalTest: require('./lib/StatisticalTest'),
+  // Script REST api interface
+  Script: require('./lib/Script'),
+  // Local Model object for local predictions
+  Library: require('./lib/Library'),
+  // Local Model object for local predictions
+  Execution: require('./lib/Execution'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions

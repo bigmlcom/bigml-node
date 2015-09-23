@@ -1,7 +1,7 @@
 var assert = require('assert'),
   bigml = require('../index');
 
-describe('Manage tests objects', function () {
+describe('Manage StatisticalTests objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     testId, statisticalTest = new bigml.StatisticalTest();
