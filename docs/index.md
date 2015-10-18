@@ -235,8 +235,25 @@ use:
 ```
 to recover and show the source information.
 
+You can work with different credentials by setting them in the connection
+object, as explained in the Authentication section.
+
+```js
+    bigml = require('bigml');
+    var connection = new bigml.BigML('myusername',
+                                     'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291')
+    // the new Source object will use the connection credentials for remote
+    // authentication.
+    var source = new bigml.Source(connection);
+    source.get('source/51b25fb237203f4410000010' function (error, resource) {
+        if (!error && resource) {
+          console.log(resource);
+        }
+      })
+```
+
 You can also generate local predictions using the information of your
-models::
+models:
 
 ```js
     bigml = require('bigml');

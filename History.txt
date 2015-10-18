@@ -2,6 +2,7 @@
 
 * Fixing bug in Prediction objects when explicit credentials were used
   via a BigML connection.
+* Adding next predicates to local model predictions.
 
 === 1.5.0 / 2015-07-29
 
