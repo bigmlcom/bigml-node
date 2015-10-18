@@ -1,3 +1,8 @@
+=== 1.5.1 / 2015-10-19
+
+* Fixing bug in Prediction objects when explicit credentials were used
+  via a BigML connection.
+
 === 1.5.0 / 2015-07-29
 
 * Adding REST methods for Correlation object calls.
