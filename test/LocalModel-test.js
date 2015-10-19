@@ -8,7 +8,27 @@ describe('Manage local model objects', function () {
     missingSplits = {"missing_splits": false},
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, firstPredictionConfidence, secondPredictionConfidence,
-    proportionalConfidence = 0.8407512606105803;
+    proportionalConfidence = 0.8407512606105803,
+    inputData1 = {'petal length': 0.5},
+    inputData2 = {'petal length': 2.5},
+    prediction1 = {
+      prediction: 'Iris-setosa',
+      path: [ 'petal length <= 2.45' ],
+      confidence: 0.92865,
+      distribution: [ [ 'Iris-setosa', 50 ] ],
+      count: 50,
+      nextPredicates: [] },
+    prediction2 = {
+      prediction: 'Iris-versicolor',
+      path: [ 'petal length > 2.45' ],
+      confidence: 0.40383,
+      distribution: [ [ 'Iris-versicolor', 50 ], [ 'Iris-virginica', 50 ] ],
+      count: 100,
+      nextPredicates:
+        [ { operator: '>', field: '000003', value: 1.75, count: 46 },
+          { operator: '<=', field: '000003', value: 1.75, count: 54 } ] }
+
+
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -60,7 +80,7 @@ describe('Manage local model objects', function () {
     });
   });
   describe('#predict(inputData, callback)', function () {
-    it('should predict asynchronously from input data keyed by field id', 
+    it('should predict asynchronously from input data keyed by field id',
        function (done) {
       localModel.predict({'000003': 0.5}, function (error, data) {
         assert.equal(data.prediction, 'Iris-setosa');
@@ -100,8 +120,16 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict(inputData1, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction1));
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localModel.predict(inputData2, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction2));
         done();
       });
     });
@@ -114,8 +142,8 @@ describe('Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localModel.predict({'petal width': 0.5}, function (error, data) {
-        assert.equal(data.prediction, 'Iris-setosa');
+      localModel.predict(inputData2, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction2));
         done();
       });
     });
