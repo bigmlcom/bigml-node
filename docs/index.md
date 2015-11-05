@@ -81,30 +81,32 @@ To use the library, import it with `require`:
 
 this will give you access to the following library structure:
 
-    - bigml.constants          common constants
-    - bigml.BigML              connection object
-    - bigml.Resource           common API methods
-    - bigml.Source             Source API methods
-    - bigml.Dataset            Dataset API methods
-    - bigml.Model              Model API methods
-    - bigml.Ensemble           Ensemble API methods
-    - bigml.Prediction         Prediction API methods
-    - bigml.BatchPrediction    BatchPrediction API methods
-    - bigml.Evaluation         Evaluation API methods
-    - bigml.Cluster            Cluster API methods
-    - bigml.Centroid           Centroid API methods
-    - bigml.BatchCentroid      BatchCentroid API methods
-    - bigml.Anomaly            Anomaly detector API methods
-    - bigml.AnomalyScore       Anomaly score API methods
-    - bigml.BatchAnomalyScore  BatchAnomalyScore API methods
-    - bigml.Project            Project API methods
-    - bigml.Sample             Sample API methods
-    - bigml.Correlation        Correlation API methods
-    - bigml.StatisticalTests   StatisticalTest API methods
-    - bigml.LocalModel         Model for local predictions
-    - bigml.LocalEnsemble      Ensemble for local predictions
-    - bigml.LocalCluster       Cluster for local centroids
-    - bigml.LocalAnomaly       Anomaly detector for local anomaly scores
+    - bigml.constants                   common constants
+    - bigml.BigML                       connection object
+    - bigml.Resource                    common API methods
+    - bigml.Source                      Source API methods
+    - bigml.Dataset                     Dataset API methods
+    - bigml.Model                       Model API methods
+    - bigml.Ensemble                    Ensemble API methods
+    - bigml.Prediction                  Prediction API methods
+    - bigml.BatchPrediction             BatchPrediction API methods
+    - bigml.Evaluation                  Evaluation API methods
+    - bigml.Cluster                     Cluster API methods
+    - bigml.Centroid                    Centroid API methods
+    - bigml.BatchCentroid               BatchCentroid API methods
+    - bigml.Anomaly                     Anomaly detector API methods
+    - bigml.AnomalyScore                Anomaly score API methods
+    - bigml.BatchAnomalyScore           BatchAnomalyScore API methods
+    - bigml.Project                     Project API methods
+    - bigml.Sample                      Sample API methods
+    - bigml.Correlation                 Correlation API methods
+    - bigml.StatisticalTests            StatisticalTest API methods
+    - bigml.LogisticRegression          LogisticRegression API methods
+    - bigml.LocalModel                  Model for local predictions
+    - bigml.LocalEnsemble               Ensemble for local predictions
+    - bigml.LocalCluster                Cluster for local centroids
+    - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
+    - bigml.LocalLogisticRegression     Logistic regression model for local predictions
 
 
 Authentication
@@ -376,6 +378,15 @@ such as the
 or [Benford's law](https://en.wikipedia.org/wiki/Benford%27s_law)
 distribution. Statistical tests are handled
 through `bigml.StatisticalTest`.
+
+- **logistic regressions** These resources are models to solve classification
+problems by predicting one field of the dataset, the objective field,
+based on the values of the other fields, the input fields. The prediction
+is made using a logistic function whose argument is a linear combination
+of the predictor's values. Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/logisticregressions)
+for a detailed description. These resources
+are handled through `bigml.LogisticRegression`.
 
 
 Creating resources
@@ -1031,6 +1042,85 @@ whether they belong to an ensemble or not:
     localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
+
+Local Logistic Regressions
+--------------------------
+
+A remote logistic regression model encloses all the information
+required to predict the categorical value of the objective field associated
+to a given input data set.
+Thus, you can build a local version of
+a logistic regression model and predict the category locally using
+the `LocalLogisticRegression` class.
+
+```js
+    var bigml = require('bigml');
+    var localLogisticRegression = new bigml.LocalLogisticRegression(
+        'logisticregression/51922d0b37203f2a8c001010');
+    localLogisticRegression.predict({'petal length': 1, 'petal width': 1,
+                                     'sepal length': 1, 'sepal width': 1},
+                          function(error, prediction) {
+                            console.log(prediction)});
+```
+
+Note that, to find the associated prediction, input data cannot contain missing
+values in numeric fields. The predict method can also be used labelling
+input data with the corresponding field id.
+
+As you see, the first parameter to the `LocalLogisticRegression` constructor
+is a logistic regression id (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localLogisticRegression = new bigml.LocalLogisticRegression(
+        'logisticregression/51922d0b37203f2a8c001010',
+        new bigml.BigML(myUser, myKey));
+    localLogisticRegression.predict({'000000': 1, '000001': 1,
+                           '000002': 1, '000003': 1},
+                          function(error, prediction) {
+                            console.log(prediction)});
+```
+
+When the first argument is a finished logistic regression object,
+the constructor creates immediately
+a `LocalLogisticRegression` instance ready to predict. Then,
+the `LocalLogisticRegression.predict`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var logisticRegression = new bigml.LogisticRegression();
+    logisticRegression.get('logisticregression/51b3c45a37203f16230000b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localLogisticRegression = new bigml.LocalLogisticRegression(
+            resource);
+          var prediction = localLogisticRegression.predict(
+            {'000000': 1, '000001': 1,
+             '000002': 1, '000003': 1});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the logistic regression will be downloaded respectively.
+Beware of using
+filtered fields logistic regressions to instantiate a local logistic regression
+object. If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote logistic
+regression
+information. The callback code, where the `localLogisticRegression`
+and predictions
+are built, is strictly local.
 
 Local Clusters
 --------------
