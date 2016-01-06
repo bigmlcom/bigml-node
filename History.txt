@@ -1,6 +1,10 @@
+=== 1.7.0 / 2016-01-07
+
+* Adapting LocalModel object to new items field type.
+
 === 1.6.0 / 2015-11-03
 
-- Adding REST methods and local object for new Logistic Regression resource.
+* Adding REST methods and local object for new Logistic Regression resource.
 
 === 1.5.1 / 2015-10-19
 
