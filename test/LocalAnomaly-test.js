@@ -19,7 +19,7 @@ describe('Manage local anomaly objects', function () {
                  'dst_host_srv_diff_host_rate': 0.0, 'dst_host_srv_count': 9.0,
                  'srv_diff_host_rate': 0.0, 'dst_host_count': 9.0,
                  'dst_bytes': 5450.0, 'dst_host_serror_rate': 0.0},
-    firstAnomaly = '(and (= (f "000004") 183) (= (f "000005") 8654) (= (f "000009") "0") (= (f "000016") 4) (= (f "000017") 4) (= (f "000018") 0.25) (= (f "000019") 0.25) (= (f "00001e") 0) (= (f "00001f") 123) (= (f "000020") 255) (= (f "000023") 0.01) (= (f "000024") 0.04) (= (f "000025") 0.01) (= (f "000026") 0))',
+    firstAnomaly = '(and (= (f "000004") 183) (= (f "000005") 8654) (= (f "000009") "0") (= (f "000016") 4) (= (f "000017") 4) (= (f "000018") 0.25) (= (f "000019") 0.25) (missing? "00001e") (= (f "00001f") 123) (= (f "000020") 255) (= (f "000023") 0.01) (= (f "000024") 0.04) (= (f "000025") 0.01) (missing? "000026"))',
     seed = 'BigML tests';
 
   before(function (done) {
