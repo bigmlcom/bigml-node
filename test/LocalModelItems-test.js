@@ -30,7 +30,8 @@ describe('Manage local model objects', function () {
               modelResource = data;
               model.get(modelResource, true, 'only_model=true', function (error, data) {
                 modelFinishedResource = data;
-                prediction = prediction.create(modelId, inputData1, function (error, data) {
+                prediction.create(modelId, inputData1, function (error, data) {
+                  predictionOutput = data['object'];
                   done();
                 });
               });
@@ -56,8 +57,8 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localModel.predict(inputData1, function (error, data) {
-        assert.equal(data.prediction, prediction['object']['output']);
-        assert.equal(data.confidence, prediction['object']['confidence']);
+        assert.equal(data.prediction, predictionOutput['output']);
+        assert.equal(data.confidence, predictionOutput['confidence']);
         done();
       });
     });
