@@ -5,40 +5,40 @@
 * Adding the missingNumerics attribute to local logistic regression and
   adapting code to handle missing numerics.
 
-=== 1.6.0 / 2015-2016-11-03
+=== 1.6.0 / 2015-11-03
 
 * Adding REST methods and local object for new Logistic Regression resource.
 
-=== 1.5.1 / 2015-2016-10-19
+=== 1.5.1 / 2015-10-19
 
 * Fixing bug in Prediction objects when explicit credentials were used
   via a BigML connection.
 * Adding next predicates to local model predictions.
 
-=== 1.5.0 / 2015-2016-07-29
+=== 1.5.0 / 2015-07-29
 
 * Adding REST methods for Correlation object calls.
 * Adding REST methods for Test object calls.
 
-=== 1.4.1 / 2015-2016-06-30
+=== 1.4.1 / 2015-06-30
 
 * Adding method to LocalAnomaly to get the filter that excludes or includes
   the top anomalies in the dataset.
 
-=== 1.4.0 / 2015-2016-02-19
+=== 1.4.0 / 2015-02-19
 
 * Adding the Samples object to support samples' REST calls.
 
-=== 1.3.1 / 2015-2016-01-28
+=== 1.3.1 / 2015-01-28
 
 * Fixing bug: centroids predictions failed for local clusters with summary
   fields.
 
-=== 1.3.0 / 2015-2016-01-21
+=== 1.3.0 / 2015-01-21
 
 * Adding projects REST API methods.
 
-=== 1.2.1 / 2015-2016-01-09
+=== 1.2.1 / 2015-01-09
 
 * Adding median to the local model prediction options.
 
