@@ -53,8 +53,10 @@ module.exports = {
   Correlation: require('./lib/Correlation'),
   // Statistical Tests REST api interface
   StatisticalTest: require('./lib/StatisticalTest'),
-  // Logistic Regression Tests REST api interface
+  // Logistic Regression REST api interface
   LogisticRegression: require('./lib/LogisticRegression'),
+  // Association REST api interface
+  Association: require('./lib/Association'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
@@ -64,5 +66,7 @@ module.exports = {
   // Local Anomaly detector object for local anomaly score predictions
   LocalAnomaly: require('./lib/LocalAnomaly'),
   // Local Logistic Regression object for local predictions
-  LocalLogisticRegression: require('./lib/LocalLogisticRegression')
+  LocalLogisticRegression: require('./lib/LocalLogisticRegression')//,
+  // Local Logistic Regression object for local predictions
+  // LocalAssociation: require('./lib/LocalAssociation')
 };
