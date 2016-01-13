@@ -102,11 +102,13 @@ this will give you access to the following library structure:
     - bigml.Correlation                 Correlation API methods
     - bigml.StatisticalTests            StatisticalTest API methods
     - bigml.LogisticRegression          LogisticRegression API methods
+    - bigml.Association                 Association API methods
     - bigml.LocalModel                  Model for local predictions
     - bigml.LocalEnsemble               Ensemble for local predictions
     - bigml.LocalCluster                Cluster for local centroids
     - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
     - bigml.LocalLogisticRegression     Logistic regression model for local predictions
+    - bigml.LocalAssociation            Association model for associaton rules
 
 
 Authentication
@@ -388,6 +390,11 @@ of the predictor's values. Check the
 for a detailed description. These resources
 are handled through `bigml.LogisticRegression`.
 
+- **associations** These resources are models to discover the existing
+associations between the field values in your dataset. Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/associations)
+for a detailed description. These resources
+are handled through `bigml.Association`.
 
 Creating resources
 ------------------
@@ -1274,6 +1281,68 @@ When the first argument is set to `true`, the filter corresponds to the top
 anomalies. On the contrary, if set to `false` the filter will exclude
 the top anomalies from the dataset.
 
+Local Associations
+------------------
+
+A remote association object encloses the information about which field values
+in your dataset are related. The values are structured as items and
+their relations are described as rules. The `LocalAssociation`
+class allows you to build a local version of this remote object, and get
+both the list of `Items` that can be related and the list of `AssociationRules`
+that describe such relations. Creating a `LocalAssociation` object is as
+simple as
+
+
+```js
+    var bigml = require('bigml');
+    var localAssociation = new bigml.LocalAssociation('association/51922d0b37203f2a8c003010');
+```
+
+and you can list the `AssociationRules` that it contains using the `getRules`
+method
+
+```js
+    var index = 0;
+    associationRules = localAssociation.getRules();
+    for (index = 0; index < associationRules.length; index++) {
+      console.log(associationRules[index].describe());
+    }
+```
+
+As you can see in the previous code, the `AssociationRule` object has a
+`describe` method that will generate a human-readable description of the
+rule.
+
+The `getRules` method accepts also several arguments that will allow you to
+filter the rules by its leverage, strength, support, p-value, the list of
+items they contain or a user-given filter function. See the method
+docstring for details.
+
+Similarly, you can obtain the list of `Items` involved in the association
+rules
+
+```js
+    var index = 0;
+    items = localAssociation.getItems();
+    for (index = 0; index < items.length; index++) {
+      console.log(items[index].describe());
+    }
+```
+
+and they can be filtered by their field ID, name, an object containing
+input data or a user-given function. See the method docstring for details.
+
+You can also save the rules to a CSV file using the `rulesCSV` method
+
+```js
+    minimumLeverage = 0.3;
+    localAssociation.rulesCSV('./my_csv.csv',
+                              localAssociation.getRules(minimumLeverage));
+```
+
+as you can see, the first argument is the path to the CSV file where the
+rules will be stored and the second one is the list of rules. In this example,
+we are only storing the rules whose leverage is over the 0.3 threshold.
 
 Logging configuration
 ---------------------

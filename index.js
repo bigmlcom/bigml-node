@@ -66,7 +66,7 @@ module.exports = {
   // Local Anomaly detector object for local anomaly score predictions
   LocalAnomaly: require('./lib/LocalAnomaly'),
   // Local Logistic Regression object for local predictions
-  LocalLogisticRegression: require('./lib/LocalLogisticRegression')//,
+  LocalLogisticRegression: require('./lib/LocalLogisticRegression'),
   // Local Logistic Regression object for local predictions
-  // LocalAssociation: require('./lib/LocalAssociation')
+  LocalAssociation: require('./lib/LocalAssociation')
 };

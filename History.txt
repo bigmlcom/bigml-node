@@ -1,9 +1,11 @@
-=== 1.7.0 / 2016-01-07
+=== 1.7.0 / 2016-01-14
 
 * Adapting Local predictive objects (LocalModel, LocalCluster, etc.)
   to new items field type.
 * Adding the missingNumerics attribute to local logistic regression and
   adapting code to handle missing numerics.
+* Adding LocalAssociation object to handle Association Rules found in
+  association discovery.
 
 === 1.6.0 / 2015-11-03
 

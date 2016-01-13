@@ -27,7 +27,8 @@
     "combined-stream": "0.0.4",
     "mime": "1.2.2",
     "async": "0.2.7",
-    "jStat": "0.0.2"
+    "jStat": "0.0.2",
+    "fast-csv": "1.0.0"
   },
   "scripts": {
     "test": "mocha -t 80000"
