@@ -1315,8 +1315,20 @@ rule.
 
 The `getRules` method accepts also several arguments that will allow you to
 filter the rules by its leverage, strength, support, p-value, the list of
-items they contain or a user-given filter function. See the method
-docstring for details.
+items they contain or a user-given filter function. They can all be added
+as attributes of a filters object as first argument. The second argument can
+be a callback function. The previous example was a syncrhonous call to the
+method that will only work once the `localAssociation` object is ready. To
+use the method asyncrhonously you can use:
+
+```js
+    var associationRules;
+    localAssociation.getRules(
+      {minLeverage: 0.3}, \\ filter by minimum Leverage
+      function(error, data) {associationRules = data;}) \\ callback code
+```
+
+See the method docstring for filter options details.
 
 Similarly, you can obtain the list of `Items` involved in the association
 rules
@@ -1336,13 +1348,18 @@ You can also save the rules to a CSV file using the `rulesCSV` method
 
 ```js
     minimumLeverage = 0.3;
-    localAssociation.rulesCSV('./my_csv.csv',
-                              localAssociation.getRules(minimumLeverage));
+    localAssociation.rulesCSV(
+      './my_csv.csv', \\ fileName
+      {minLeverage: minimumLeverage}); \\ filters for the rules
 ```
 
 as you can see, the first argument is the path to the CSV file where the
 rules will be stored and the second one is the list of rules. In this example,
 we are only storing the rules whose leverage is over the 0.3 threshold.
+
+Both the `getItems` and the `rulesCSV` methods can also be called
+asynchronously as we saw for the `getRules` method.
+
 
 Logging configuration
 ---------------------
