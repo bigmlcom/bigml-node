@@ -143,8 +143,8 @@ setting the third parameter `devMode` to `true`::
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
                                  true);
 
-If your BigML install is not in `bigml.io` you can adapt your connection to
-point to your customized domain. For instance, if your user is in the
+If your BigML installation is not in `bigml.io` you can adapt your connection
+to point to your customized domain. For instance, if your user is in the
 australian site, your domain should point to `au.bigml.io`. This can be
 achieved by adding the::
 
