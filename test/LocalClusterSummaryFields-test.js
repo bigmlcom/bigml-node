@@ -50,7 +50,7 @@ describe('Manage local cluster objects with summary fields', function () {
       var inputData = {'petal width': 1, 'petal length': 1, 'sepal length': 1,
                        'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 4');
+        assert.equal(data.centroidName, 'Cluster 5');
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();

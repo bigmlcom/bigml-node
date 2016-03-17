@@ -7,7 +7,7 @@ describe('Manage anomaly score objects', function () {
     anomalyId, anomaly = new bigml.Anomaly(),
     anomalyScoreId, anomalyScore = new bigml.AnomalyScore(),
     inputData = {'src_bytes': 350},
-    testAnomalyScore = 0.92618;
+    testAnomalyScore = 0.92846;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {

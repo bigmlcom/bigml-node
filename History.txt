@@ -1,3 +1,8 @@
+=== 1.7.1 / 2016-03-17
+
+* Adding the ability to specify a customized domain in the connection
+  constructor.
+
 === 1.7.0 / 2016-01-14
 
 * Adapting Local predictive objects (LocalModel, LocalCluster, etc.)

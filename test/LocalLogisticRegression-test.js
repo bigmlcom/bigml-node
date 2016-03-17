@@ -8,7 +8,7 @@ describe('Manage local logistic regression objects', function () {
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
     localLogisticRegression,
-    prediction1 = {"prediction":"Iris-virginica","probability":0.5480947525526229,"distribution":[{"category":"Iris-virginica","probability":0.5480947525526229},{"category":"Iris-versicolor","probability":0.24437726797656012},{"category":"Iris-setosa","probability":0.20752797947081705}]},
+    prediction1 = {"prediction":"Iris-virginica","probability":0.7048801245207139,"distribution":[{"category":"Iris-virginica","probability":0.7048801245207139},{"category":"Iris-setosa","probability":0.1755755434484226},{"category":"Iris-versicolor","probability":0.11954433203086347}]},
     inputData1 = {'petal length': 1, 'sepal length': 1,
                   'petal width': 1, 'sepal width': 1};
 

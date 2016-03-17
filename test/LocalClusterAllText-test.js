@@ -6,7 +6,9 @@ describe('Manage local cluster objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     clusterId, cluster = new bigml.Cluster(), clusterResource,
     clusterFinishedResource, seed = 'BigML tests',
-    localCluster, firstCentroidDistance, secondCentroidDistance;
+    localCluster, firstCentroidDistance, secondCentroidDistance,
+    prediction1 = 'Cluster 2', prediction2 = 'Cluster 6',
+    prediction3 = 'Cluster 3';
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
@@ -53,7 +55,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'mobile mobile call'};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 7');
+        assert.equal(data.centroidName, prediction1);
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
@@ -72,7 +74,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids synchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'Ok'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 0');
+      assert.equal(prediction.centroidName, prediction2);
       secondCentroidDistance = prediction.distance;
       var centroidName = prediction.centroidName;
       var centroid = new bigml.Centroid();
@@ -90,7 +92,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids synchronously from empty input data', function (done) {
       var inputData = {};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 0');
+      assert.equal(prediction.centroidName, prediction3);
       secondCentroidDistance = prediction.distance;
       var centroidName = prediction.centroidName;
       var centroid = new bigml.Centroid();

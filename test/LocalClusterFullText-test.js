@@ -5,7 +5,8 @@ describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(), seed = 'BigML tests',
     clusterId, cluster = new bigml.Cluster(), clusterResource, clusterFinishedResource,
-    localCluster, firstCentroidDistance, secondCentroidDistance;
+    localCluster, firstCentroidDistance, secondCentroidDistance,
+    prediction1 = 'Cluster 3', prediction2 = 'Cluster 0';
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}},
@@ -52,7 +53,7 @@ describe('Manage local cluster objects', function () {
     it('should predict centroids asynchronously from input data', function (done) {
       var inputData = {'Type': 'spam', "Message": "FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 87077 Get txting and tell ur mates. zed POBox 36504 W45WQ norm150p/tone 16+"};
       localCluster.centroid(inputData, function (error, data) {
-        assert.equal(data.centroidName, 'Cluster 1');
+        assert.equal(data.centroidName, prediction1);
         firstCentroidDistance = data.distance;
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
@@ -71,7 +72,7 @@ describe('Manage local cluster objects', function () {
     it('should predict synchronously from input data', function (done) {
       var inputData = {'Type': 'ham', 'Message': 'Ok'};
       var prediction = localCluster.centroid(inputData);
-      assert.equal(prediction.centroidName, 'Cluster 0');
+      assert.equal(prediction.centroidName, prediction2);
       secondCentroidDistance = prediction.distance;
       var centroidName = prediction.centroidName;
       var centroid = new bigml.Centroid();

@@ -134,14 +134,33 @@ Otherwise, you can initialize directly when instantiating the BigML
 class as follows::
 
     connection = new bigml.BigML('myusername',
-                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291')
+                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291');
 
 Also, you can initialize the library to work in the Sandbox environment by
 setting the third parameter `devMode` to `true`::
 
     connection = new bigml.BigML('myusername',
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
-                                 true)
+                                 true);
+
+If your BigML install is not in `bigml.io` you can adapt your connection to
+point to your customized domain. For instance, if your user is in the
+australian site, your domain should point to `au.bigml.io`. This can be
+achieved by adding the::
+
+    export BIGML_DOMAIN=au.bigml.io
+
+environment variable and your connection object will take its value and
+create the convenient urls. You can also set this value dinamically (together
+with the protocol used, if you need to change it)::
+
+    connection = new bigml.BigML('myusername',
+                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
+                                 true, {domain: 'au.bigml.io',
+                                        protocol: 'https'});
+
+The default if no domain or protocol information is provided, the connection
+is uses `bigml.io` and `https` as default.
 
 Quick Start
 -----------

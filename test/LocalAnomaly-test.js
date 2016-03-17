@@ -6,7 +6,7 @@ describe('Manage local anomaly objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     anomalyId, anomaly = new bigml.Anomaly(), anomalyResource,
     anomalyFinishedResource,
-    localAnomaly, firstScore = 0.4996465331927706,
+    localAnomaly, firstScore = 0.5098650089562002,
     inputDataById = {'000020': 9.0, '000004': 181.0, '000016': 8.0,
                      '000024': 0.0, '000025': 0.0, '000026': 0.0,
                      '000019': 0.0, '000017': 8.0, '000018': 0.0,
