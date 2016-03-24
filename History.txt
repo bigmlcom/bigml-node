@@ -1,3 +1,8 @@
+=== 1.7.2 / 2016-03-24
+
+* Fixing bug in predictions from missing input data for text and items fields.
+  The prediction now follows one branch instead of returning last prediction.
+
 === 1.7.1 / 2016-03-17
 
 * Adding the ability to specify a customized domain in the connection
