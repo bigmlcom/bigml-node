@@ -50,7 +50,7 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localModel.predict({}, function (error, data) {
-        assert.equal(data.prediction, 'paperwork');
+        assert.equal(data.prediction, 'swap');
         firstPredictionConfidence = data.confidence;
         done();
       });
@@ -59,6 +59,20 @@ describe('Manage local model objects', function () {
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data', function () {
       var prediction = localModel.predict({});
+      assert.equal(prediction.prediction, 'swap');
+      secondPredictionConfidence = prediction.confidence;
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously with proportional missing strategy from input data', function () {
+      var prediction = localModel.predict({});
+      assert.equal(prediction.prediction, 'swap');
+      secondPredictionConfidence = prediction.confidence;
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously with proportional missing strategy from input data', function () {
+      var prediction = localModel.predict({"category1": "a"});
       assert.equal(prediction.prediction, 'paperwork');
       secondPredictionConfidence = prediction.confidence;
     });
