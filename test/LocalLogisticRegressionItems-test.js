@@ -60,7 +60,7 @@ describe('Manage local logistic objects', function () {
       localLogisticRegression.predict(inputData1, function (error, data) {
         assert.equal(data["prediction"], prediction1["object"]["output"]);
         var index, probabilities = prediction1['object']['probabilities'],
-          len = probabilities.length, probability;
+          len = probabilities.length, probability, distribution = [];
         for (index = 0; index < len; index++) {
           if (prediction1['object']['output'] == probabilities[index][0]) {
             probability = probabilities[index][1];

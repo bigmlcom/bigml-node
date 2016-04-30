@@ -60,7 +60,7 @@ describe('Manage local logistic objects', function () {
       localLogisticRegression.predict(inputData1, function (error, data) {
         assert.equal(data["prediction"], prediction1["object"]["output"]);
         var index, probabilities = prediction1['object']['probabilities'],
-          len = probabilities.length, probability;
+          len = probabilities.length, probability, distribution = [];
         for (index = 0; index < len; index++) {
           if (prediction1['object']['output'] == probabilities[index][0]) {
             probability = probabilities[index][1];
@@ -80,7 +80,7 @@ describe('Manage local logistic objects', function () {
       var prediction = localLogisticRegression.predict(inputData2);
       assert.equal(prediction["prediction"], prediction2["object"]["output"]);
       var index, probabilities = prediction2['object']['probabilities'],
-        len = probabilities.length, probability;
+        len = probabilities.length, probability, distribution = [];
       for (index = 0; index < len; index++) {
         if (prediction2['object']['output'] == probabilities[index][0]) {
           probability = probabilities[index][1];
@@ -99,7 +99,7 @@ describe('Manage local logistic objects', function () {
       localLogisticRegression.predict({'000001': 'mobile Mobile call'}, function (error, data) {
         assert.equal(data["prediction"], prediction1["object"]["output"]);
         var index, probabilities = prediction1['object']['probabilities'],
-          len = probabilities.length, probability;
+          len = probabilities.length, probability, distribution = [];
         for (index = 0; index < len; index++) {
           if (prediction1['object']['output'] == probabilities[index][0]) {
             probability = probabilities[index][1];
@@ -120,7 +120,7 @@ describe('Manage local logistic objects', function () {
       var prediction = localLogisticRegression.predict({'000001': 'A normal message'});
       assert.equal(prediction["prediction"], prediction2["object"]["output"]);
       var index, probabilities = prediction2['object']['probabilities'],
-        len = probabilities.length, probability;
+        len = probabilities.length, probability, distribution = [];
       for (index = 0; index < len; index++) {
         if (prediction2['object']['output'] == probabilities[index][0]) {
           probability = probabilities[index][1];
@@ -151,7 +151,7 @@ describe('Manage local logistic objects', function () {
       localLogisticRegression.predict({'Message': 'A normal message'}, function (error, data) {
         assert.equal(data["prediction"], prediction2["object"]["output"]);
         var index, probabilities = prediction2['object']['probabilities'],
-          len = probabilities.length, probability;
+          len = probabilities.length, probability, distribution = [];
         for (index = 0; index < len; index++) {
           if (prediction2['object']['output'] == probabilities[index][0]) {
             probability = probabilities[index][1];
@@ -177,7 +177,7 @@ describe('Manage local logistic objects', function () {
       localLogisticRegression.predict({'Message': 'A normal message'}, function (error, data) {
         assert.equal(data["prediction"], prediction2["object"]["output"]);
         var index, probabilities = prediction2['object']['probabilities'],
-          len = probabilities.length, probability;
+          len = probabilities.length, probability, distribution = [];
         for (index = 0; index < len; index++) {
           if (prediction2['object']['output'] == probabilities[index][0]) {
             probability = probabilities[index][1];

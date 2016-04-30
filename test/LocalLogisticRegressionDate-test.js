@@ -3,14 +3,13 @@ var assert = require('assert'),
   constants = require('../lib/constants');
 
 describe('Manage local logistic regression objects', function () {
-  var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+  var sourceId, source = new bigml.Source(), path = './data/price.csv',
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
-    localLogisticRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction":"Iris-virginica","probability":0.7048801245207139,"distribution":[{"category":"Iris-virginica","probability":0.7048801245207139},{"category":"Iris-setosa","probability":0.1755755434484226},{"category":"Iris-versicolor","probability":0.11954433203086347}]},
-    inputData1 = {'petal length': 1, 'sepal length': 1,
-                  'petal width': 1, 'sepal width': 1};
+    localLogisticRegression,
+    prediction1 = {"prediction":"Product2","probability":0.9993123276433774,"distribution":[{"category":"Product2","probability":0.9993123276433774},{"category":"Product1","probability":0.0006876723566225701}]},
+    inputData1 = {'Price': 1200};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
