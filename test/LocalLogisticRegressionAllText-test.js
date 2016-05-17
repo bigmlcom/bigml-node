@@ -6,10 +6,11 @@ describe('Manage local logistic objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
-    localLogistic, prediction1, prediction2,
+    localLogistic, prediction1, prediction2, prediction3,
     prediction = new bigml.Prediction(),
     inputData1 = {'Message': 'mobile Mobile call'},
-    inputData2 = {'Message': 'A normal message'};
+    inputData2 = {'Message': 'A normal message'},
+    inputData3 = {'Message': 'mobile'};
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
@@ -32,7 +33,10 @@ describe('Manage local logistic objects', function () {
                   prediction1 = data
                   prediction.create(logisticResource, inputData2, function(error, data) {
                     prediction2 = data
-                    done();
+                      prediction.create(logisticResource, inputData3, function(error, data) {
+                        prediction3 = data
+                        done();
+                      });
                   });
                 });
               });
@@ -84,6 +88,24 @@ describe('Manage local logistic objects', function () {
         len = probabilities.length, probability, distribution = [];
       for (index = 0; index < len; index++) {
         if (prediction2['object']['output'] == probabilities[index][0]) {
+          probability = probabilities[index][1];
+          break;
+        }
+        distribution.push({category: probabilities[index][0],
+                           probability: probabilities[index][1]});
+      }
+      assert.equal(Math.round(prediction['probability'] * 100000, 5) / 100000,
+                   probability)
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data', function () {
+      var prediction = localLogisticRegression.predict(inputData3);
+      assert.equal(prediction["prediction"], prediction3["object"]["output"]);
+      var index, probabilities = prediction3['object']['probabilities'],
+        len = probabilities.length, probability, distribution = [];
+      for (index = 0; index < len; index++) {
+        if (prediction3['object']['output'] == probabilities[index][0]) {
           probability = probabilities[index][1];
           break;
         }
