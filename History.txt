@@ -1,7 +1,9 @@
-=== 1.7.3 / 2016-05-01
+=== 1.7.3 / 2016-05-17
 
 * Fixing bug in logistic regression predictions for datasets with date-time
   fields.
+* Fixing bug in logistic regression predictions for text fields when inputData
+  has only one word and token_mode = all is used.
 
 === 1.7.2 / 2016-03-24
 
