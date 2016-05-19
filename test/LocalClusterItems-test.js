@@ -10,7 +10,7 @@ describe('Manage local cluster objects', function () {
     inputData = {"gender": "Female", "genres": "Adventure$Action",
                  "timestamp": 993906291, "occupation": "K-12 student",
                  "zipcode": 59583, "rating": 3, "age_range": "25-34"},
-    centroidName = "Cluster 2";
+    centroidName = "Cluster 5";
 
   before(function (done) {
     var itemsField = {

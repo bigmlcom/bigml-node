@@ -103,6 +103,9 @@ this will give you access to the following library structure:
     - bigml.StatisticalTests            StatisticalTest API methods
     - bigml.LogisticRegression          LogisticRegression API methods
     - bigml.Association                 Association API methods
+    - bigml.Script                      Script API methods
+    - bigml.Execution                   Execution API methods
+    - bigml.Library                     Library API methods
     - bigml.LocalModel                  Model for local predictions
     - bigml.LocalEnsemble               Ensemble for local predictions
     - bigml.LocalCluster                Cluster for local centroids
@@ -414,6 +417,28 @@ associations between the field values in your dataset. Check the
 [developers documentation](https://ozone.dev.bigml.com/developers/associations)
 for a detailed description. These resources
 are handled through `bigml.Association`.
+
+- **scripts** These resources are Whizzml scripts, that can be created
+to handle workflows, which provide a means of automating the creation and
+management of the rest of resources. Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/scripts)
+for a detailed description. These resources
+are handled through `bigml.Script`.
+
+- **executions** These resources are Whizzml scripts' executions, that
+can be created to execute the workflows defined in the `Whizzml scripts`.
+Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/executions)
+for a detailed description. These resources
+are handled through `bigml.Execution`.
+
+- **libraries** These resources are Whizzml libraries, that
+can be created to store definitions of constants and functions which can
+be imported and used in the `Whizzml scripts`.
+Check the
+[developers documentation](https://ozone.dev.bigml.com/developers/libraries)
+for a detailed description. These resources
+are handled through `bigml.Library`.
 
 Creating resources
 ------------------

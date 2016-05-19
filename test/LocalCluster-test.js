@@ -6,7 +6,7 @@ describe('Manage local cluster objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     clusterId, cluster = new bigml.Cluster(), clusterResource, clusterFinishedResource,
     localCluster, firstCentroidDistance, secondCentroidDistance, thirdCentroidDistance,
-    seed = 'BigML tests', prediction1 = 'Cluster 2', prediction2 = 'Cluster 3';
+    seed = 'BigML tests', prediction1 = 'Cluster 5', prediction2 = 'Cluster 0';
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {

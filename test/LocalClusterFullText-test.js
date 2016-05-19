@@ -6,7 +6,7 @@ describe('Manage local cluster objects', function () {
     datasetId, dataset = new bigml.Dataset(), seed = 'BigML tests',
     clusterId, cluster = new bigml.Cluster(), clusterResource, clusterFinishedResource,
     localCluster, firstCentroidDistance, secondCentroidDistance,
-    prediction1 = 'Cluster 3', prediction2 = 'Cluster 0';
+    prediction1 = 'Cluster 1', prediction2 = 'Cluster 0';
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'full_terms_only'}}}},
