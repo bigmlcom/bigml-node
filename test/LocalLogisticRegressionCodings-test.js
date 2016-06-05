@@ -73,6 +73,7 @@ describe('Manage local logistic regression objects', function () {
       });
   });
 
+
   describe('LocalLogisticRegression(logisticId)', function () {
     it('should create a LocalLogisticRegression from a logistic regression Id',
       function (done) {
@@ -168,7 +169,6 @@ describe('Manage local logistic regression objects', function () {
       });
     });
   });
-
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
