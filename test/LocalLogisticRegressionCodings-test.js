@@ -27,14 +27,17 @@ describe('Manage local logistic regression objects', function () {
     logisticResource, logisticFinishedResource,
     localLogisticRegression, prediction = new bigml.Prediction(),
     objective1 = "000000",
-    fieldCodings1 = {species: {contrast: [[1, 2, -1, -2]]}}
+    fieldCodings1 = [{"field": "species", "coding": "contrast",
+                      "coefficients": [[1, 2, -1, -2]]}],
     prediction1 = {prediction: '5.5', probability: 0.04293},
     inputData1 = {'species': 'Iris-setosa'},
     objective2 = "000000",
-    fieldCodings2 = {species: {other: [[1, 2, -1, -2]]}}
+    fieldCodings2 = [{"field": "species", "coding": "other",
+                      "coefficients": [[1, 2, -1, -2]]}],
     prediction2 = prediction1,
     objective3 = "000000",
-    fieldCodings3 = {species: {dummy: "Iris-setosa"}},
+    fieldCodings3 = [{"field": "species", "coding": "dummy",
+                      "dummy_class": "Iris-setosa"}],
     prediction3 = {prediction: '5.0', probability: 0.02857};
 
   before(function (done) {
@@ -159,7 +162,6 @@ describe('Manage local logistic regression objects', function () {
         data.probability = truncate(data.probability, 5);
         assert.equal(JSON.stringify(data), JSON.stringify(prediction3));
         prediction.create(logisticId3, inputData1, function (error, data) {
-            console.log(data.object.probabilities);
             apiPrediction = formatAPIPrediction(data);
               assert.equal(JSON.stringify(apiPrediction),
                            JSON.stringify(prediction3));
