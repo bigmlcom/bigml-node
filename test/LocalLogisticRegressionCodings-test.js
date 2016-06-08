@@ -22,7 +22,7 @@ function truncate(number, decimals) {
 describe('Manage local logistic regression objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
-    logisticId1, logisticId2, logisticId3,
+    logisticId1, logisticId2, logisticId3, logisticId4,
     logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
     localLogisticRegression, prediction = new bigml.Prediction(),
@@ -38,7 +38,11 @@ describe('Manage local logistic regression objects', function () {
     objective3 = "000000",
     fieldCodings3 = [{"field": "species", "coding": "dummy",
                       "dummy_class": "Iris-setosa"}],
-    prediction3 = {prediction: '5.0', probability: 0.02857};
+    prediction3 = {prediction: '5.0', probability: 0.02857},
+    objective4 = "000000",
+    fieldCodings4 = [{"field": "species", "coding": "other",
+                      "coefficients": [[1, 2, -1]]}],
+    prediction4 = {"prediction":"5.5","probability":0.04293};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -67,14 +71,22 @@ describe('Manage local logistic regression objects', function () {
                              assert.equal(data.code,
                                           bigml.constants.HTTP_CREATED);
                              logisticId3 = data.resource;
-                             done();
+                              logistic.create(datasetId,
+                                {field_codings: fieldCodings4,
+                                 objective_field: objective4},
+                                   function (error, data) {
+                                     assert.equal(data.code,
+                                                  bigml.constants.HTTP_CREATED);
+                                     logisticId4 = data.resource;
+                                     done();
+                                    });
+                              });
                             });
                       });
                 });
             });
           });
       });
-  });
 
 
   describe('LocalLogisticRegression(logisticId)', function () {
@@ -171,6 +183,38 @@ describe('Manage local logistic regression objects', function () {
       });
     });
   });
+
+  describe('LocalLogisticRegression(logisticId)', function () {
+    it('should create a LocalLogisticRegression from a logistic regression Id',
+      function (done) {
+      localLogisticRegression = new bigml.LocalLogisticRegression(logisticId4);
+      if (localLogisticRegression.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        localLogisticRegression.on('ready', function () {assert.ok(true);
+          done();
+          });
+      }
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localLogisticRegression.predict(inputData1, function (error, data) {
+        delete data["distribution"];
+        data.probability = truncate(data.probability, 5);
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction4));
+        prediction.create(logisticId4, inputData1, function (error, data) {
+            apiPrediction = formatAPIPrediction(data);
+              assert.equal(JSON.stringify(apiPrediction),
+                           JSON.stringify(prediction4));
+            prediction.delete(data.resource);
+            done();
+          });
+      });
+    });
+  });
+
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
@@ -203,4 +247,12 @@ describe('Manage local logistic regression objects', function () {
       done();
     });
   });
+
+  after(function (done) {
+    logistic.delete(logisticId4, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+
 });
