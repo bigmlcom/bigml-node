@@ -1,6 +1,6 @@
 var assert = require('assert'),
   bigml = require('../index');
-try {
+
 describe('Manage logistic regression objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(), datasetId2,
@@ -97,4 +97,3 @@ describe('Manage logistic regression objects', function () {
     });
   });
 });
-} catch (e) {console.log(e);}

@@ -113,7 +113,7 @@ describe('Manage local logistic regression objects', function () {
             apiPrediction = formatAPIPrediction(data);
               assert.equal(JSON.stringify(apiPrediction),
                            JSON.stringify(prediction1));
-            prediction.delete(data.resource);
+            prediction.delete(data.resource, function (error, data){});
             done();
           });
       });
@@ -145,7 +145,7 @@ describe('Manage local logistic regression objects', function () {
             apiPrediction = formatAPIPrediction(data);
               assert.equal(JSON.stringify(apiPrediction),
                            JSON.stringify(prediction2));
-            prediction.delete(data.resource);
+            prediction.delete(data.resource, function (error, data){});
             done();
           });
       });
@@ -177,7 +177,7 @@ describe('Manage local logistic regression objects', function () {
             apiPrediction = formatAPIPrediction(data);
               assert.equal(JSON.stringify(apiPrediction),
                            JSON.stringify(prediction3));
-            prediction.delete(data.resource);
+            prediction.delete(data.resource, function (error, data){});
             done();
           });
       });
@@ -208,7 +208,7 @@ describe('Manage local logistic regression objects', function () {
             apiPrediction = formatAPIPrediction(data);
               assert.equal(JSON.stringify(apiPrediction),
                            JSON.stringify(prediction4));
-            prediction.delete(data.resource);
+            prediction.delete(data.resource, function (error, data){});
             done();
           });
       });
