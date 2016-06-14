@@ -1,3 +1,7 @@
+=== 1.8.2 / 2016-06-14
+
+* Fixing bug in Local Logistic Regression with many field_codings.
+
 === 1.8.1 / 2016-06-10
 
 * Adapting Local Logistic Regression to new backend structure: field_codings.
