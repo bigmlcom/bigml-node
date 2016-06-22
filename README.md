@@ -36,7 +36,7 @@ The only mandatory third-party dependencies are the
 [winston](https://github.com/flatiron/winston.git) and
 [form-data](https://github.com/felixge/node-form-data.git) libraries.
 
-The testing environment requires the additional 
+The testing environment requires the additional
 [mocha](https://github.com/visionmedia/mocha) package that can be installed
 with the following command:
 
@@ -78,17 +78,37 @@ To use the library, import it with `require`:
 
 this will give you access to the following library structure:
 
-    - bigml.constants       common constants
-    - bigml.BigML           connection object
-    - bigml.Resource        common API methods
-    - bigml.Source          Source API methods
-    - bigml.Dataset         Dataset API methods
-    - bigml.Model           Model API methods
-    - bigml.Ensemble        Ensemble API methods
-    - bigml.Prediction      Prediction API methods
-    - bigml.Evaluation      Evaluation API methods
-    - bigml.LocalModel      Model for local predictions
-    - bigml.LocalEnsemble   Ensemble for local predictions
+    - bigml.constants                   common constants
+    - bigml.BigML                       connection object
+    - bigml.Resource                    common API methods
+    - bigml.Source                      Source API methods
+    - bigml.Dataset                     Dataset API methods
+    - bigml.Model                       Model API methods
+    - bigml.Ensemble                    Ensemble API methods
+    - bigml.Prediction                  Prediction API methods
+    - bigml.BatchPrediction             BatchPrediction API methods
+    - bigml.Evaluation                  Evaluation API methods
+    - bigml.Cluster                     Cluster API methods
+    - bigml.Centroid                    Centroid API methods
+    - bigml.BatchCentroid               BatchCentroid API methods
+    - bigml.Anomaly                     Anomaly detector API methods
+    - bigml.AnomalyScore                Anomaly score API methods
+    - bigml.BatchAnomalyScore           BatchAnomalyScore API methods
+    - bigml.Project                     Project API methods
+    - bigml.Sample                      Sample API methods
+    - bigml.Correlation                 Correlation API methods
+    - bigml.StatisticalTests            StatisticalTest API methods
+    - bigml.LogisticRegression          LogisticRegression API methods
+    - bigml.Association                 Association API methods
+    - bigml.Script                      Script API methods
+    - bigml.Execution                   Execution API methods
+    - bigml.Library                     Library API methods
+    - bigml.LocalModel                  Model for local predictions
+    - bigml.LocalEnsemble               Ensemble for local predictions
+    - bigml.LocalCluster                Cluster for local centroids
+    - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
+    - bigml.LocalLogisticRegression     Logistic regression model for local predictions
+    - bigml.LocalAssociation            Association model for associaton rules
 
 
 Authentication
@@ -99,7 +119,7 @@ and [API key](https://bigml.com/account/apikey) and are always
 transmitted over HTTPS.
 
 This module will look for your username and API key in the environment
-variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can 
+variables `BIGML_USERNAME` and `BIGML_API_KEY` respectively. You can
 add the following lines to your `.bashrc` or `.bash_profile` to set
 those variables automatically when you log in::
 
@@ -171,9 +191,9 @@ the last parameter,
 but if you don't the default action will be
 printing the resulting resource or the error. For the `create` method:
 
-    > result: 
+    > result:
     { code: 201,
-      object: 
+      object:
        { category: 0,
          code: 201,
          content_type: 'text/csv',
@@ -192,7 +212,7 @@ printing the resulting resource or the error. For the `create` method:
          resource: 'source/51b34c3c37203f4678000020',
          size: 4608,
          source_parser: {},
-         status: 
+         status:
           { code: 1,
             message: 'The request has been queued and will be processed soon' },
          subscription: false,
@@ -234,7 +254,7 @@ And similarly, for your ensembles
 ```js
     bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
-    localEnsemble.predict({'petal length': 1}, 0, 
+    localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
 
