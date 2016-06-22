@@ -538,7 +538,8 @@ method of ``Dataset`` objects.
 would generate a new dataset containing the subset of instances in the cluster
 associated to the centroid id ``000000``.
 
-Similarly, for models and ensembles you will need a dataset as first argument,
+Similarly, for models, ensembles and logistic regressions
+you will need a dataset as first argument,
 evaluations will need a model as first argument and a dataset as second one and
 predictions need a model as first argument too:
 
