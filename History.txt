@@ -1,6 +1,8 @@
 === 1.8.4 / 2016-06-07
 
 * Fixing bug: LocalEnsemble failed when using a explicit connection object.
+* Changing next predicates for LocalModel object when items or text fields
+  are missing in input data.
 
 === 1.8.3 / 2016-06-23
 
