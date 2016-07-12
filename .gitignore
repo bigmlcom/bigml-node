@@ -6,6 +6,7 @@ lib-cov
 *.pid
 *.gz
 *.*~
+test/credentials.txt
 
 pids
 logs
