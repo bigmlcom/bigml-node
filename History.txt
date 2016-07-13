@@ -1,3 +1,7 @@
+=== 1.8.5 / 2016-06-13
+
+* Fixing bug: LocalEnsemble failed when using an alternative domain.
+
 === 1.8.4 / 2016-06-07
 
 * Fixing bug: LocalEnsemble failed when using a explicit connection object.
