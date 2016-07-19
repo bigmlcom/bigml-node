@@ -8,12 +8,11 @@ function truncate(number, decimals) {
 }
 describe('Manage local model objects', function () {
   var sourceId, source = new bigml.Source(),
-    path = './data/iris_unbalanced.csv',
+    path = './data/diabetes_unbalanced.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, prediction = new bigml.Prediction(), remotePrediction1,
-    inputData1 = {"petal length":1, "sepal length":1,
-                  "petal width": 1, "sepal width": 1};
+    inputData1 = {"age":10, "plasma glucose":10};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -76,12 +75,14 @@ describe('Manage local model objects', function () {
       done();
     });
   });
+  /*
   after(function (done) {
     model.delete(modelId, function (error, data) {
       assert.equal(error, null);
       done();
     });
   });
+  */
   after(function (done) {
     prediction.delete(remotePrediction1.resource, function (error, data) {
       assert.equal(error, null);
