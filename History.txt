@@ -1,8 +1,12 @@
-=== 1.8.5 / 2016-06-13
+=== 1.8.6 / 2016-07-19
+
+* Fixing bug: LocalModel proportional predictions for weighted models.
+
+=== 1.8.5 / 2016-07-13
 
 * Fixing bug: LocalEnsemble failed when using an alternative domain.
 
-=== 1.8.4 / 2016-06-07
+=== 1.8.4 / 2016-07-07
 
 * Fixing bug: LocalEnsemble failed when using a explicit connection object.
 * Changing next predicates for LocalModel object when items or text fields
