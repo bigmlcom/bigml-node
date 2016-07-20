@@ -1,3 +1,8 @@
+=== 1.8.7 / 2016-07-21
+
+* Fixing bug: LocalEnsemble proportional predictions tie breaks differred
+  from the remote version.
+
 === 1.8.6 / 2016-07-19
 
 * Fixing bug: LocalModel proportional predictions for weighted models.
