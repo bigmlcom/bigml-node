@@ -6,13 +6,13 @@ function truncate(number, decimals) {
   return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
                                                                 decimals);
 }
-describe('Manage local model objects', function () {
+describe('Manage local model objects: tie breaks in predictions', function () {
   var sourceId, source = new bigml.Source(),
-    path = './data/diabetes_unbalanced.csv',
+    path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, prediction = new bigml.Prediction(), remotePrediction1,
-    inputData1 = {"age":10, "plasma glucose":10};
+    inputData1 = {"sepal width": 2.7, "sepal length": 5.8};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -21,7 +21,9 @@ describe('Manage local model objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        model.create(datasetId, {"balance_objective": true},
+        model.create(datasetId, {"balance_objective": true,
+                                 "input_fields": ["sepal length",
+                                                  "sepal width"]},
           function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           modelId = data.resource;

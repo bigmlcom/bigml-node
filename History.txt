@@ -1,3 +1,8 @@
+=== 1.8.8 / 2016-07-21
+
+* Fixing bug: Local predictions for Logistic Regression with balance_fields
+  and/or normalize didn't match remote predictions.
+
 === 1.8.7 / 2016-07-21
 
 * Fixing bug: LocalEnsemble proportional predictions tie breaks differred
