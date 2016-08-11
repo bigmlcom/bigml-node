@@ -57,6 +57,8 @@ module.exports = {
   LogisticRegression: require('./lib/LogisticRegression'),
   // Association REST api interface
   Association: require('./lib/Association'),
+  // Association REST api interface
+  LDA: require('./lib/LDA'),
   // Script REST api interface
   Script: require('./lib/Script'),
   // Local Model object for local predictions

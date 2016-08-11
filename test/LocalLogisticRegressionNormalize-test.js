@@ -18,7 +18,7 @@ describe('Manage local logistic regression objects', function () {
                          'item_analysis': {'separator': "$"}},
               '000008': {'name': 'timestamp', 'optype': 'numeric'},
               '000009': {'name': 'rating', 'optype': 'categorical'}},
-    separator = "$",
+    separator = ";",
     localLogisticRegression,
     prediction = new bigml.Prediction(),
     prediction1,
@@ -29,7 +29,7 @@ describe('Manage local logistic regression objects', function () {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
         source.update(sourceId, {"fields": fields,
-                                 "source_parser": {"separator": ";"}},
+                                 "source_parser": {"separator": separator}},
           function (error, data) {
           dataset.create(sourceId, undefined, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
