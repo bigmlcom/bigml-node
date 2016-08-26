@@ -50,13 +50,14 @@ describe('Manage anomaly score objects', function () {
   describe('#update(anomalyScore, args, callback)', function () {
     it('should update properties in the anomaly score', function (done) {
       var newName = 'my new name';
-      anomalyScore.update(anomalyScoreId, {name: newName}, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        anomalyScore.get(anomalyScoreId, true, function (errorcb, datacb) {
-          if (datacb.object.status.code === bigml.constants.FINISHED &&
-              datacb.object.name === newName) {
-            assert.ok(true);
-            done();
+      anomalyScore.update(anomalyScoreId, {name: newName},
+        function (error, data) {
+          assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
+          anomalyScore.get(anomalyScoreId, true, function (errorcb, datacb) {
+            if (datacb.object.status.code === bigml.constants.FINISHED &&
+                datacb.object.name === newName) {
+              assert.ok(true);
+              done();
           }
         });
       });
