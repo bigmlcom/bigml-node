@@ -1,3 +1,8 @@
+=== 1.9.0 / 2016-08-29
+
+* Adding support for LDA REST API calls.
+* Adding information about unused fields in input data for local predictions.
+
 === 1.8.8 / 2016-07-21
 
 * Fixing bug: Local predictions for Logistic Regression with balance_fields
