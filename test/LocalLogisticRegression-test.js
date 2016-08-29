@@ -49,7 +49,7 @@ describe('Manage local logistic regression objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localLogisticRegression.predict(inputData1, function (error, data) {
+      localLogisticRegression.predict(inputData1, false, function (error, data) {
         assert.equal(JSON.stringify(data), JSON.stringify(prediction1));
         done();
       });

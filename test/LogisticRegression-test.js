@@ -69,6 +69,7 @@ describe('Manage logistic regression objects', function () {
       });
     });
   });
+
   describe('#delete(logisticRegression, callback)', function () {
     it('should delete the remote logistic regression', function (done) {
       logistic.delete(logisticId, function (error, data) {
