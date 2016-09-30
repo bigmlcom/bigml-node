@@ -55,17 +55,20 @@ describe('Manage local logistic regression objects', function () {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           datasetId = data.resource;
           logistic.create(datasetId,
-            {field_codings: fieldCodings1, objective_field: objective1},
+            {field_codings: fieldCodings1, objective_field: objective1,
+             'balance_fields': false},
               function (error, data) {
                 assert.equal(data.code, bigml.constants.HTTP_CREATED);
                 logisticId1 = data.resource;
                 logistic.create(datasetId,
-                  {field_codings: fieldCodings2, objective_field: objective2},
+                  {field_codings: fieldCodings2, objective_field: objective2,
+                   'balance_fields': false},
                     function (error, data) {
                       assert.equal(data.code, bigml.constants.HTTP_CREATED);
                       logisticId2 = data.resource;
                       logistic.create(datasetId,
                         {field_codings: fieldCodings3,
+                         'balance_fields': false,
                          objective_field: objective3},
                            function (error, data) {
                              assert.equal(data.code,
@@ -73,6 +76,7 @@ describe('Manage local logistic regression objects', function () {
                              logisticId3 = data.resource;
                               logistic.create(datasetId,
                                 {field_codings: fieldCodings4,
+                                 'balance_fields': false,
                                  objective_field: objective4},
                                    function (error, data) {
                                      assert.equal(data.code,

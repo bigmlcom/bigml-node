@@ -19,7 +19,8 @@ describe('Manage local logistic regression objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        logistic.create(datasetId, undefined, function (error, data) {
+        logistic.create(datasetId, {balance_fields: false},
+          function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           logisticId = data.resource;
           logisticResource = data;

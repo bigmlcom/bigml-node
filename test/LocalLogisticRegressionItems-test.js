@@ -24,13 +24,18 @@ describe('Manage local logistic objects', function () {
           dataset.create(sourceId, undefined, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             datasetId = data.resource;
-            logistic.create(datasetId, {'objective_field': '000002', 'missing_numerics': true}, function (error, data) {
+            logistic.create(datasetId, {'objective_field': '000002',
+                                        'missing_numerics': true,
+                                        'balance_fields': false},
+              function (error, data) {
               assert.equal(data.code, bigml.constants.HTTP_CREATED);
               logisticId = data.resource;
               logisticResource = data;
-              logistic.get(logisticResource, true, 'only_model=true', function (error, data) {
+              logistic.get(logisticResource, true, 'only_model=true',
+                function (error, data) {
                 logisticFinishedResource = data;
-                prediction.create(logisticResource, inputData1, function(error, data) {
+                prediction.create(logisticResource, inputData1,
+                  function(error, data) {
                   prediction1 = data;
                   done();
                 });
@@ -43,7 +48,8 @@ describe('Manage local logistic objects', function () {
   });
 
   describe('LocalLogisticRegression(logisticId)', function () {
-    it('should create a localLogisticRegression from a logistic regression Id', function (done) {
+    it('should create a localLogisticRegression from a logistic regression Id',
+      function (done) {
       localLogisticRegression = new bigml.LocalLogisticRegression(logisticId);
       if (localLogisticRegression.ready) {
         assert.ok(true);
