@@ -1,12 +1,12 @@
 var assert = require('assert'),
   bigml = require('../index');
 try {
-describe('Manage LDA objects', function () {
+describe('Manage TopicModel objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/movies.csv',
     datasetId, dataset = new bigml.Dataset(), datasetId2,
     dataset2 = new bigml.Dataset(),
-    ldaId, lda = new bigml.LDA(), ldaId2,
-    lda2 = new bigml.LDA(),
+    topicModelId, topicModel = new bigml.TopicModel(), topicModelId2,
+    topicModel2 = new bigml.TopicModel(),
     seed = "BigML tests",
     fields = {'000000': {'name': 'user_id', 'optype': 'numeric'},
               '000001': {'name': 'gender', 'optype': 'categorical'},
@@ -20,7 +20,7 @@ describe('Manage LDA objects', function () {
               '000008': {'name': 'timestamp', 'optype': 'numeric'},
               '000009': {'name': 'rating', 'optype': 'categorical'}},
     separator = ";",
-    ldaArgs = {seed: seed, lda_seed: seed};
+    topicArgs = {seed: seed, topic_model_seed: seed};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -43,17 +43,17 @@ describe('Manage LDA objects', function () {
   });
 
   describe('#create(dataset, args, callback)', function () {
-    it('should create an LDA from a dataset', function (done) {
-      lda.create(datasetId, ldaArgs, function (error, data) {
+    it('should create a TopicModel from a dataset', function (done) {
+      topicModel.create(datasetId, topicModelArgs, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        ldaId = data.resource;
+        topicModelId = data.resource;
         done();
       });
     });
   });
-  describe('#get(lda, finished, query, callback)', function () {
-    it('should retrieve a finished LDA', function (done) {
-      lda.get(ldaId, true, function (error, data) {
+  describe('#get(topicModel, finished, query, callback)', function () {
+    it('should retrieve a finished TopicModel', function (done) {
+      topicModel.get(topicModelId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           assert.ok(true);
           done();
@@ -61,12 +61,12 @@ describe('Manage LDA objects', function () {
       });
     });
   });
-  describe('#update(lda, args, callback)', function () {
-    it('should update properties in the lda', function (done) {
+  describe('#update(topicModel, args, callback)', function () {
+    it('should update properties in the topicModel', function (done) {
       var newName = 'my new name';
-      lda.update(ldaId, {name: newName}, function (error, data) {
+      topicModel.update(topicModelId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
-        lda.get(ldaId, true, function (errorcb, datacb) {
+        topicModel.get(topicModelId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
             assert.ok(true);
@@ -77,20 +77,20 @@ describe('Manage LDA objects', function () {
     });
   });
   describe('#create([dataset], args, callback)', function () {
-    it('should create a lda from a list of datasets ', function (done) {
-      lda2.create([datasetId, datasetId2], ldaArgs,
+    it('should create a TopicModel from a list of datasets ', function (done) {
+      topicModel2.create([datasetId, datasetId2], topicModelArgs,
                   function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        ldaId2 = data.resource;
+        topicModelId2 = data.resource;
         done();
       });
     });
   });
-  describe('#delete(lda, callback)', function () {
-    it('should delete the remote lda', function (done) {
-      lda.delete(ldaId, function (error, data) {
+  describe('#delete(topicModel, callback)', function () {
+    it('should delete the remote topicModel', function (done) {
+      topicModel.delete(topicModelId, function (error, data) {
         assert.equal(error, null);
-        lda2.delete(ldaId2, function (error, data) {
+        topicModel2.delete(topicModelId2, function (error, data) {
           assert.equal(error, null);
           done();
         });
