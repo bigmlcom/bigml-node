@@ -112,6 +112,7 @@ this will give you access to the following library structure:
     - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
     - bigml.LocalLogisticRegression     Logistic regression model for local predictions
     - bigml.LocalAssociation            Association model for associaton rules
+    - bigml.LocalTopicModel             Topic Model for Local Predictions
 
 
 Authentication

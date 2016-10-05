@@ -76,5 +76,7 @@ module.exports = {
   // Local Logistic Regression object for local predictions
   LocalLogisticRegression: require('./lib/LocalLogisticRegression'),
   // Local Logistic Regression object for local predictions
-  LocalAssociation: require('./lib/LocalAssociation')
+  LocalAssociation: require('./lib/LocalAssociation'),
+  // Local Logistic Regression object for local predictions
+  LocalTopicModel: require('./lib/LocalTopicModel')
 };
