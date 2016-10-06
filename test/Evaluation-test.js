@@ -50,19 +50,7 @@ describe('Manage evaluation objects', function () {
       });
     });
   });
-  describe('#create(model, testDatasetId, args, callback)', function () {
-    it('should create an evaluation for a model and a dataset', function (done) {
-      evaluation.create(modelId, testDatasetId, undefined,
-                        function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          evaluationId = data.resource;
-          evaluation.delete(evaluationId, function (error, data) {
-            assert.equal(error, null);
-            done();
-          });
-        });
-    });
-  });
+
   describe('#create(ensemble, testDatasetId, args, callback)', function () {
     it('should create an evaluation for an ensemble and a dataset', function (done) {
       evaluation.create(ensembleId, testDatasetId, undefined,
@@ -80,6 +68,19 @@ describe('Manage evaluation objects', function () {
     it('should create an evaluation for a logistic regression and a dataset',
       function (done) {
       evaluation.create(logisticId, testDatasetId, undefined,
+                        function (error, data) {
+          assert.equal(data.code, bigml.constants.HTTP_CREATED);
+          evaluationId = data.resource;
+          evaluation.delete(evaluationId, function (error, data) {
+            assert.equal(error, null);
+            done();
+          });
+        });
+    });
+  });
+  describe('#create(model, testDatasetId, args, callback)', function () {
+    it('should create an evaluation for a model and a dataset', function (done) {
+      evaluation.create(modelId, testDatasetId, undefined,
                         function (error, data) {
           assert.equal(data.code, bigml.constants.HTTP_CREATED);
           evaluationId = data.resource;
@@ -120,7 +121,6 @@ describe('Manage evaluation objects', function () {
       });
     });
   });
-
 
   after(function (done) {
     source.delete(sourceId, function (error, data) {
