@@ -1,7 +1,10 @@
-=== 1.8.12 / 2016-10-06
+=== 1.9.0 / 2016-10-11
 
 * Fixing bug: side-effect change in input data when running local predictions,
   centroids or anomaly scores.
+* Adding REST methods for Topic Model, Topic Distribution and Batch Topic
+  Distribution.
+* Adding local Topic Model object.
 
 === 1.8.11 / 2016-10-21
 

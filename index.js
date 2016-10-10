@@ -59,6 +59,10 @@ module.exports = {
   Association: require('./lib/Association'),
   // Topic Model REST api interface
   TopicModel: require('./lib/TopicModel'),
+  // Topic Distribution REST api interface
+  TopicDistribution: require('./lib/TopicDistribution'),
+  // Batch Topic Distribution REST api interface
+  BatchTopicDistribution: require('./lib/BatchTopicDistribution'),
   // Script REST api interface
   Script: require('./lib/Script'),
   // Local Model object for local predictions
