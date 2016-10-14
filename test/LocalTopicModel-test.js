@@ -6,7 +6,7 @@ describe('Local Topic Model regression', function () {
   // In the streaming-lda java library and in the python bindings
   var dummy_model = {
     "status": {"code": 5},
-    "model": {
+    "topic_model": {
       "alpha": 0.08,
       "beta": 0.1,
       "hashed_seed": 0,
@@ -19,6 +19,22 @@ describe('Local Topic Model regression', function () {
                                  [0, 0, 2, 0]],
       "termset": ["cycling", "playing", "tacos", "unanimous court"],
       "options": {},
+      "topics": [{"name": "Topic 1",
+                  "id": "000000",
+                  "top_terms": ["a", "b"],
+                  "probability": 0.1},
+                 {"name": "Topic 2",
+                  "id": "000001",
+                  "top_terms": ["c", "d"],
+                  "probability": 0.1},
+                 {"name": "Topic 3",
+                  "id": "000000",
+                  "top_terms": ["e", "f"],
+                  "probability": 0.1},
+                 {"name": "Topic 4",
+                  "id": "000000",
+                  "top_terms": ["g", "h"],
+                  "probability": 0.1}],
       "fields": {
         "000001": {
           "datatype": "string",
@@ -38,7 +54,11 @@ describe('Local Topic Model regression', function () {
         "play the plays PLAYing TACO CYCLE        " +
         "cycling tacos unanimous or court";
 
-  var expected_distribution = [0.10093624, 0.20856967, 0.56734777, 0.12314631];
+  var expected_distribution = [
+  { name: 'Topic 1', probability: 0.10253849068301588 },
+  { name: 'Topic 2', probability: 0.206730272448593 },
+  { name: 'Topic 3', probability: 0.5761374987083664 },
+  { name: 'Topic 4', probability: 0.11459373816002481 } ];
 
   var localTopicModel, distribution, i, diff, exp, act;
 
@@ -48,10 +68,11 @@ describe('Local Topic Model regression', function () {
       distribution = localTopicModel.distribution({"TEST TEXT": test_text});
 
       for (i = 0; i < distribution.length; i++) {
-        exp = expected_distribution[i];
-        act = distribution[i];
+        exp = expected_distribution[i].probability;
+        act = distribution[i].probability;
         diff = Math.abs(exp - act);
-        assert(diff < 1e-6, i + " - Expected: " + exp + ", Actual: " + act);
+        assert(expected_distribution[i].name == distribution[i].name &&
+               diff < 1e-6, i + " - Expected: " + exp + ", Actual: " + act);
       }
       done();
     });
