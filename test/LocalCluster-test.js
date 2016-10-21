@@ -1,6 +1,11 @@
 var assert = require('assert'),
   bigml = require('../index');
 
+function truncate(number, decimals) {
+  return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
+                                                                decimals);
+}
+
 describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -50,7 +55,7 @@ describe('Manage local cluster objects', function () {
                        'sepal width': 1, 'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
         assert.equal(data.centroidName, prediction1);
-        firstCentroidDistance = data.distance;
+        firstCentroidDistance = truncate(data.distance, 5);
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
         centroid.create(clusterId, inputData, function (error, data) {
@@ -68,7 +73,7 @@ describe('Manage local cluster objects', function () {
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
       var centroidName = prediction.centroidName;
-      secondCentroidDistance = prediction.distance;
+      secondCentroidDistance = truncate(prediction.distance, 5);
       var centroid = new bigml.Centroid();
       centroid.create(clusterId, inputData, function (error, data) {
           assert.equal(centroidName, data.object.centroid_name);
@@ -84,7 +89,7 @@ describe('Manage local cluster objects', function () {
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
       var centroidName = prediction.centroidName;
-      thirdCentroidDistance = prediction.distance;
+      thirdCentroidDistance = truncate(prediction.distance, 5);
       var centroid = new bigml.Centroid();
       centroid.create(clusterId, inputData, function (error, data) {
           assert.equal(centroidName, data.object.centroid_name);
@@ -100,7 +105,7 @@ describe('Manage local cluster objects', function () {
                        '000003': 1, '000004': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
         assert.equal(data.centroidName, prediction1);
-        assert.equal(data.distance, firstCentroidDistance);
+        assert.equal(truncate(data.distance, 5), firstCentroidDistance);
         done();
       });
     });
@@ -112,7 +117,7 @@ describe('Manage local cluster objects', function () {
                        '000003': 3, '000004': 'Iris-virginica'};
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
-      assert.equal(prediction.distance, secondCentroidDistance);
+      assert.equal(truncate(prediction.distance, 5), secondCentroidDistance);
     });
   });
   describe('#centroid(inputData)', function () {
@@ -122,7 +127,7 @@ describe('Manage local cluster objects', function () {
                        '000003': 3};
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
-      assert.equal(prediction.distance, thirdCentroidDistance);
+      assert.equal(truncate(prediction.distance, 5), thirdCentroidDistance);
     });
   });
   describe('LocalCluster(clusterResource)', function () {

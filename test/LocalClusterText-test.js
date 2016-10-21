@@ -1,6 +1,11 @@
 var assert = require('assert'),
   bigml = require('../index');
 
+function truncate(number, decimals) {
+  return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
+                                                                decimals);
+}
+
 describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -56,7 +61,7 @@ describe('Manage local cluster objects', function () {
         function (error, data) {
           assert.equal(data.centroidName, prediction1);
           var centroidName = data.centroidName;
-          firstCentroidDistance = data.distance;
+          firstCentroidDistance = truncate(data.distance, 5);
           var centroid = new bigml.Centroid();
           centroid.create(clusterId, inputData, function (error, data) {
               assert.equal(centroidName, data.object.centroid_name);
@@ -75,7 +80,7 @@ describe('Manage local cluster objects', function () {
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
       var centroidName = prediction.centroidName;
-      secondCentroidDistance = prediction.distance;
+      secondCentroidDistance = truncate(prediction.distance, 5);
           var centroid = new bigml.Centroid();
           centroid.create(clusterId, inputData, function (error, data) {
               assert.equal(centroidName, data.object.centroid_name);
@@ -92,7 +97,7 @@ describe('Manage local cluster objects', function () {
        function (done) {
       localCluster.centroid({'000000': 'ham', '000001': 'mobile Mobile call'}, function (error, data) {
         assert.equal(data.centroidName, prediction1);
-        assert.equal(data.distance, firstCentroidDistance);
+        assert.equal(truncate(data.distance, 5), firstCentroidDistance);
         done();
       });
     });
@@ -102,7 +107,7 @@ describe('Manage local cluster objects', function () {
        function () {
       var prediction = localCluster.centroid({'000000': 'ham', '000001': 'A normal message'});
       assert.equal(prediction.centroidName, prediction2);
-      assert.equal(prediction.distance, secondCentroidDistance);
+      assert.equal(truncate(prediction.distance, 5), secondCentroidDistance);
     });
   });
   describe('LocalCluster(clusterResource)', function () {

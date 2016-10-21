@@ -1,6 +1,11 @@
 var assert = require('assert'),
   bigml = require('../index');
 
+function truncate(number, decimals) {
+  return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
+                                                                decimals);
+}
+
 describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/movies.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -59,7 +64,7 @@ describe('Manage local cluster objects', function () {
       localCluster.centroid(inputData,
         function (error, data) {
           assert.equal(data.centroidName, centroidName);
-          firstCentroidDistance = data.distance;
+          firstCentroidDistance = truncate(data.distance, 5);
           var centroid = new bigml.Centroid();
           centroid.create(clusterId, inputData, function (error, data) {
               assert.equal(centroidName, data.object.centroid_name);

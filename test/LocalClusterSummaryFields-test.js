@@ -1,6 +1,11 @@
 var assert = require('assert'),
   bigml = require('../index');
 
+function truncate(number, decimals) {
+  return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
+                                                                decimals);
+}
+
 describe('Manage local cluster objects with summary fields', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -51,7 +56,7 @@ describe('Manage local cluster objects with summary fields', function () {
                        'species': 'Iris-setosa'};
       localCluster.centroid(inputData, function (error, data) {
         assert.equal(data.centroidName, 'Cluster 4');
-        firstCentroidDistance = data.distance;
+        firstCentroidDistance = truncate(data.distance, 5);
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
         centroid.create(clusterId, inputData, function (error, data) {

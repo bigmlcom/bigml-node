@@ -1,6 +1,11 @@
 var assert = require('assert'),
   bigml = require('../index');
 
+function truncate(number, decimals) {
+  return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
+                                                                decimals);
+}
+
 describe('Manage local cluster objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(), seed = 'BigML tests',
@@ -54,7 +59,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'Type': 'spam', "Message": "FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 87077 Get txting and tell ur mates. zed POBox 36504 W45WQ norm150p/tone 16+"};
       localCluster.centroid(inputData, function (error, data) {
         assert.equal(data.centroidName, prediction1);
-        firstCentroidDistance = data.distance;
+        firstCentroidDistance = truncate(data.distance, 5);
         var centroidName = data.centroidName;
         var centroid = new bigml.Centroid();
         centroid.create(clusterId, inputData, function (error, data) {
@@ -73,7 +78,7 @@ describe('Manage local cluster objects', function () {
       var inputData = {'Type': 'ham', 'Message': 'Ok'};
       var prediction = localCluster.centroid(inputData);
       assert.equal(prediction.centroidName, prediction2);
-      secondCentroidDistance = prediction.distance;
+      secondCentroidDistance = truncate(prediction.distance, 5);
       var centroidName = prediction.centroidName;
       var centroid = new bigml.Centroid();
       centroid.create(clusterId, inputData, function (error, data) {
