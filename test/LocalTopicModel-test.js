@@ -55,10 +55,10 @@ describe('Local Topic Model regression', function () {
         "cycling tacos unanimous or court";
 
   var expected_distribution = [
-  { name: 'Topic 1', probability: 0.10253849068301588 },
-  { name: 'Topic 2', probability: 0.206730272448593 },
-  { name: 'Topic 3', probability: 0.5761374987083664 },
-  { name: 'Topic 4', probability: 0.11459373816002481 } ];
+    { name: 'Topic 1', probability: 0.1647366 },
+    { name: 'Topic 2', probability: 0.1885310 },
+    { name: 'Topic 3', probability: 0.4879441 },
+    { name: 'Topic 4', probability: 0.1587880 } ];
 
   var localTopicModel, distribution, i, diff, exp, act;
 
