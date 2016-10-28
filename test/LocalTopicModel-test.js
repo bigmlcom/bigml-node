@@ -50,9 +50,9 @@ describe('Local Topic Model regression', function () {
     "resource": "topicmodel/aaaaaabbbbbbccccccdddddd"
   };
 
-  var test_text = "unanimous court UNANIMOUS COURT\n\n " +
+  var test_text = "unanimous court 'UNANIMOUS COURT'\n\n " +
         "play the plays PLAYing SHOULDN'T CYCLE        " +
-        "cycling shouldn't unanimous or court";
+        "cycling shouldn't unanimous or court's";
 
   var expected_distribution = [
     { name: 'Topic 1', probability: 0.1647366 },
