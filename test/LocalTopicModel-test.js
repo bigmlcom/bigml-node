@@ -17,7 +17,7 @@ describe('Local Topic Model regression', function () {
                                  [0, 1, 2, 0],
                                  [1, 2, 0, 0],
                                  [0, 0, 2, 0]],
-      "termset": ["cycling", "playing", "shouldn't", "unanimous court"],
+      "termset": ["cycling", "playing", "shouldn't", "uńąnimous court"],
       "options": {},
       "topics": [{"name": "Topic 1",
                   "id": "000000",
@@ -50,9 +50,9 @@ describe('Local Topic Model regression', function () {
     "resource": "topicmodel/aaaaaabbbbbbccccccdddddd"
   };
 
-  var test_text = "unanimous court 'UNANIMOUS COURT'\n\n " +
-        "play the plays PLAYing SHOULDN'T CYCLE        " +
-        "cycling shouldn't unanimous or court's";
+  var test_text = "uńąnimous court 'UŃĄNIMOUS COURT'\n\n " +
+        "`play``the plays PLAYing SHOULDN'T CYCLE        " +
+        "cycling shouldn't uńąnimous or court's";
 
   var expected_distribution = [
     { name: 'Topic 1', probability: 0.1647366 },
