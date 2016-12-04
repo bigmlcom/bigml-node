@@ -1,4 +1,4 @@
-=== 1.9.0 / 2016-10-11
+=== 1.9.0 / 2016-12-04
 
 * Fixing bug: side-effect change in input data when running local predictions,
   centroids or anomaly scores.

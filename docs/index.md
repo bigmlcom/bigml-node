@@ -103,6 +103,9 @@ this will give you access to the following library structure:
     - bigml.StatisticalTests            StatisticalTest API methods
     - bigml.LogisticRegression          LogisticRegression API methods
     - bigml.Association                 Association API methods
+    - bigml.TopicModel                  Topic Model API methods
+    - bigml.TopicDistribution           Topic Distribution API methods
+    - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -377,7 +380,7 @@ Only sources can be assigned to a `project`, the rest of resources inherit
 the `project` reference from its originating source. Projects are handled
 through `bigml.Project`.
 
-- **samples** These resources provide quick acces to your raw data. They are
+- **samples** These resources provide quick access to your raw data. They are
 objects cached in-memory by the server that can be queried for subsets
 of data by limiting
 their size, the fields or the rows returned. Samples are handled
@@ -391,7 +394,7 @@ comparing the distributions in every objective and non-objective field pair,
 as independent fields should have probabilistic
 independent distributions. Depending on the types of the fields to compare,
 the metrics used to compute the correlation degree will change. Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/correlations#retrieving-correlation)
+[developers documentation](https://ozone.dev.bigml.com/api/correlations#retrieving-correlation)
 for a detailed description. Correlations are handled
 through `bigml.Correlation`.
 
@@ -409,27 +412,50 @@ problems by predicting one field of the dataset, the objective field,
 based on the values of the other fields, the input fields. The prediction
 is made using a logistic function whose argument is a linear combination
 of the predictor's values. Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/logisticregressions)
+[developers documentation](https://ozone.dev.bigml.com/api/logisticregressions)
 for a detailed description. These resources
 are handled through `bigml.LogisticRegression`.
 
 - **associations** These resources are models to discover the existing
 associations between the field values in your dataset. Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/associations)
+[developers documentation](https://ozone.dev.bigml.com/api/associations)
 for a detailed description. These resources
 are handled through `bigml.Association`.
+
+- **topic models** These resources are models to discover topics underlying a
+collection of documents. Check the
+[developers documentation](https://ozone.dev.bigml.com/api/topicmodels)
+for a detailed description. These resources
+are handled through `bigml.TopicModel`.
+
+- **topic distributions** These resources contain the distribution of
+probabilites
+for a document to belong to each one of the topics in a `topic model`.
+Check the
+[developers documentation](https://ozone.dev.bigml.com/api/topicdistributions)
+for a detailed description. These resources
+are handled through `bigml.TopicDistribution`.
+
+- **batch topic distributions** These resources contain a list of
+the distribution of
+probabilites
+for a collection of documents to belong to each one of the topics in
+a `topic model`. Check the
+[developers documentation](https://ozone.dev.bigml.com/api/batchtopicdistributions)
+for a detailed description. These resources
+are handled through `bigml.BatchTopicDistribution`.
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
 management of the rest of resources. Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/scripts)
+[developers documentation](https://ozone.dev.bigml.com/api/scripts)
 for a detailed description. These resources
 are handled through `bigml.Script`.
 
 - **executions** These resources are Whizzml scripts' executions, that
 can be created to execute the workflows defined in the `Whizzml scripts`.
 Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/executions)
+[developers documentation](https://ozone.dev.bigml.com/api/executions)
 for a detailed description. These resources
 are handled through `bigml.Execution`.
 
@@ -437,7 +463,7 @@ are handled through `bigml.Execution`.
 can be created to store definitions of constants and functions which can
 be imported and used in the `Whizzml scripts`.
 Check the
-[developers documentation](https://ozone.dev.bigml.com/developers/libraries)
+[developers documentation](https://ozone.dev.bigml.com/api/libraries)
 for a detailed description. These resources
 are handled through `bigml.Library`.
 
@@ -563,7 +589,7 @@ keys:
 -  **code**: If the request is successful you will get a
    `constants.HTTP_CREATED` (201) status code. Otherwise, it will be
    one of the standard HTTP error codes [detailed in the
-   documentation](https://bigml.com/developers/status_codes).
+   documentation](https://bigml.com/api/status_codes).
 -  **resource**: The identifier of the new resource.
 -  **location**: The location of the new resource.
 -  **object**: The resource itself, as computed by BigML.
@@ -574,7 +600,7 @@ keys:
 Bigml.com will answer your `create` call immediately, even if the resource
 is not finished yet (see the
 [documentation on status
-codes](https://bigml.com/developers/status_codes) for the listing of
+codes](https://bigml.com/api/status_codes) for the listing of
 potential states and their semantics). To retrieve a finished resource,
 you'll need to use the `get` method described in the next section.
 
@@ -666,7 +692,7 @@ The call will return an object with the following keys:
 -  **code** If the request is successful, the code will be a
    `constants.HTTP_NO_CONTENT` (204) status code. Otherwise, it wil be
    one of the standard HTTP error codes. See the [documentation on
-   status codes](https://bigml.com/developers/status_codes) for more
+   status codes](https://bigml.com/api/status_codes) for more
    info.
 -  **error** If the request does not succeed, it will contain an
    object with an error code and a message. It will be `null`
@@ -772,7 +798,7 @@ The list object will have the following structure:
 -  **code**: If the request is successful you will get a
    `constants.HTTP_OK` (200) status code. Otherwise, it will be one of
    the standard HTTP error codes. See [BigML documentation on status
-   codes](https://bigml.com/developers/status_codes) for more info.
+   codes](https://bigml.com/api/status_codes) for more info.
 -  **meta**: An object including the following keys that can help you
    paginate listings:
 
@@ -1370,8 +1396,8 @@ use the method asyncrhonously you can use:
 ```js
     var associationRules;
     localAssociation.getRules(
-      {minLeverage: 0.3}, \\ filter by minimum Leverage
-      function(error, data) {associationRules = data;}) \\ callback code
+      {minLeverage: 0.3}, // filter by minimum Leverage
+      function(error, data) {associationRules = data;}) // callback code
 ```
 
 See the method docstring for filter options details.
@@ -1395,8 +1421,8 @@ You can also save the rules to a CSV file using the `rulesCSV` method
 ```js
     minimumLeverage = 0.3;
     localAssociation.rulesCSV(
-      './my_csv.csv', \\ fileName
-      {minLeverage: minimumLeverage}); \\ filters for the rules
+      './my_csv.csv', // fileName
+      {minLeverage: minimumLeverage}); // filters for the rules
 ```
 
 as you can see, the first argument is the path to the CSV file where the
@@ -1406,6 +1432,86 @@ we are only storing the rules whose leverage is over the 0.3 threshold.
 Both the `getItems` and the `rulesCSV` methods can also be called
 asynchronously as we saw for the `getRules` method.
 
+Local Topic Models
+------------------
+
+A remote `topic model` object contains a list of topics extracted from the
+terms in the collection of documents used in its training. The
+`LocalTopicModel`
+class allows you to build a local version of this remote object, and get
+the list of `Topics` and the terms distribution for each of them. Using this
+information, its `distribution` method computes the probabilites for a new
+document to be classified under each of the `Topics`.
+Creating a `LocalTopicModel` object is as
+simple as
+
+
+```js
+    var bigml = require('bigml');
+    var localTopicModel = new bigml.LocalTopicModel('topicmodel/51922d0b37203f4b8c003010');
+```
+
+and obtaining the `TopicDistribution` for a new document:
+
+```js
+    var newDocument = {"Message": "Where are you?when wil you reach here?"}
+    localTopicModel.distribution(newDocument,
+                                 function(error, topicDistribution) {
+                                   console.log(topicDistribution)});
+```
+
+Note that only text fields are considered to decide the `topic distribution`
+of a document, and their contents will be concatenated.
+
+As you see, the first parameter to the `LocalTopicModel` constructor is a
+`topic model`
+id (or object). The constructor allows a second optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localTopicModel = new bigml.LocalTopicModel('topicmodel/51522d0b37203f2a8c000010',
+                                                    new bigml.BigML(myUser, myKey));
+    localTopicModel.distribution({'000001': "Where are you?when wil you reach here?"},
+                                 function(error, topicDistribution) {console.log(topicDistribution)});
+```
+
+When the first argument is a finished `topic model` object,
+the constructor creates
+immediately
+a `LocalTopicModel` instance ready to be used. Then, the
+`LocalTopicModel.distribution` method can be immediately called
+in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var topicModel = new bigml.TopicModel();
+    topicModel.get('topicmodel/51b3c45a47203f16230000b5', true,
+                   'only_model=true;limit=-1',
+                   function (error, resource) {
+        if (!error && resource) {
+          var localTopicModel = new bigml.LocalTopicModel(resource);
+          var topicDistribution = localTopicModel.distribution(
+            {'000001': "Where are you?when wil you reach here?"},
+          console.log(topicDistribution);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the `topic model` to be finished before retrieving
+it and that all
+the fields used in the `topic model` will be downloaded respectively.
+Beware of using
+filtered fields topic models to instantiate a local topic model.
+If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote topic model
+information. The callback code, where the `localTopicModel` and distributions
+are built, is strictly local.
 
 Logging configuration
 ---------------------
@@ -1433,4 +1539,4 @@ Additional Information
 ----------------------
 
 For additional information about the API, see the
-[BigML developer's documentation](https://bigml.com/developers).
+[BigML developer's documentation](https://bigml.com/api).
