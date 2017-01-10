@@ -394,7 +394,7 @@ comparing the distributions in every objective and non-objective field pair,
 as independent fields should have probabilistic
 independent distributions. Depending on the types of the fields to compare,
 the metrics used to compute the correlation degree will change. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/correlations#retrieving-correlation)
+[developers documentation](https://bigml.com/api/correlations#retrieving-correlation)
 for a detailed description. Correlations are handled
 through `bigml.Correlation`.
 
@@ -412,50 +412,49 @@ problems by predicting one field of the dataset, the objective field,
 based on the values of the other fields, the input fields. The prediction
 is made using a logistic function whose argument is a linear combination
 of the predictor's values. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/logisticregressions)
+[developers documentation](https://bigml.com/api/logisticregressions)
 for a detailed description. These resources
 are handled through `bigml.LogisticRegression`.
 
 - **associations** These resources are models to discover the existing
 associations between the field values in your dataset. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/associations)
+[developers documentation](https://bigml.com/api/associations)
 for a detailed description. These resources
 are handled through `bigml.Association`.
 
 - **topic models** These resources are models to discover topics underlying a
 collection of documents. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/topicmodels)
+[developers documentation](https://bigml.com/api/topicmodels)
 for a detailed description. These resources
 are handled through `bigml.TopicModel`.
 
-- **topic distributions** These resources contain the distribution of
+- **topic distributions** These resources contain the
 probabilites
 for a document to belong to each one of the topics in a `topic model`.
 Check the
-[developers documentation](https://ozone.dev.bigml.com/api/topicdistributions)
+[developers documentation](https://bigml.com/api/topicdistributions)
 for a detailed description. These resources
 are handled through `bigml.TopicDistribution`.
 
 - **batch topic distributions** These resources contain a list of
-the distribution of
-probabilites
+the probabilites
 for a collection of documents to belong to each one of the topics in
 a `topic model`. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/batchtopicdistributions)
+[developers documentation](https://bigml.com/api/batchtopicdistributions)
 for a detailed description. These resources
 are handled through `bigml.BatchTopicDistribution`.
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
 management of the rest of resources. Check the
-[developers documentation](https://ozone.dev.bigml.com/api/scripts)
+[developers documentation](https://bigml.com/api/scripts)
 for a detailed description. These resources
 are handled through `bigml.Script`.
 
 - **executions** These resources are Whizzml scripts' executions, that
 can be created to execute the workflows defined in the `Whizzml scripts`.
 Check the
-[developers documentation](https://ozone.dev.bigml.com/api/executions)
+[developers documentation](https://bigml.com/api/executions)
 for a detailed description. These resources
 are handled through `bigml.Execution`.
 
@@ -463,7 +462,7 @@ are handled through `bigml.Execution`.
 can be created to store definitions of constants and functions which can
 be imported and used in the `Whizzml scripts`.
 Check the
-[developers documentation](https://ozone.dev.bigml.com/api/libraries)
+[developers documentation](https://bigml.com/api/libraries)
 for a detailed description. These resources
 are handled through `bigml.Library`.
 
@@ -946,7 +945,7 @@ method can be immediately called in a synchronous way.
 ```
 Note that the `get` method's second and third arguments ensure that the
 retrieval waits for the model to be finished before retrieving it and that all
-the fields used in the model will be downloaded respectively. Beware of using
+the fields used in the model will be downloaded. Beware of using
 filtered fields models to instantiate a local model. If an important field is
 missing (because it has been excluded or
 filtered), an exception will arise. In this example, the connection to BigML
