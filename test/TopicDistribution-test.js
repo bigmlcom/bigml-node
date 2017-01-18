@@ -7,9 +7,9 @@ describe('Manage topic distribution objects', function () {
     topicModelId, topicModel = new bigml.TopicModel(),
     topicDistributionId, topicDistribution = new bigml.TopicDistribution(),
     inputData = {"Message": "mobile"},
-    testDistribution = [0.02328, 0.02328, 0.73277, 0.02328, 0.03445,
-                        0.02328, 0.02328, 0.02328, 0.02328, 0.02328,
-                        0.02328, 0.02328],
+    testDistribution = [0.00741,0.00741,0.00741,0.00741,0.00741,
+                        0.00741,0.00741,0.91845,0.00741,0.00741,
+                        0.00741,0.00741],
     inputDataId = {'000001': "mobile"},
     seed = "BigML tests";
   before(function (done) {
@@ -44,7 +44,8 @@ describe('Manage topic distribution objects', function () {
     });
   });
   describe('#create(topicModel, inputDataId, args, callback)', function () {
-    it('should create a topicDistribution from a topicModel using ids in input data',
+    it('should create a topicDistribution from a topicModel using ids' +
+       'in input data',
       function (done) {
       topicDistribution.create(topicModelId, inputDataId, undefined,
         function (error, data) {

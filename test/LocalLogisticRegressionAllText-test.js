@@ -228,6 +228,7 @@ describe('Manage local logistic objects', function () {
       done();
     });
   });
+  /*
   after(function (done) {
     prediction.delete(prediction1, function (error, data) {
       assert.equal(error, null);
@@ -246,4 +247,5 @@ describe('Manage local logistic objects', function () {
       done();
     });
   });
+  */
 });

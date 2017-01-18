@@ -20,7 +20,7 @@ describe('Manage TopicModel objects', function () {
               '000008': {'name': 'timestamp', 'optype': 'numeric'},
               '000009': {'name': 'rating', 'optype': 'categorical'}},
     separator = ";",
-    topicArgs = {seed: seed, topic_model_seed: seed};
+    topicModelArgs = {seed: seed, topicmodel_seed: seed};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {

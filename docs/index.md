@@ -1439,7 +1439,7 @@ terms in the collection of documents used in its training. The
 `LocalTopicModel`
 class allows you to build a local version of this remote object, and get
 the list of `Topics` and the terms distribution for each of them. Using this
-information, its `distribution` method computes the probabilites for a new
+information, its `distribution` method computes the probabilities for a new
 document to be classified under each of the `Topics`.
 Creating a `LocalTopicModel` object is as
 simple as
@@ -1502,7 +1502,7 @@ in a synchronous way.
 Note that the `get` method's second and third arguments ensure that the
 retrieval waits for the `topic model` to be finished before retrieving
 it and that all
-the fields used in the `topic model` will be downloaded respectively.
+the fields used in the `topic model` will be downloaded.
 Beware of using
 filtered fields topic models to instantiate a local topic model.
 If an important field

@@ -12,7 +12,7 @@ describe('Manage local cluster objects', function () {
     clusterId, cluster = new bigml.Cluster(), clusterResource,
     clusterFinishedResource, seed = 'BigML tests',
     localCluster, firstCentroidDistance, secondCentroidDistance,
-    prediction1 = 'Cluster 3', prediction2 = 'Cluster 0';
+    prediction1 = 'Cluster 0', prediction2 = 'Cluster 2';
 
   before(function (done) {
     var textField = {'fields': {'000001': {'optype': 'text'}}};
