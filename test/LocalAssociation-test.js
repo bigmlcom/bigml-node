@@ -2,11 +2,15 @@ var assert = require('assert'),
   bigml = require('../index');
 
 describe('Manage local association objects', function () {
-  var sourceId, source = new bigml.Source(), path = './data/movies.csv',
+  var sourceId, source = new bigml.Source(), path = './data/groceries.csv',
     datasetId, dataset = new bigml.Dataset(),
     associationId, association = new bigml.Association(), associationResource,
     associationFinishedResource,
-    localAssociation;
+    localAssociation,
+    inputData = {"field1": "cat food"},
+    testAssociationSet = [{"rules": ["000003"], "item": {
+      "count": 16, "complement": false, "fieldId": "000000",
+      "name": "hygiene articles"}, "score": 0.01609}];
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -62,6 +66,26 @@ describe('Manage local association objects', function () {
       assert.ok(localAssociation.ready);
     });
   });
+
+
+  describe('#associationset(inputData, callback)', function () {
+    it('should predict association sets asynchronously from input data', function (done) {
+      localAssociation.associationSet(inputData, function (error, data) {
+        assert.deepEqual(data, testAssociationSet);
+        done();
+      });
+    });
+  });
+  describe('#associationset(inputData)', function () {
+    it('should predict association set synchronously from input data', function (done) {
+      localAssociation.associationSet(inputData, function (error, data) {
+        assert.deepEqual(data, testAssociationSet);
+        done();
+      });
+    });
+  });
+
+
   describe('#rulesCSV("my_csv.csv", rules)', function () {
     it('should save AssociationRules to a CSV file', function (done) {
       var rules = localAssociation.getRules(), file = "/tmp/rules.csv";
