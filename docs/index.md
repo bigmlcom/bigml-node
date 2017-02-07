@@ -103,6 +103,7 @@ this will give you access to the following library structure:
     - bigml.StatisticalTests            StatisticalTest API methods
     - bigml.LogisticRegression          LogisticRegression API methods
     - bigml.Association                 Association API methods
+    - bigml.AssociationSet              Associationset API methods
     - bigml.TopicModel                  Topic Model API methods
     - bigml.TopicDistribution           Topic Distribution API methods
     - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
@@ -421,6 +422,12 @@ associations between the field values in your dataset. Check the
 [developers documentation](https://bigml.com/api/associations)
 for a detailed description. These resources
 are handled through `bigml.Association`.
+
+- **association sets** These resources are the sets of items associated to
+the ones in your input data and their score. Check the
+[developers documentation](https://bigml.com/api/associationsets)
+for a detailed description. These resources
+are handled through `bigml.AssociationSet`.
 
 - **topic models** These resources are models to discover topics underlying a
 collection of documents. Check the
@@ -1430,6 +1437,46 @@ we are only storing the rules whose leverage is over the 0.3 threshold.
 
 Both the `getItems` and the `rulesCSV` methods can also be called
 asynchronously as we saw for the `getRules` method.
+
+
+The `LocalAssociation` object can be used to retrieve the `association sets`
+related to a certain input data.
+
+
+```js
+    var bigml = require('bigml');
+    var localAssociation = new bigml.LocalAssociation(
+      'association/55922d0b37203f2a8c003010');
+    localAssociation.associationSet({product: 'cat food'},
+                                    function(error, associationSet) {
+                                      console.log(associationSet)});
+```
+
+When the
+a `LocalAssociation` instance is ready
+to predict the `LocalAssociation.associationSet`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var association = new bigml.Association();
+    association.get('association/51b3c45a37203f16230530b5', true,
+                    'only_model=true;limit=-1',
+                    function (error, resource) {
+            if (!error && resource) {
+              var localAssociation = new bigml.LocalAssociation(resource);
+              var associationSet = localAssociation.associationSet(
+                {'000020': 'cat food'});
+              console.log(associationSet);
+            }
+          })
+```
+In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote association
+information. The callback code, where the `localAssociation` and scores
+are built, is strictly local.
+
 
 Local Topic Models
 ------------------
