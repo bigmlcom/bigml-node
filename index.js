@@ -57,6 +57,8 @@ module.exports = {
   LogisticRegression: require('./lib/LogisticRegression'),
   // Association REST api interface
   Association: require('./lib/Association'),
+  // Association REST api interface
+  AssociationSet: require('./lib/AssociationSet'),
   // Topic Model REST api interface
   TopicModel: require('./lib/TopicModel'),
   // Topic Distribution REST api interface
