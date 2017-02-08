@@ -138,12 +138,10 @@ describe('Manage local model objects', function () {
       done();
     });
   });
-/*
   after(function (done) {
     model.delete(modelId, function (error, data) {
       assert.equal(error, null);
       done();
     });
   });
-*/
 });
