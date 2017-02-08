@@ -1453,9 +1453,8 @@ related to a certain input data.
 ```
 
 When the
-a `LocalAssociation` instance is ready
-to predict the `LocalAssociation.associationSet`
-method can be immediately called in a synchronous way.
+`LocalAssociation` instance is ready, the `LocalAssociation.associationSet`
+method can be immediately called to predict in a synchronous way.
 
 
 ```js
