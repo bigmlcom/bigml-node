@@ -34,5 +34,8 @@
   },
   "scripts": {
     "test": "mocha -t 80000"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.4"
   }
 }
