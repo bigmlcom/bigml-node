@@ -1,3 +1,7 @@
+=== 1.9.2 / 2017-03-02
+
+* Fixing bug in Local logistic regression predictions with constant fields.
+
 === 1.9.1 / 2017-02-08
 
 * Adding local association set predictions to LocalAssociation.
