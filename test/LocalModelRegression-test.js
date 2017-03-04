@@ -27,7 +27,7 @@ describe('Manage local model objects', function () {
     localModel, firstPredictionConfidence, secondPredictionConfidence,
     firstInput = {'Midterm': 10, 'TakeHome': 10}, firstPrediction,
     singleInstanceInput = {"Midterm": 20, "Tutorial": 90, "TakeHome": 100},
-    thirdPrediction, thirdPredictionConfidence, medianPrediction = 35.83;
+    thirdPrediction, thirdPredictionConfidence, medianPrediction = 46.67;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
