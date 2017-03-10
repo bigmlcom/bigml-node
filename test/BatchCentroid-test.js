@@ -16,9 +16,11 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage batch centroid objects', function () {
+describe(scriptName + ': Manage batch centroid objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     clusterId, cluster = new bigml.Cluster(),

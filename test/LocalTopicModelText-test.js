@@ -15,7 +15,9 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
 function checkProbability(distribution1, distribution2) {
   var dec = 1000;
@@ -30,7 +32,7 @@ function checkProbability(distribution1, distribution2) {
   }
 }
 
-describe('Manage local topic model objects', function () {
+describe(scriptName + ': Manage local topic model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
     topicModelId, topicModel = new bigml.TopicModel(), topicModelResource,

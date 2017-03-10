@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Connect with a BigML object', function(){
+describe(scriptName + ': Connect with a BigML object', function(){
   var connection = new bigml.BigML(),
     reqOptions = {
       method: 'GET',

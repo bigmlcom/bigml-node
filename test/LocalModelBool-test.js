@@ -16,9 +16,11 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  constants = require('../lib/constants');
+  constants = require('../lib/constants'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage local model objects', function () {
+describe(scriptName + ': Manage local model objects', function () {
   var sourceId, source = new bigml.Source(),
     path = './data/diabetes_unbalanced.csv',
     datasetId, dataset = new bigml.Dataset(),

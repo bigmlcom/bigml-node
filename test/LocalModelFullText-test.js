@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage local model objects', function () {
+describe(scriptName + ': Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
     missingSplits = {"missing_splits": false},

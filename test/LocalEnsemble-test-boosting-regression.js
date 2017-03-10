@@ -15,7 +15,9 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
 var decimals = 5;
 
@@ -24,7 +26,7 @@ function truncate(number, decimals) {
                                                                 decimals);
 }
 
-describe('Manage local ensemble objects', function () {
+describe(scriptName + ': Manage local ensemble objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/grades.csv',
     datasetId, dataset = new bigml.Dataset(),
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,

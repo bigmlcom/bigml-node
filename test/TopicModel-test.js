@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
-try {
-describe('Manage TopicModel objects', function () {
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
+
+describe(scriptName + ': Manage TopicModel objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/movies.csv',
     datasetId, dataset = new bigml.Dataset(), datasetId2,
     dataset2 = new bigml.Dataset(),
@@ -130,4 +132,3 @@ describe('Manage TopicModel objects', function () {
     });
   });
 });
-} catch (e) {console.log(e);}

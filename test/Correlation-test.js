@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage correlations objects', function () {
+describe(scriptName + ': Manage correlations objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     correlationId, correlation = new bigml.Correlation();

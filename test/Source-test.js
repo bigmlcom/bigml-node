@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage source objects', function () {
+describe(scriptName + ': Manage source objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv';
   describe('#create(path, args, callback)', function () {
     it('should create a source from a file', function (done) {

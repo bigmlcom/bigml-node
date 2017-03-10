@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
-try {
-describe('Manage whizzml library objects', function () {
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
+
+describe(scriptName + ': Manage whizzml library objects', function () {
   var libraryId, library = new bigml.Library(),
   sourceCode = '(define (mu x) (+ x 1))';
   describe('#create(sourceCode, args, callback)', function () {
@@ -63,4 +65,3 @@ describe('Manage whizzml library objects', function () {
     });
   });
 });
-} catch(ex) {console.log(ex, ex.stack.split("\n"));}

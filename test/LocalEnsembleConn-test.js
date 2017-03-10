@@ -15,12 +15,14 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
 
 var username = process.env.BIGML_USERNAME;
   apiKey = process.env.BIGML_API_KEY;
-describe('Manage local ensemble objects', function () {
+describe(scriptName + ': Manage local ensemble objects', function () {
   var sourceId, conn = new bigml.BigML(username, apiKey),
     source = new bigml.Source(conn), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(conn),

@@ -16,9 +16,11 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage batch topic distribution objects', function () {
+describe(scriptName + ': Manage batch topic distribution objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
     topicDistributionId, topicModel = new bigml.TopicModel(),

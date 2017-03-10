@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage execution objects', function () {
+describe(scriptName + ': Manage execution objects', function () {
   var scriptId, script = new bigml.Script(), sourceCode = '(+ 1 1)',
     scriptId2, script2 = new bigml.Script(),
     executionId, execution = new bigml.Execution();

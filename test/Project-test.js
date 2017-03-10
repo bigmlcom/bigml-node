@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage project objects', function () {
+describe(scriptName + ': Manage project objects', function () {
   var projectId, project = new bigml.Project();
   describe('#create(args, callback)', function () {
     it('should create a project', function (done) {

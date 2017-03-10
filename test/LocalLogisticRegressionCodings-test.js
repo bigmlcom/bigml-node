@@ -16,7 +16,9 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  constants = require('../lib/constants');
+  constants = require('../lib/constants'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
 function formatAPIPrediction(data) {
   var index, probabilities = data.object.probabilities, probability;
@@ -35,7 +37,7 @@ function truncate(number, decimals) {
                                                                 decimals);
 }
 
-describe('Manage local logistic regression objects', function () {
+describe(scriptName + ': Manage local logistic regression objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
     logisticId1, logisticId2, logisticId3, logisticId4,

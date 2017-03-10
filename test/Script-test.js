@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage whizzml script objects', function () {
+describe(scriptName + ': Manage whizzml script objects', function () {
   var scriptId, script = new bigml.Script(), sourceCode = '(+ 1 1)';
   describe('#create(sourceCode, args, callback)', function () {
     it('should create a script from a excerpt of code', function (done) {

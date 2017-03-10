@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-    bigml = require('../index');
+    bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Local Topic Model regression', function () {
+describe(scriptName + ': Local Topic Model regression', function () {
   // The dummy model, test text, and distribution here match a test
   // In the streaming-lda java library and in the python bindings
   var dummy_model = {

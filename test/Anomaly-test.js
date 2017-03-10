@@ -15,9 +15,11 @@
  */
 
 var assert = require('assert'),
-  bigml = require('../index');
+  bigml = require('../index'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage anomaly detector objects', function () {
+describe(scriptName + ': Manage anomaly detector objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/tiny_kdd.csv',
     datasetId, dataset = new bigml.Dataset(), datasetId2,
     dataset2 = new bigml.Dataset(),

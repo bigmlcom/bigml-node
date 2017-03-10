@@ -16,9 +16,11 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage batch anomaly score objects', function () {
+describe(scriptName + 'Manage batch anomaly score objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/tiny_kdd.csv',
     datasetId, dataset = new bigml.Dataset(),
     anomalyId, anomaly = new bigml.Anomaly(),

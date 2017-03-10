@@ -16,13 +16,15 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  constants = require('../lib/constants');
+  constants = require('../lib/constants'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
 function truncate(number, decimals) {
   return Math.round(number * Math.pow(10, decimals)) / Math.pow(10.0,
                                                                 decimals);
 }
-describe('Manage local model objects: tie breaks in predictions', function () {
+describe(scriptName + ': Manage local model objects: tie breaks in predictions', function () {
   var sourceId, source = new bigml.Source(),
     path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),

@@ -16,9 +16,11 @@
 
 var assert = require('assert'),
   bigml = require('../index'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
+var scriptName = path.basename(__filename);
 
-describe('Manage dataset objects', function () {
+describe(scriptName + ': Manage dataset objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(), dataset2 = new bigml.Dataset(),
     dataset3 = new bigml.Dataset(), dataset4 = new bigml.Dataset(),
