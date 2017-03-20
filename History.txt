@@ -1,3 +1,7 @@
+=== 1.10.0 / 2017-03-21
+
+* Adding support for Boosted Trees in Local Ensemble.
+
 === 1.9.2 / 2017-03-02
 
 * Fixing bug in Local logistic regression predictions with constant fields.

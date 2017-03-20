@@ -302,10 +302,14 @@ And similarly, for your ensembles
                           function(error, prediction) {console.log(prediction)});
 ```
 
-will generate a prediction by combining the predictions of each of the models
+will generate a prediction for a `Decision Forest` ensemble
+by combining the predictions of each of the models
 they enclose. The example uses the `plurality` combination method (whose code
 is `0`. Check the docs for more information about the available combination
-methods).
+methods). All the three kinds of ensembles available in BigML
+(`Decision Forest`,
+`Random Decision Forest` and `Boosting Trees`) can be used to predict locally
+through this `LocalEnsemble` object.
 
 Types of resources
 ------------------
@@ -331,8 +335,10 @@ objective field obtained by applying the model to an input data set. These
 resources are handled through `bigml.Prediction`.
 
 - **ensembles** Are a group of models extracted from a single dataset to be
-used together in order to predict the objective field. These resources
-are handled through `bigml.Ensemble`.
+used together in order to predict the objective field. BigML offers three
+kinds of ensembles:
+`Decision Forests`, `Random Decision Forests` and `Boosting Trees`.
+All these resources are handled through `bigml.Ensemble`.
 
 - **evaluations** Are a set of measures of performance defined on your model
 or ensemble by checking predictions for the objective field of
@@ -1040,12 +1046,22 @@ create a `LocalEnsemble` is:
                           function(error, prediction) {console.log(prediction)});
 ```
 
-This call will download all the ensemble related info (and each of its component
-models) and use it to predict by combining the predictions of each individual
-model using a majority system (classifications) or an average system
-(regressions). The first argument of the `LocalEnsemble.predict` method
+This call will download all the ensemble related info (and each of its
+component models) and use it to predict by combining the predictions
+of each individual
+model. The algorithm used to combine these predictions depends
+on the ensemble type (`Decision Forest`,
+`Random Decision Forest` or `Boosting Trees`) and you can learn more about
+them in the
+[ensembles section of the API documents](https://bigml.com/api/ensembles).
+The example shows
+a `Decision Forest` using a majority system (classifications)
+or an average system
+(regressions) to combine the models' predictions.
+The first argument of the `LocalEnsemble.predict`
+method
 is the input data to predict from, the second one is a code that sets the
-combination method:
+combination method (only useful in `Decision Forests`):
 
 - 0 for **plurality**: one vote per each model prediction
 - 1 for **confidence weighted**: each prediction's vote has its confidence as
