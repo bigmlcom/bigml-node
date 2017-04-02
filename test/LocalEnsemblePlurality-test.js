@@ -24,10 +24,11 @@ describe(scriptName + ': Manage local ensemble objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
     ensembleArgs = {missing_splits: false, number_of_models: 2,
-                    sample_rate: 0.80, seed: "BigML"},
+                    sample_rate: 0.80, ensemble_sample: {seed: "BigML"},
+                    seed: "BigML"},
     prediction = new bigml.Prediction(), inputData = {'petal width': 0.5}, method = 0,
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(), reference,
-    localEnsemble, len, finishedModelsList = [], missingStrategy = 1;
+    localEnsemble, len, finishedModelsList = [], missingStrategy = 0;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
