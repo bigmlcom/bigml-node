@@ -1,3 +1,7 @@
+=== 1.10.1 / 2017-04-03
+
+* Bug fixing Local Ensemble predictions for plurality combiner.
+
 === 1.10.0 / 2017-03-21
 
 * Adding support for Boosted Trees in Local Ensemble.
