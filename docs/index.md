@@ -1133,8 +1133,9 @@ construct a local model for each one and predict using these local models.
 In this case, the final prediction is made by combining the individual local
 model's predictions using a distribution weighted method.
 
-The same can be done for an array containing a list of models, regardless of
-whether they belong to an ensemble or not:
+The same can be done for an array containing a list of models (only bagging
+ensembles and random decision forests can be built this way), regardless of
+whether they belong to a remote ensemble or not:
 
 ```js
     var bigml = require('bigml');

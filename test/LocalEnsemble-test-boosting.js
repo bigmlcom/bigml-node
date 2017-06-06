@@ -25,7 +25,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
     ensembleArgs = {missing_splits: false, number_of_models: 2,
                     sample_rate: 0.80, seed: "BigML",
-                    boosting: {"iterations": 5}},
+                    boosting: {"iterations": 3}},
     prediction = new bigml.Prediction(), inputData = {"petal width": 0.5}, method = 1,
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(),
     reference, localEnsemble, len, finishedModelsList = [];
@@ -68,7 +68,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
 
   describe('LocalEnsemble(ensemble)', function () {
     it('should create a localEnsemble from an ensemble Id', function (done) {
-      localEnsemble = new bigml.LocalEnsemble(ensembleId);
+      localEnsemble = new bigml.LocalEnsemble(ensembleId, undefined, 2);
       if (localEnsemble.ready) {
         assert.ok(true);
         done();
@@ -133,18 +133,6 @@ describe(scriptName + ': Manage local ensemble objects', function () {
         assert.equal(data.prediction, reference);
         done();
       });
-    });
-  });
-  describe('LocalEnsemble(finishedModelsList)', function () {
-    it('should create a localEnsemble from a finished models list', function () {
-      localEnsemble = new bigml.LocalEnsemble(finishedModelsList);
-      assert.ok(localEnsemble.ready);
-    });
-  });
-  describe('#predict(inputData, method)', function () {
-    it('should predict synchronously from input data', function () {
-      var result = localEnsemble.predict(inputData, method);
-      assert.equal(result.prediction, reference);
     });
   });
   after(function (done) {
