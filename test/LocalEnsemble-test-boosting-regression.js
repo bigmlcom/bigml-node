@@ -32,7 +32,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
     ensembleId, ensemble = new bigml.Ensemble(), ensembleResource,
     ensembleArgs = {missing_splits: false, number_of_models: 2,
                     sample_rate: 0.80, seed: "BigML",
-                    boosting: {"iterations": 5}},
+                    boosting: {"iterations": 3}},
     prediction = new bigml.Prediction(), inputData = {"Midterm": 20}, method = 1,
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(),
     reference, localEnsemble, len, finishedModelsList = [];
@@ -140,18 +140,6 @@ describe(scriptName + ': Manage local ensemble objects', function () {
         assert.equal(truncate(data, decimals), reference);
         done();
       });
-    });
-  });
-  describe('LocalEnsemble(finishedModelsList)', function () {
-    it('should create a localEnsemble from a finished models list', function () {
-      localEnsemble = new bigml.LocalEnsemble(finishedModelsList);
-      assert.ok(localEnsemble.ready);
-    });
-  });
-  describe('#predict(inputData, method)', function () {
-    it('should predict synchronously from input data', function () {
-      var result = localEnsemble.predict(inputData, method);
-      assert.equal(truncate(result, decimals), reference);
     });
   });
   after(function (done) {
