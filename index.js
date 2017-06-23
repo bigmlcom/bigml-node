@@ -66,6 +66,11 @@ module.exports = {
   // Batch Topic Distribution REST api interface
   BatchTopicDistribution: require('./lib/BatchTopicDistribution'),
   // Script REST api interface
+  // Time-series REST api interface
+  TimeSeries: require('./lib/TimeSeries'),
+  // Forecast REST api interface
+  Forecast: require('./lib/Forecast'),
+  // Batch Topic Distribution REST api interface
   Script: require('./lib/Script'),
   // Local Model object for local predictions
   Library: require('./lib/Library'),
@@ -81,8 +86,10 @@ module.exports = {
   LocalAnomaly: require('./lib/LocalAnomaly'),
   // Local Logistic Regression object for local predictions
   LocalLogisticRegression: require('./lib/LocalLogisticRegression'),
-  // Local Logistic Regression object for local predictions
+  // Local Association object for local predictions
   LocalAssociation: require('./lib/LocalAssociation'),
-  // Local Logistic Regression object for local predictions
-  LocalTopicModel: require('./lib/LocalTopicModel')
+  // Local Topic Model object for local predictions
+  LocalTopicModel: require('./lib/LocalTopicModel'),
+  // Local Time-series object for local predictions
+  LocalTimeSeries: require('./lib/LocalTimeSeries')
 };
