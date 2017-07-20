@@ -29,12 +29,19 @@ in our [Campfire chatroom](https://bigmlinc.campfirenow.com/f20a0).
 Requirements
 ------------
 
-Node 0.10 is currently supported by these bindings.
+Node 0.10 and later are currently supported by these bindings.
 
-The only mandatory third-party dependencies are the
+The mandatory third-party dependencies are the
 [request](https://github.com/mikeal/request.git),
-[winston](https://github.com/flatiron/winston.git) and
-[form-data](https://github.com/felixge/node-form-data.git) libraries.
+[winston](https://github.com/flatiron/winston.git),
+[form-data](https://github.com/felixge/node-form-data.git),
+[mersenne-twister](https://www.npmjs.com/package/mersennetwister),
+[snowball](https://www.npmjs.com/browse/keyword/snowball),
+[combined-stream](https://www.npmjs.com/package/combined-stream),
+[mime](https://www.npmjs.com/package/mime),
+[async](https://www.npmjs.com/package/async),
+[jStat](https://www.npmjs.com/package/jStat) and
+[fast-csv](https://www.npmjs.com/package/fast-csv) libraries.
 
 The testing environment requires the additional
 [mocha](https://github.com/visionmedia/mocha) package that can be installed

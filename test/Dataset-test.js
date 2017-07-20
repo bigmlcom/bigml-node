@@ -55,7 +55,7 @@ describe(scriptName + ': Manage dataset objects', function () {
     });
   });
   describe('#update(dataset, args, callback)', function () {
-    it('should update properties in the source', function (done) {
+    it('should update properties in the dataset', function (done) {
       var newName = 'my new name';
       dataset.update(datasetId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
