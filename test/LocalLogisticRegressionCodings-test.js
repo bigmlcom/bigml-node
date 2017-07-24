@@ -78,33 +78,39 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
               function (error, data) {
                 assert.equal(data.code, bigml.constants.HTTP_CREATED);
                 logisticId1 = data.resource;
-                logistic.create(datasetId,
-                  {field_codings: fieldCodings2, objective_field: objective2,
-                   'balance_fields': false},
-                    function (error, data) {
-                      assert.equal(data.code, bigml.constants.HTTP_CREATED);
-                      logisticId2 = data.resource;
-                      logistic.create(datasetId,
-                        {field_codings: fieldCodings3,
-                         'balance_fields': false,
-                         objective_field: objective3},
-                           function (error, data) {
-                             assert.equal(data.code,
-                                          bigml.constants.HTTP_CREATED);
-                             logisticId3 = data.resource;
-                              logistic.create(datasetId,
-                                {field_codings: fieldCodings4,
-                                 'balance_fields': false,
-                                 objective_field: objective4},
-                                   function (error, data) {
-                                     assert.equal(data.code,
-                                                  bigml.constants.HTTP_CREATED);
-                                     logisticId4 = data.resource;
-                                     done();
+                logistic.get(logisticId1, true, function(error, data) {
+                  logistic.create(datasetId,
+                    {field_codings: fieldCodings2, objective_field: objective2,
+                     'balance_fields': false},
+                      function (error, data) {
+                        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+                        logisticId2 = data.resource;
+                        logistic.get(logisticId2, true, function(error,data) {
+                          logistic.create(datasetId,
+                            {field_codings: fieldCodings3,
+                             'balance_fields': false,
+                             objective_field: objective3},
+                               function (error, data) {
+                                 assert.equal(data.code,
+                                              bigml.constants.HTTP_CREATED);
+                                 logisticId3 = data.resource;
+                                  logistic.get(logisticId3, true, function(error, data) {
+                                    logistic.create(datasetId,
+                                      {field_codings: fieldCodings4,
+                                       'balance_fields': false,
+                                       objective_field: objective4},
+                                         function (error, data) {
+                                           assert.equal(data.code,
+                                                        bigml.constants.HTTP_CREATED);
+                                           logisticId4 = data.resource;
+                                           done();
+                                          });
                                     });
-                              });
+                                  })
+                                });
                             });
-                      });
+                        });
+                  })
                 });
             });
           });

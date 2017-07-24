@@ -116,7 +116,8 @@ this will give you access to the following library structure:
     - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
     - bigml.LocalLogisticRegression     Logistic regression model for local predictions
     - bigml.LocalAssociation            Association model for associaton rules
-    - bigml.LocalTopicModel             Topic Model for Local Predictions
+    - bigml.LocalTopicModel             Topic Model for local predictions
+    - bigml.LocalTimeSeries             Time Sereis for local forecasts
 
 
 Authentication
@@ -456,6 +457,19 @@ a `topic model`. Check the
 [developers documentation](https://bigml.com/api/batchtopicdistributions)
 for a detailed description. These resources
 are handled through `bigml.BatchTopicDistribution`.
+
+- **time series** These resources are models to discover the patterns in
+the properties of a sequence of ordered data. Check the
+[developers documentation](https://bigml.com/api/timeseries)
+for a detailed description. These resources
+are handled through `bigml.TimeSeries`.
+
+- **forecasts** These resources contain forecasts for the numeric
+fields in a dataset as predicted by a `timeseries` model.
+Check the
+[developers documentation](https://bigml.com/api/forecasts)
+for a detailed description. These resources
+are handled through `bigml.Forecast`.
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
@@ -1574,6 +1588,98 @@ filtered), an exception will arise. In this example, the connection to BigML
 is used only in the `get` method call to retrieve the remote topic model
 information. The callback code, where the `localTopicModel` and distributions
 are built, is strictly local.
+
+Local Time Series
+-----------------
+
+A remote time series resource encloses all the information
+required to produce forecasts for all the numeric fields that have been
+previously declared as its objective fields.
+Thus, you can build a local version of
+a time series and generate forecasts using the `LocalTimeSeries` class.
+
+```js
+    var bigml = require('bigml');
+    var localTimeSeries = new bigml.LocalTimeSeries(
+        'timeseries/51922d0b37203f2a8c001010');
+    localTimeSeries.forecast({'Final': {'horizon': 10}},
+                              function(error, forecast) {
+                                console.log(forecast)});
+```
+
+The forecast method can also be used labelling
+input data with the corresponding field id. The result of this call will
+contain forecasts for the fields, horizons and ETS models given as input
+data. In the example, the response will be an object like:
+
+```js
+    { '000005': [ { model: 'A,N,N', pointForecast: [ 68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181,
+                                                     68.53181 ]}]}
+```
+that contains the ID of the forecasted field and the forecast for the best
+performing model in the `time series` (according to `aic`). You can
+read more about the available error metrics and the input data parameters in
+the [time series API documentation](https://bigml.com/api/timeseries) and
+the [forecast API documentation](https://bigml.com/api/forecasts).
+
+As you see, the first parameter to the `LocalTimeSeries` constructor
+is a time series ID (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localTimeSeries = new bigml.LocalTimeSeries(
+        'timeseries/51922d0b37203f2a8c001010',
+        new bigml.BigML(myUser, myKey));
+    localTimeSeries.forecast({'000005': {"horizon": 10,
+                                         "ets_models": {"criterion": "aic",
+                                                        "names": ["A,A,N"],
+                                                        "indices": [3,7],
+                                                        "limit": 2}}},
+                          function(error, forecast) {
+                            console.log(forecast)});
+```
+
+When the first argument is a finished time series object,
+the constructor creates immediately
+a `LocalTimeSeries` instance ready to predict. Then,
+the `LocalTimeSeries.forecast`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var timeSeries = new bigml.TimeSeries();
+    timeSeries.get('timeseries/51b3c45a37203f16230000b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localTimeSeries = new bigml.LocalTimeSeries(
+            resource);
+          var prediction = localTimeSeries.forecast(
+            {'Final': {'horizon': 10}});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the time series to be finished before retrieving it
+and that all
+the fields used in the time series models will be downloaded respectively.
+Beware of using
+filtered fields time series to instantiate a local time series
+object.
 
 Logging configuration
 ---------------------
