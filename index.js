@@ -1,5 +1,5 @@
 /**
- * Copyright 2012-2014 BigML
+ * Copyright 2012-2017 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -19,62 +19,64 @@ module.exports = {
   BigML: require('./lib/BigML'),
   Resource: require('./lib/Resource'),
   constants: require('./lib/constants'),
-  // Source REST api interface
+  // Source REST API interface
   Source: require('./lib/Source'),
-  // Dataset REST api interface
+  // Dataset REST API interface
   Dataset: require('./lib/Dataset'),
-  // Model REST api interface
+  // Model REST API interface
   Model: require('./lib/Model'),
-  // Ensemble REST api interface
+  // Ensemble REST API interface
   Ensemble: require('./lib/Ensemble'),
-  // Prediction REST api interface
+  // Prediction REST API interface
   Prediction: require('./lib/Prediction'),
-  // Evaluation REST api interface
+  // Evaluation REST API interface
   Evaluation: require('./lib/Evaluation'),
-  // Batch Prediction REST api interface
+  // Batch Prediction REST API interface
   BatchPrediction: require('./lib/BatchPrediction'),
-  // Cluster REST api interface
+  // Cluster REST API interface
   Cluster: require('./lib/Cluster'),
-  // Centroid REST api interface
+  // Centroid REST API interface
   Centroid: require('./lib/Centroid'),
-  // Batch Centroid REST api interface
+  // Batch Centroid REST API interface
   BatchCentroid: require('./lib/BatchCentroid'),
-  // Anomaly REST api interface
+  // Anomaly REST API interface
   Anomaly: require('./lib/Anomaly'),
-  // Anomaly score REST api interface
+  // Anomaly score REST API interface
   AnomalyScore: require('./lib/AnomalyScore'),
-  // Batch Anomaly Score REST api interface
+  // Batch Anomaly Score REST API interface
   BatchAnomalyScore: require('./lib/BatchAnomalyScore'),
-  // Projects REST api interface
+  // Projects REST API interface
   Project: require('./lib/Project'),
-  // Samples REST api interface
+  // Samples REST API interface
   Sample: require('./lib/Sample'),
-  // Correlations REST api interface
+  // Correlations REST API interface
   Correlation: require('./lib/Correlation'),
-  // Statistical Tests REST api interface
+  // Statistical Tests REST API interface
   StatisticalTest: require('./lib/StatisticalTest'),
-  // Logistic Regression REST api interface
+  // Logistic Regression REST API interface
   LogisticRegression: require('./lib/LogisticRegression'),
-  // Association REST api interface
+  // Association REST API interface
   Association: require('./lib/Association'),
-  // Association REST api interface
+  // Association REST API interface
   AssociationSet: require('./lib/AssociationSet'),
-  // Topic Model REST api interface
+  // Topic Model REST API interface
   TopicModel: require('./lib/TopicModel'),
-  // Topic Distribution REST api interface
+  // Topic Distribution REST API interface
   TopicDistribution: require('./lib/TopicDistribution'),
-  // Batch Topic Distribution REST api interface
+  // Batch Topic Distribution REST API interface
   BatchTopicDistribution: require('./lib/BatchTopicDistribution'),
-  // Script REST api interface
-  // Time-series REST api interface
+  // Script REST API interface
+  // Time-series REST API interface
   TimeSeries: require('./lib/TimeSeries'),
-  // Forecast REST api interface
+  // Forecast REST API interface
   Forecast: require('./lib/Forecast'),
-  // Batch Topic Distribution REST api interface
+  // Deepnet REST API interface
+  Deepnet: require('./lib/Deepnet'),
+  // Script REST API interface
   Script: require('./lib/Script'),
-  // Local Model object for local predictions
+  // Library REST API interface
   Library: require('./lib/Library'),
-  // Local Model object for local predictions
+  // Execution REST API interface
   Execution: require('./lib/Execution'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
