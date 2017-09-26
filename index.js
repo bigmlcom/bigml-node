@@ -93,5 +93,7 @@ module.exports = {
   // Local Topic Model object for local predictions
   LocalTopicModel: require('./lib/LocalTopicModel'),
   // Local Time-series object for local predictions
-  LocalTimeSeries: require('./lib/LocalTimeSeries')
+  LocalTimeSeries: require('./lib/LocalTimeSeries'),
+  // Local Deepnet object for local predictions
+  LocalDeepnet: require('./lib/LocalDeepnet')
 };
