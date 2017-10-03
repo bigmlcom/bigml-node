@@ -1,3 +1,8 @@
+=== 1.12.0 / 2017-10-04
+
+* Adding deepnets REST API methods and local deepnet object to create
+  predictions.
+
 === 1.11.0 / 2017-07-20
 
 * Adding time-series REST API methods and local time-series object to
