@@ -117,7 +117,8 @@ this will give you access to the following library structure:
     - bigml.LocalLogisticRegression     Logistic regression model for local predictions
     - bigml.LocalAssociation            Association model for associaton rules
     - bigml.LocalTopicModel             Topic Model for local predictions
-    - bigml.LocalTimeSeries             Time Sereis for local forecasts
+    - bigml.LocalTimeSeries             Time Series for local forecasts
+    - bigml.LocalDeepnet                Deepnets for local predictions
 
 
 Authentication
@@ -302,7 +303,7 @@ And similarly, for your ensembles
     localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
-
+or any of the other modeling resources offered by BigML. The previous example
 will generate a prediction for a `Decision Forest` ensemble
 by combining the predictions of each of the models
 they enclose. The example uses the `plurality` combination method (whose code
@@ -471,6 +472,12 @@ Check the
 for a detailed description. These resources
 are handled through `bigml.Forecast`.
 
+- **deepnets** These resources are classification and regression models based
+on deep neural networks. Check the
+[developers documentation](https://bigml.com/api/deepnets)
+for a detailed description. These resources
+are handled through `bigml.Deepnet`.
+
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
 management of the rest of resources. Check the
@@ -591,9 +598,10 @@ method of ``Dataset`` objects.
 would generate a new dataset containing the subset of instances in the cluster
 associated to the centroid id ``000000``.
 
-Similarly, for models, ensembles and logistic regressions
-you will need a dataset as first argument,
-evaluations will need a model as first argument and a dataset as second one and
+Similarly to create models, ensembles, logistic regressions, deepnets and any modeling resource,
+you will need a dataset as first argument.
+
+Evaluations will need a model as first argument and a dataset as second one and
 predictions need a model as first argument too:
 
 ```js
@@ -1235,6 +1243,80 @@ filtered), an exception will arise. In this example, the connection to BigML
 is used only in the `get` method call to retrieve the remote logistic
 regression
 information. The callback code, where the `localLogisticRegression`
+and predictions
+are built, is strictly local.
+
+Local Deepnets
+--------------
+
+A remote deepnet model encloses all the information
+required to predict the value of the objective field associated
+to a given input data set.
+Thus, you can build a local version of
+a deepnet model and predict the category locally using
+the `LocalDeepnet` class.
+
+```js
+    var bigml = require('bigml');
+    var localDeepnet = new bigml.LocalDeepnet(
+        'deepnet/51922d0b37203f2a8c001010');
+    localDeepnet.predict({'petal length': 1, 'petal width': 1,
+                          'sepal length': 1, 'sepal width': 1},
+                          function(error, prediction) {
+                            console.log(prediction)});
+```
+
+As you see, the first parameter to the `LocalDeepnet` constructor
+is a deepnet id (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localDeepnet = new bigml.LocalDeepnet(
+        'deepnet/51922d0b37203f2a8c001010',
+        new bigml.BigML(myUser, myKey));
+    localDeepnet.predict({'000000': 1, '000001': 1,
+                          '000002': 1, '000003': 1},
+                         function(error, prediction) {
+                           console.log(prediction)});
+```
+
+When the first argument is a finished deepnet object,
+the constructor creates immediately
+a `LocalDeepnet` instance ready to predict. Then,
+the `LocalDeepnet.predict`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var deepnet = new bigml.Deepnet();
+    deepnet.get('deepnet/51b3c45a37203f16230000b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localDeepnet = new bigml.LocalDeepnet(
+            resource);
+          var prediction = localDeepnet.predict(
+            {'000000': 1, '000001': 1,
+             '000002': 1, '000003': 1});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the deepnet will be downloaded.
+Beware of using
+filtered fields deepnets to instantiate a local deepnet
+object. If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote deepnet
+information. The callback code, where the `localDeepnet`
 and predictions
 are built, is strictly local.
 
