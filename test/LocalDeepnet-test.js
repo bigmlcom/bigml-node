@@ -1,0 +1,154 @@
+/**
+ * Copyright 2017 BigML
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+var assert = require('assert'),
+  bigml = require('../index'),
+  constants = require('../lib/constants'),
+  path = require('path');
+var scriptName = path.basename(__filename);
+
+describe(scriptName + ': Manage local model objects', function () {
+  var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+    datasetId, dataset = new bigml.Dataset(),
+    args = undefined,
+    deepnetId, deepnet = new bigml.Deepnet(),
+    deepnetResource, deepnetFinishedResource,
+    localDeepnet, firstPredictionProbability, secondPredictionProbability,
+    inputData1 = {},
+    inputData2 = {'petal length': 1, 'sepal length': 1, 'petal width': 1,
+                  'sepal width': 1},
+    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.8638415460752847,"distribution":[{"category":"Iris-setosa","probability":0.1361428671354583},{"category":"Iris-versicolor","probability":0.8638415460752847},{"category":"Iris-virginica","probability":0.000015586789257114755}]}'),
+    prediction2 = JSON.parse('{"prediction":"Iris-setosa","probability":0.9965280407105997,"distribution":[{"category":"Iris-setosa","probability":0.9965280407105997},{"category":"Iris-versicolor","probability":0.003357473970067894},{"category":"Iris-virginica","probability":0.00011448531933238326}]}')
+
+  before(function (done) {
+    source.create(path, undefined, function (error, data) {
+      assert.equal(data.code, bigml.constants.HTTP_CREATED);
+      sourceId = data.resource;
+      dataset.create(sourceId, undefined, function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        datasetId = data.resource;
+        deepnet.create(datasetId, args, function (error, data) {
+          assert.equal(data.code, bigml.constants.HTTP_CREATED);
+          deepnetId = data.resource;
+          deepnetResource = data;
+          deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
+            deepnetFinishedResource = data;
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  describe('LocalDeepnet(deepnetId)', function () {
+    it('should create a localDeepnet from a deepnet Id', function (done) {
+      localDeepnet = new bigml.LocalDeepnet(deepnetId);
+      if (localDeepnet.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        localDeepnet.on('ready', function () {assert.ok(true);
+          done();
+          });
+      }
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localDeepnet.predict(inputData1, 0, function (error, data) {
+        assert.equal(data.prediction, prediction1.prediction);
+        firstPredictionProbability = data.probability;
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data', function () {
+      var prediction = localDeepnet.predict(inputData2);
+      assert.equal(prediction.prediction, prediction2.prediction);
+      secondPredictionProbability = prediction.probability;
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data keyed by field id',
+       function () {
+      var prediction = localDeepnet.predict({'000000': 1, '000001': 1, '000002': 1, '000003': 1});
+      assert.equal(prediction.prediction, prediction2.prediction);
+      assert.equal(prediction.probability, secondPredictionProbability);
+    });
+  });
+  describe('LocalDeepnet(deepnetResource)', function () {
+    it('should create a localDeepnet from a deepnet unfinished resource', function (done) {
+      localDeepnet = new bigml.LocalDeepnet(deepnetResource);
+      if (localDeepnet.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        localDeepnet.on('ready', function () {assert.ok(true);
+          done();
+          });
+      }
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localDeepnet.predict(inputData1, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction1));
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localDeepnet.predict(inputData2, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction2));
+        done();
+      });
+    });
+  });
+  describe('LocalDeepnet(deepnetFinishedResource)', function () {
+    it('should create a localDeepnet from a model finished resource', function () {
+      localDeepnet = new bigml.LocalDeepnet(deepnetFinishedResource);
+      assert.ok(localDeepnet.ready);
+    });
+  });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localDeepnet.predict(inputData2, function (error, data) {
+        assert.equal(JSON.stringify(data), JSON.stringify(prediction2));
+        done();
+      });
+    });
+  });
+  after(function (done) {
+    source.delete(sourceId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+  after(function (done) {
+    dataset.delete(datasetId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+  after(function (done) {
+    deepnet.delete(deepnetId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+});
