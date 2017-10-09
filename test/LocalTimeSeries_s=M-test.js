@@ -88,7 +88,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   describe('#forecast(inputData) for submodel "M,N,M"', function () {
     it('should forecast synchronously from input data', function () {
       inputData1["000005"]["ets_models"].names = ["M,N,M"];
-      forecast1 = {"000005": [{"pointForecast": [72.17615, 72.03876, 66.47413, 69.65207, 68.69178], "model": "M,N,M"}]};
+      forecast1 = {"000005": [{"pointForecast": [72.39954, 71.72705, 66.45629, 69.92079, 68.9178], "model": "M,N,M"}]};
       var forecast = localTimeSeries.forecast(inputData1);
       checkForecast(forecast, forecast1);
     });
@@ -96,7 +96,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   describe('#forecast(inputData) for submodel "M,A,M"', function () {
     it('should forecast synchronously from input data', function () {
       inputData1["000005"]["ets_models"].names = ["M,A,M"];
-      forecast1 = {"000005": [{"pointForecast":  [74.64993, 76.14421, 68.47124, 74.19305, 73.51855], "model": "M,A,M"}]};
+      forecast1 = {"000005": [{"pointForecast":  [75.8422, 76.16165, 68.78198, 74.59676, 73.37048], "model": "M,A,M"}]};
       var forecast = localTimeSeries.forecast(inputData1);
       checkForecast(forecast, forecast1);
     });
@@ -104,7 +104,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   describe('#forecast(inputData) for submodel "M,Ad,M"', function () {
     it('should forecast synchronously from input data', function () {
       inputData1["000005"]["ets_models"].names = ["M,Ad,M"];
-      forecast1 = {"000005": [{"pointForecast": [73.80787, 74.61327, 67.30521, 73.12079, 72.03179], "model": "M,Ad,M"}]};
+      forecast1 = {"000005": [{"pointForecast": [73.75816, 74.60699, 66.71212, 72.49586, 71.76787], "model": "M,Ad,M"}]};
       var forecast = localTimeSeries.forecast(inputData1);
       checkForecast(forecast, forecast1);
     });
@@ -112,7 +112,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   describe('#forecast(inputData) for submodel "M,M,M"', function () {
     it('should forecast synchronously from input data', function () {
       inputData1["000005"]["ets_models"].names = ["M,M,M"];
-      forecast1 = {"000005": [{"pointForecast": [74.22947, 78.06875, 69.96644, 75.98277, 75.92554], "model": "M,M,M"}]};
+      forecast1 = {"000005": [{"pointForecast": [76.18187, 77.95967, 70.45434, 75.35636, 74.66747], "model": "M,M,M"}]};
       var forecast = localTimeSeries.forecast(inputData1);
       checkForecast(forecast, forecast1);
     });
@@ -120,7 +120,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   describe('#forecast(inputData) for submodel "M,Md,M"', function () {
     it('should forecast synchronously from input data', function () {
       inputData1["000005"]["ets_models"].names = ["M,Md,M"];
-      forecast1 = {"000005": [{"pointForecast": [74.65602, 74.79726, 67.07633, 72.56983, 72.23638], "model": "M,Md,M"}]};
+      forecast1 = {"000005": [{"pointForecast": [74.3725, 75.02963, 67.15826, 73.19628, 71.66919], "model": "M,Md,M"}]};
       var forecast = localTimeSeries.forecast(inputData1);
       checkForecast(forecast, forecast1);
     });

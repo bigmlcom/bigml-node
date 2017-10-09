@@ -27,8 +27,9 @@ describe(scriptName + ': Manage local model objects', function () {
     deepnetId, deepnet = new bigml.Deepnet(),
     deepnetResource, deepnetFinishedResource,
     localDeepnet, firstPredictionProbability,
-    inputData1 = {},
-    prediction1 = JSON.parse('{"prediction":"Iris-setosa","probability":0.9609562171586283,"distribution":[{"category":"Iris-setosa","probability":0.9609562171586283},{"category":"Iris-versicolor","probability":0.03904378284135191},{"category":"Iris-virginica","probability":1.980259959541155e-14}]}');
+    inputData1 = {}, remotePred,
+    prediction = new bigml.Prediction(),
+    prediction1 = JSON.parse('{"prediction":"Iris-setosa","probability":0.9999548947838467,"distribution":[{"category":"Iris-setosa","probability":0.9999548947838467},{"category":"Iris-versicolor","probability":0.00004458379001939712},{"category":"Iris-virginica","probability":5.214261337996457e-7}]}');
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -43,7 +44,11 @@ describe(scriptName + ': Manage local model objects', function () {
           deepnetResource = data;
           deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
             deepnetFinishedResource = data;
-            done();
+            remotePred = prediction.create(deepnetId, inputData1, function(error, data) {
+              assert.equal(data.object.output, prediction1.prediction);
+              assert.equal(data.object.probability, Math.round(prediction1.probability * 100000) / 100000.0) ;
+              done();
+            });
           });
         });
       });
@@ -65,7 +70,7 @@ describe(scriptName + ': Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localDeepnet.predict(inputData1, 0, function (error, data) {
+      localDeepnet.predict(inputData1, false, function (error, data) {
         assert.equal(data.prediction, prediction1.prediction);
         firstPredictionProbability = data.probability;
         done();
@@ -87,7 +92,7 @@ describe(scriptName + ': Manage local model objects', function () {
   });
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
-      localDeepnet.predict(inputData1, function (error, data) {
+      localDeepnet.predict(inputData1, false, function (error, data) {
         assert.equal(JSON.stringify(data), JSON.stringify(prediction1));
         done();
       });
