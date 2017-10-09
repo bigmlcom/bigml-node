@@ -44,7 +44,8 @@ describe(scriptName + ': Manage local model objects', function () {
           deepnetResource = data;
           deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
             deepnetFinishedResource = data;
-            remotePred = prediction.create(deepnetId, inputData1, function(error, data) {
+            prediction.create(deepnetId, inputData1, function(error, data) {
+              remotePred = data.resource;
               assert.equal(data.object.output, prediction1.prediction);
               assert.equal(data.object.probability, Math.round(prediction1.probability * 100000) / 100000.0) ;
               done();
@@ -112,6 +113,12 @@ describe(scriptName + ': Manage local model objects', function () {
   });
   after(function (done) {
     deepnet.delete(deepnetId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+  after(function (done) {
+    prediction.delete(remotePred, function (error, data) {
       assert.equal(error, null);
       done();
     });
