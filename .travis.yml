@@ -5,7 +5,13 @@ env:
   - BML_TESTS="-model"
   - BML_TESTS="-res"
   - BML_TESTS="-pred"
-  - BML_TESTS="Local"
+  - BML_TESTS="LocalA"
+  - BML_TESTS="LocalC"
+  - BML_TESTS="LocalD"
+  - BML_TESTS="LocalE"
+  - BML_TESTS="LocalL"
+  - BML_TESTS="LocalM"
+  - BML_TESTS="LocalT"
 install:
  - npm install mocha
  - npm install
