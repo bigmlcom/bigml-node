@@ -1,6 +1,15 @@
 language: node_js
 node_js:
  - "8.4.0"
+env:
+  - BML_TESTS="-model"
+  - BML_TESTS="-res"
+  - BML_TESTS="-pred"
+  - BML_TESTS="Local"
 install:
  - npm install mocha
  - npm install
+script:
+  - export TESTS=$(for t in $BML_TESTS; do ls test/*$t*;done|paste -sd " ")
+  - echo $TESTS
+  - mocha -t 80000 $TESTS
