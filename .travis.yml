@@ -6,7 +6,6 @@ env:
   - BML_TESTS="-res"
   - BML_TESTS="-pred"
   - BML_TESTS="Local"
-  - BIGML_DEBUG=1
 install:
  - npm install mocha
  - npm install
