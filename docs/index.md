@@ -107,6 +107,7 @@ this will give you access to the following library structure:
     - bigml.TopicModel                  Topic Model API methods
     - bigml.TopicDistribution           Topic Distribution API methods
     - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
+    - bigml.Deepnet                     Deepnet API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods

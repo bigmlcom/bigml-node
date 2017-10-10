@@ -107,6 +107,11 @@ this will give you access to the following library structure:
     - bigml.StatisticalTests            StatisticalTest API methods
     - bigml.LogisticRegression          LogisticRegression API methods
     - bigml.Association                 Association API methods
+    - bigml.AssociationSet              Associationset API methods
+    - bigml.TopicModel                  Topic Model API methods
+    - bigml.TopicDistribution           Topic Distribution API methods
+    - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
+    - bigml.Deepnet                     Deepnet API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -116,6 +121,9 @@ this will give you access to the following library structure:
     - bigml.LocalAnomaly                Anomaly detector for local anomaly scores
     - bigml.LocalLogisticRegression     Logistic regression model for local predictions
     - bigml.LocalAssociation            Association model for associaton rules
+    - bigml.LocalTopicModel             Topic Model for local predictions
+    - bigml.LocalTimeSeries             Time Series for local forecasts
+    - bigml.LocalDeepnet                Deepnets for local predictions
 
 
 Authentication
