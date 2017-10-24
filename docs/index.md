@@ -1027,7 +1027,7 @@ structure by setting the path to the file as first parameter:
 ```
 
 Predictions' Missing Strategy
-----------------------------
+-----------------------------
 
 There are two different strategies when dealing with missing values
 in input data for the fields used in the model rules. The default
@@ -1054,6 +1054,59 @@ them in regressions and selecting the majority class for classifications.
     localModel.predict({'petal length': 1}, PROPORTIONAL,
                        function(error, prediction) {console.log(prediction)});
 ```
+
+Operating point's predictions
+-----------------------------
+
+In classification problems,
+Models, Ensembles and Logistic Regressions can be used at different
+operating points, that is, associated to particular thresholds. Each
+operating point is then defined by the kind of property you use as threshold,
+its value and a the class that is supposed to be predicted if the threshold
+is reached.
+
+Let's assume you decide that you have a binary problem, with classes `True`
+and `False` as possible outcomes. Imagine you want to be very sure to
+predict the `True` outcome, so you don't want to predict that unless the
+probability associated to it is over `0,8`. You can achieve this with any
+classification model by creating an operating point:
+
+```js
+    var operatingPoint = {kind: 'probability',
+                          positiveClass: 'True',
+                          threshold: 0.8};
+```
+
+to predict using this restriction, you can use the `predictOperating`
+method:
+
+```js
+
+    var prediction = localModel.predictOperating(inputData,
+                                                 missingStrategy,
+                                                 operatingPoint,
+                                                 cb);
+```
+
+where `inputData` should contain the values for which you want to predict
+and
+`missingStrategy` is the strategy to use when values are missing (please,
+check the previous section for details about this parameter).
+
+Local models allow two kinds of operating points: `probability` and
+`confidence`. For both of them, the threshold can be set to any number
+in the `[0, 1]` range.
+
+You can also use the `predict` method in its most general form:
+
+```js
+    var prediction = localModel.predict(inputData,
+                                        missingStrategy,
+                                        median,
+                                        addUnusedFields,
+                                        operatingPoint,
+                                        cb);
+
 
 Local Ensembles
 ---------------
@@ -1099,7 +1152,10 @@ combination method (only useful in `Decision Forests`):
     predicted if and only if the number of predictions for that category is
     at least the threshold value.
     Otherwise, the prediction is plurality for the rest of predicted
-    values.
+    values. This combination method will be deprecated in favour of the `votes`
+    kind of operating point. Please check the
+    [Operating point's predictions](operating-point's-predictions) section
+    and the end of this section for more details.
 
 An there's an optional third argument named `options` that specify some
 additional configuration values, such as the missing strategy used in each
@@ -1167,6 +1223,36 @@ whether they belong to a remote ensemble or not:
     localEnsemble.predict({'petal length': 1}, 0,
                           function(error, prediction) {console.log(prediction)});
 ```
+
+Operating point predictions are also available for local ensembles and an
+example of it would be:
+
+```js
+    var operatingPoint = {kind: 'probability',
+                          positiveClass: 'True',
+                          threshold: 0.8};
+    var prediction = localEnsemble.predictOperating(inputData,
+                                                    missingStrategy,
+                                                    operatingPoint,
+                                                    cb);
+```
+
+or using the `predict` method:
+
+```js
+    var prediction = localEnsemble.predict(inputData,
+                                           undefined,
+                                           {operatingPoint: operatingPoint},
+                                           cb);
+```
+
+You can check the
+[Operating point's predictions](#operating-point's-predictions) section
+to learn about
+operating points. For ensembles, three kinds of operating points are available:
+`votes`, `probability` and `confidence`. `Votes` will use as threshold the
+number of models in the ensemble that vote for the positive class. The other
+two are already explained in the above mentioned section.
 
 Local Logistic Regressions
 --------------------------
@@ -1246,6 +1332,34 @@ regression
 information. The callback code, where the `localLogisticRegression`
 and predictions
 are built, is strictly local.
+
+Operating point predictions are also available for local logistic regressions
+and an example of it would be:
+
+```js
+    var operatingPoint = {kind: 'probability',
+                          positiveClass: 'True',
+                          threshold: 0.8};
+    localLogistic.predictOperating(inputData,
+                                   operatingPoint,
+                                   cb);
+```
+
+or using the `predict` method:
+
+```js
+    localLogistic.predict(inputData,
+                          undefined,
+                          operatingPoint,
+                          cb);
+```
+
+You can check the
+[Operating point's predictions](#operating-point's-predictions) section
+to learn about
+operating points. For logistic regressions, the only available kind is
+`probability`, that sets the threshold of probability to be reached for the
+prediction to be the positive class.
 
 Local Deepnets
 --------------
