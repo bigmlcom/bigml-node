@@ -1,3 +1,7 @@
+=== 1.12.2 / 2017-10-13
+
+* Fixing bug in local ensemble predictions with models list changes.
+
 === 1.12.1 / 2017-10-13
 
 * Fixing bug in local deepnet predictions with missing input data.
