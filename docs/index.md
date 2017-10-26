@@ -1062,13 +1062,13 @@ In classification problems,
 Models, Ensembles and Logistic Regressions can be used at different
 operating points, that is, associated to particular thresholds. Each
 operating point is then defined by the kind of property you use as threshold,
-its value and a the class that is supposed to be predicted if the threshold
+its value and the class that is supposed to be predicted if the threshold
 is reached.
 
 Let's assume you decide that you have a binary problem, with classes `True`
 and `False` as possible outcomes. Imagine you want to be very sure to
 predict the `True` outcome, so you don't want to predict that unless the
-probability associated to it is over `0,8`. You can achieve this with any
+probability associated to it is over `0.8`. You can achieve this with any
 classification model by creating an operating point:
 
 ```js
@@ -1250,7 +1250,8 @@ You can check the
 [Operating point's predictions](#operating-point's-predictions) section
 to learn about
 operating points. For ensembles, three kinds of operating points are available:
-`votes`, `probability` and `confidence`. `Votes` will use as threshold the
+`votes`, `probability` and `confidence`. The `votes` option
+will use as threshold the
 number of models in the ensemble that vote for the positive class. The other
 two are already explained in the above mentioned section.
 
