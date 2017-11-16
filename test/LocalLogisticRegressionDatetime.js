@@ -20,7 +20,7 @@ var assert = require('assert'),
 var scriptName = path.basename(__filename);
 
 describe(scriptName + ': Manage local logistic objects', function () {
-  var sourceId, source = new bigml.Source(), path = './data/spam.csv',
+  var sourceId, source = new bigml.Source(), path = './data/spam_date.csv',
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
@@ -31,8 +31,8 @@ describe(scriptName + ': Manage local logistic objects', function () {
     inputData3 = {'Message': 'mobile'};
 
   before(function (done) {
-    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
-      textField = {'fields': {'000001': {'optype': 'text'}}};
+    var tokenMode = {'fields': {'000002': {'term_analysis': {'token_mode': 'all'}}}},
+      textField = {'fields': {'000002': {'optype': 'text'}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
@@ -135,6 +135,46 @@ describe(scriptName + ': Manage local logistic objects', function () {
                    probability)
     });
   });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data keyed by field id',
+       function (done) {
+      localLogisticRegression.predict({'000001': 'mobile Mobile call'}, function (error, data) {
+        assert.equal(data["prediction"], prediction1["object"]["output"]);
+        var index, probabilities = prediction1['object']['probabilities'],
+          len = probabilities.length, probability, distribution = [];
+        for (index = 0; index < len; index++) {
+          if (prediction1['object']['output'] == probabilities[index][0]) {
+            probability = probabilities[index][1];
+            break;
+          }
+          distribution.push({category: probabilities[index][0],
+                             probability: probabilities[index][1]});
+        }
+        assert.equal(Math.round(data['probability'] * 100000, 5) / 100000,
+                     probability)
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data keyed by field id',
+       function () {
+      var prediction = localLogisticRegression.predict({'000001': 'A normal message'});
+      assert.equal(prediction["prediction"], prediction2["object"]["output"]);
+      var index, probabilities = prediction2['object']['probabilities'],
+        len = probabilities.length, probability, distribution = [];
+      for (index = 0; index < len; index++) {
+        if (prediction2['object']['output'] == probabilities[index][0]) {
+          probability = probabilities[index][1];
+          break;
+        }
+        distribution.push({category: probabilities[index][0],
+                           probability: probabilities[index][1]});
+      }
+      assert.equal(Math.round(prediction['probability'] * 100000, 5) / 100000,
+                   probability)
+    });
+  });
   describe('LocalLogisticRegression(logisticRegressionResource)', function () {
     it('should create a localLogisticRegression from a logistic regression unfinished resource', function (done) {
       localLogisticRegression = new bigml.LocalLogisticRegression(logisticResource);
@@ -205,7 +245,8 @@ describe(scriptName + ': Manage local logistic objects', function () {
       assert.equal(error, null);
       done();
     });
-/*  });
+  });
+
   after(function (done) {
     prediction.delete(prediction1, function (error, data) {
       assert.equal(error, null);
@@ -223,5 +264,5 @@ describe(scriptName + ': Manage local logistic objects', function () {
       assert.equal(error, null);
       done();
     });
-*/  });
+  });
 });
