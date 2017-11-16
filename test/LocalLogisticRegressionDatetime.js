@@ -41,21 +41,23 @@ describe(scriptName + ': Manage local logistic objects', function () {
           dataset.create(sourceId, tokenMode, function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
             datasetId = data.resource;
-            logistic.create(datasetId, {balance_fields: false},
-              function (error, data) {
-              assert.equal(data.code, bigml.constants.HTTP_CREATED);
-              logisticId = data.resource;
-              logisticResource = data;
-              logistic.get(logisticResource, true, 'only_model=true', function (error, data) {
-                logisticFinishedResource = data;
-                prediction.create(logisticResource, inputData1, function(error, data) {
-                  prediction1 = data
-                  prediction.create(logisticResource, inputData2, function(error, data) {
-                    prediction2 = data
-                      prediction.create(logisticResource, inputData3, function(error, data) {
-                        prediction3 = data
-                        done();
-                      });
+            dataset.update(datasetId, {"fields": {"000002": {"preferred": true}}}, function (error, data) {
+              logistic.create(datasetId, {balance_fields: false},
+                function (error, data) {
+                assert.equal(data.code, bigml.constants.HTTP_CREATED);
+                logisticId = data.resource;
+                logisticResource = data;
+                logistic.get(logisticResource, true, 'only_model=true', function (error, data) {
+                  logisticFinishedResource = data;
+                  prediction.create(logisticResource, inputData1, function(error, data) {
+                    prediction1 = data
+                    prediction.create(logisticResource, inputData2, function(error, data) {
+                      prediction2 = data
+                        prediction.create(logisticResource, inputData3, function(error, data) {
+                          prediction3 = data
+                          done();
+                        });
+                    });
                   });
                 });
               });
@@ -138,7 +140,7 @@ describe(scriptName + ': Manage local logistic objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data keyed by field id',
        function (done) {
-      localLogisticRegression.predict({'000001': 'mobile Mobile call'}, function (error, data) {
+      localLogisticRegression.predict({'000002': 'mobile Mobile call'}, function (error, data) {
         assert.equal(data["prediction"], prediction1["object"]["output"]);
         var index, probabilities = prediction1['object']['probabilities'],
           len = probabilities.length, probability, distribution = [];
@@ -159,7 +161,7 @@ describe(scriptName + ': Manage local logistic objects', function () {
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data keyed by field id',
        function () {
-      var prediction = localLogisticRegression.predict({'000001': 'A normal message'});
+      var prediction = localLogisticRegression.predict({'000002': 'A normal message'});
       assert.equal(prediction["prediction"], prediction2["object"]["output"]);
       var index, probabilities = prediction2['object']['probabilities'],
         len = probabilities.length, probability, distribution = [];

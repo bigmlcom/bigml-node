@@ -135,6 +135,46 @@ describe(scriptName + ': Manage local logistic objects', function () {
                    probability)
     });
   });
+  describe('#predict(inputData, callback)', function () {
+    it('should predict asynchronously from input data keyed by field id',
+       function (done) {
+      localLogisticRegression.predict({'000001': 'mobile Mobile call'}, function (error, data) {
+        assert.equal(data["prediction"], prediction1["object"]["output"]);
+        var index, probabilities = prediction1['object']['probabilities'],
+          len = probabilities.length, probability, distribution = [];
+        for (index = 0; index < len; index++) {
+          if (prediction1['object']['output'] == probabilities[index][0]) {
+            probability = probabilities[index][1];
+            break;
+          }
+          distribution.push({category: probabilities[index][0],
+                             probability: probabilities[index][1]});
+        }
+        assert.equal(Math.round(data['probability'] * 100000, 5) / 100000,
+                     probability)
+        done();
+      });
+    });
+  });
+  describe('#predict(inputData)', function () {
+    it('should predict synchronously from input data keyed by field id',
+       function () {
+      var prediction = localLogisticRegression.predict({'000001': 'A normal message'});
+      assert.equal(prediction["prediction"], prediction2["object"]["output"]);
+      var index, probabilities = prediction2['object']['probabilities'],
+        len = probabilities.length, probability, distribution = [];
+      for (index = 0; index < len; index++) {
+        if (prediction2['object']['output'] == probabilities[index][0]) {
+          probability = probabilities[index][1];
+          break;
+        }
+        distribution.push({category: probabilities[index][0],
+                           probability: probabilities[index][1]});
+      }
+      assert.equal(Math.round(prediction['probability'] * 100000, 5) / 100000,
+                   probability)
+    });
+  });
   describe('LocalLogisticRegression(logisticRegressionResource)', function () {
     it('should create a localLogisticRegression from a logistic regression unfinished resource', function (done) {
       localLogisticRegression = new bigml.LocalLogisticRegression(logisticResource);
@@ -205,7 +245,7 @@ describe(scriptName + ': Manage local logistic objects', function () {
       assert.equal(error, null);
       done();
     });
-/*  });
+  });
   after(function (done) {
     prediction.delete(prediction1, function (error, data) {
       assert.equal(error, null);
@@ -223,5 +263,5 @@ describe(scriptName + ': Manage local logistic objects', function () {
       assert.equal(error, null);
       done();
     });
-*/  });
+  });
 });
