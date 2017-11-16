@@ -25,8 +25,8 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
-    localLogisticRegression,
-    prediction1 = {"prediction":"Product2","probability":0.9984238897802277,"distribution":[{"category":"Product2","probability":0.9984238897802277},{"category":"Product1","probability":0.0015761102197723452}]},
+    localLogisticRegression, prediction = new bigml.Prediction(),
+    prediction1 = {"prediction":"Product2","probability":0.9984404979686002,"distribution":[{"category":"Product2","probability":0.9984404979686002},{"category":"Product1","probability":0.0015595020313997566}]},
     inputData1 = {'Price': 1200};
 
   before(function (done) {
@@ -44,7 +44,11 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
           logistic.get(logisticResource, true, 'only_model=true',
             function (error, data) {
             logisticFinishedResource = data;
-            done();
+            prediction.create(data.resource, inputData1, function (error, data) {
+              assert.equal(data.object.output, prediction1.prediction);
+              assert.equal(data.object.probability, Math.round(prediction1.probability * 100000) / 100000);
+              done();
+            });
           });
         });
       });

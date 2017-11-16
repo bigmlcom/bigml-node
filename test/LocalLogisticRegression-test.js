@@ -25,8 +25,9 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
+    prediction = new bigml.Prediction(),
     localLogisticRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction":"Iris-virginica","probability":0.5481030132399242,"distribution":[{"category":"Iris-virginica","probability":0.5481030132399242},{"category":"Iris-versicolor","probability":0.24434611164870548},{"category":"Iris-setosa","probability":0.20755087511137035}]},
+    prediction1 = {"prediction":"Iris-virginica","probability":0.5481061743655147,"distribution":[{"category":"Iris-virginica","probability":0.5481061743655147},{"category":"Iris-versicolor","probability":0.24434175349560955},{"category":"Iris-setosa","probability":0.20755207213887575}]},
     inputData1 = {'petal length': 1, 'sepal length': 1,
                   'petal width': 1, 'sepal width': 1};
 
@@ -45,7 +46,11 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
           logistic.get(logisticResource, true, 'only_model=true',
             function (error, data) {
             logisticFinishedResource = data;
-            done();
+            prediction.create(data.resource, inputData1, function(error, data) {
+              assert.equal(data.object.output, prediction1.prediction);
+              assert.equal(data.object.probability, Math.round(prediction1.probability * 100000) / 100000);
+              done();
+            });
           });
         });
       });
