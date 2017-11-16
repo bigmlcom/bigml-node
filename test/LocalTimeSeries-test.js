@@ -31,7 +31,7 @@ function checkForecast(forecast, reference) {
       assert.equal(item.pointForecast.length, refItem.pointForecast.length);
       len = item.pointForecast.length;
       for (index = 0; index < len; index++) {
-        assert.equal(item.pointForecast[index],
+        assert.equal(Math.round(item.pointForecast[index] * 100000) / 100000,
                      refItem.pointForecast[index]);
       }
     }
@@ -160,7 +160,7 @@ describe(scriptName + ': Manage local Time-series objects', function () {
   });
   after(function (done) {
     forecast.delete(forecastId, function (error, data) {
-      // assert.equal(error, null);
+      assert.equal(error, null);
       done();
     });
   });
