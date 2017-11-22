@@ -1,3 +1,7 @@
+=== 1.13.2 / 2017-11-22
+
+* Adding local deepnet predictions with operating point.
+
 === 1.13.1 / 2017-11-16
 
 * Fixing bug in local logistic regression predictions for datasets with

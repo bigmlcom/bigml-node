@@ -1436,6 +1436,34 @@ information. The callback code, where the `localDeepnet`
 and predictions
 are built, is strictly local.
 
+Operating point predictions are also available for local deepnets
+and an example of it would be:
+
+```js
+    var operatingPoint = {kind: 'probability',
+                          positiveClass: 'True',
+                          threshold: 0.8};
+    localDeepnet.predictOperating(inputData,
+                                  operatingPoint,
+                                  cb);
+```
+
+or using the `predict` method:
+
+```js
+    localDeepnet.predict(inputData,
+                         false,
+                         operatingPoint,
+                         cb);
+```
+
+You can check the
+[Operating point's predictions](#operating-point's-predictions) section
+to learn about
+operating points. For deepnets, the only available kind is
+`probability`, that sets the threshold of probability to be reached for the
+prediction to be the positive class.
+
 Local Clusters
 --------------
 
