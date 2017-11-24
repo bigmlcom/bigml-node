@@ -33,15 +33,15 @@ describe(scriptName + ': Manage local model objects', function () {
     predictionRes = new bigml.Prediction(),
     inputData1 = {'petal length': 0.5},
     inputData2 = {'petal length': 2.5},
-    prediction1 = [ { prediction: 'Iris-setosa', probability: 0.9869281045751634 },
-  { prediction: 'Iris-versicolor',
+    prediction1 = [ { category: 'Iris-setosa', probability: 0.9869281045751634 },
+  { category: 'Iris-versicolor',
     probability: 0.0065359477124183 },
-  { prediction: 'Iris-virginica',
+  { category: 'Iris-virginica',
     probability: 0.0065359477124183 } ],
-    prediction2 = [ { prediction: 'Iris-setosa', probability: 0.0033003300330033 },
-  { prediction: 'Iris-versicolor',
+    prediction2 = [ { category: 'Iris-setosa', probability: 0.0033003300330033 },
+  { category: 'Iris-versicolor',
     probability: 0.4983498349834984 },
-  { prediction: 'Iris-virginica',
+  { category: 'Iris-virginica',
     probability: 0.4983498349834984 } ];
 
   before(function (done) {
@@ -61,11 +61,11 @@ describe(scriptName + ': Manage local model objects', function () {
               var probabilities = [], index, len = data.object.probabilities.length,
                 probabilities2 = [];
               for (index = 0;  index < len; index++) {
-                probabilities.push({"prediction": data.object.probabilities[index][0],
+                probabilities.push({"category": data.object.probabilities[index][0],
                                     "probability": data.object.probabilities[index][1]});
               };
               for (index = 0;  index < len; index++) {
-                probabilities2.push({"prediction": prediction1[index].prediction,
+                probabilities2.push({"category": prediction1[index].prediction,
                                      "probability": truncate(prediction1[index].probability, 5)});
               };
               assert.equal(JSON.stringify(probabilities), JSON.stringify(probabilities2));
@@ -74,11 +74,11 @@ describe(scriptName + ': Manage local model objects', function () {
                 var probabilities = [], index, len = data.object.probabilities.length,
                   probabilities2 = [];
                 for (index = 0;  index < len; index++) {
-                  probabilities.push({"prediction": data.object.probabilities[index][0],
+                  probabilities.push({"category": data.object.probabilities[index][0],
                                       "probability": data.object.probabilities[index][1]});
                 };
                 for (index = 0;  index < len; index++) {
-                  probabilities2.push({"prediction": prediction2[index].prediction,
+                  probabilities2.push({"category": prediction2[index].prediction,
                                        "probability": truncate(prediction2[index].probability, 5)});
                 };
                 assert.equal(JSON.stringify(probabilities), JSON.stringify(probabilities2));
