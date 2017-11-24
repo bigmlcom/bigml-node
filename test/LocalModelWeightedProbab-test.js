@@ -65,7 +65,7 @@ describe(scriptName + ': Manage local model objects', function () {
                                     "probability": data.object.probabilities[index][1]});
               };
               for (index = 0;  index < len; index++) {
-                probabilities2.push({"category": prediction1[index].prediction,
+                probabilities2.push({"category": prediction1[index].category,
                                      "probability": truncate(prediction1[index].probability, 5)});
               };
               assert.equal(JSON.stringify(probabilities), JSON.stringify(probabilities2));
@@ -78,7 +78,7 @@ describe(scriptName + ': Manage local model objects', function () {
                                       "probability": data.object.probabilities[index][1]});
                 };
                 for (index = 0;  index < len; index++) {
-                  probabilities2.push({"category": prediction2[index].prediction,
+                  probabilities2.push({"category": prediction2[index].category,
                                        "probability": truncate(prediction2[index].probability, 5)});
                 };
                 assert.equal(JSON.stringify(probabilities), JSON.stringify(probabilities2));
