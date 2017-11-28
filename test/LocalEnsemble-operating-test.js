@@ -35,8 +35,12 @@ describe(scriptName + ': Manage local ensemble objects', function () {
     operatingPoint2 = {"kind": "probability",
                        "positiveClass": "Iris-setosa",
                        "threshold": 1},
+    operatingPoint3 = {"kind": "votes",
+                       "positiveClass": "Iris-virginica",
+                       "threshold": 0},
     prediction1 = 'Iris-setosa',
-    prediction2 = "Iris-versicolor";
+    prediction2 = 'Iris-versicolor',
+    prediction3 = 'Iris-virginica';
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -126,6 +130,14 @@ describe(scriptName + ': Manage local ensemble objects', function () {
         {missingStrategy: missingStrategy,
          operatingPoint: operatingPoint2});
       assert.equal(result.prediction, prediction2);
+    });
+  })
+  describe('#predict(inputData, method)', function () {
+    it('should predict synchronously from input data', function () {
+      var result = localEnsemble.predict(inputData, method,
+        {missingStrategy: missingStrategy,
+         operatingPoint: operatingPoint3});
+      assert.equal(result.prediction, prediction3);
     });
   })
   after(function (done) {
