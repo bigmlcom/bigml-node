@@ -21,13 +21,15 @@ var scriptName = path.basename(__filename);
 
 describe(scriptName + ': Manage whizzml script objects', function () {
   var scriptId, script = new bigml.Script(), sourceCode = '(+ 1 1)';
+  var tagsAsList = ['tag1', 'tag2'];
   describe('#create(sourceCode, args, callback)', function () {
-    it('should create a script from a excerpt of code', function (done) {
-      script.create(sourceCode, undefined, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        scriptId = data.resource;
-        done();
-      });
+    it('should create a script from a excerpt of code, array of tags',
+       function (done) {
+         script.create(sourceCode, { tags: tagsAsList }, function (error, data) {
+           assert.equal(data.code, bigml.constants.HTTP_CREATED);
+           scriptId = data.resource;
+           done();
+         });
     });
   });
   describe('#get(script, finished, query, callback)', function () {
