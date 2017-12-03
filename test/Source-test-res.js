@@ -21,9 +21,20 @@ var scriptName = path.basename(__filename);
 
 describe(scriptName + ': Manage source objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv';
+  var tagsAsList = ['tag1', 'tag2'];
+  var tagsAsString = "['tag1', 'tag2']";
   describe('#create(path, args, callback)', function () {
-    it('should create a source from a file', function (done) {
-      source.create(path, undefined, function (error, data) {
+    it('should create a source from a file, stringified tags', function (done) {
+      source.create(path, { tags: tagsAsString }, function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        sourceId = data.resource;
+        done();
+      });
+    });
+  });
+  describe('#create(path, args, callback)', function () {
+    it('should create a source from a file, array of tags', function (done) {
+      source.create(path, { tags: tagsAsList }, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         sourceId = data.resource;
         done();
