@@ -93,8 +93,7 @@ describe(scriptName + ': Manage dataset objects', function () {
       function (done) {
         cluster.create(datasetId, {k:8}, function (error, data) {
           clusterId = data.resource;
-          var datasets = data.object['cluster_datasets'];
-          centroidId = Object.getOwnPropertyNames(datasets)[0];
+          centroidId = "000000"
           dataset4.create(clusterId, {centroid: centroidId},
                           function (error, data) {
             assert.equal(data.code, bigml.constants.HTTP_CREATED);
