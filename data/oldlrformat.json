@@ -1,0 +1,974 @@
+{
+"public_dataset": false,
+"code": 200,
+"subscription": true,
+"locale": "en-US",
+"short_url": "",
+"image": "gallery/logisticregression.png",
+"job_type": 2200,
+"updated": "2016-04-17T23:02:17.099000",
+"private": true,
+"dataset": "dataset/56e9e446d16f0c3582000198",
+"dataset_field_types": {
+"effective_fields": 5,
+"categorical": 1,
+"items": 0,
+"preferred": 5,
+"datetime": 0,
+"numeric": 4,
+"text": 0,
+"total": 5
+},
+"logistic_regression": {
+"normalize": false,
+"c": 1,
+"missing_class_in_coefficients": false,
+"fields": {
+"000004": {
+"optype": "categorical",
+"name": "species",
+"datatype": "string",
+"preferred": true,
+"summary": {
+"missing_count": 0,
+"categories": [
+[
+"Iris-setosa",
+50
+],
+[
+"Iris-versicolor",
+50
+],
+[
+"Iris-virginica",
+50
+]
+]
+},
+"term_analysis": {
+"enabled": true
+},
+"column_number": 4,
+"order": 4
+},
+"000002": {
+"optype": "numeric",
+"name": "petal length",
+"datatype": "double",
+"preferred": true,
+"summary": {
+"skewness": -0.27213,
+"splits": [
+1.25138,
+1.32426,
+1.37171,
+1.40962,
+1.44567,
+1.48173,
+1.51859,
+1.56301,
+1.6255,
+1.74645,
+3.23033,
+3.675,
+3.94203,
+4.0469,
+4.18243,
+4.34142,
+4.45309,
+4.51823,
+4.61771,
+4.72566,
+4.83445,
+4.93363,
+5.03807,
+5.1064,
+5.20938,
+5.43979,
+5.5744,
+5.6646,
+5.81496,
+6.02913,
+6.38125
+],
+"missing_count": 0,
+"sum": 563.7,
+"median": 4.35,
+"maximum": 6.9,
+"sum_squares": 2582.71,
+"minimum": 1,
+"standard_deviation": 1.7653,
+"variance": 3.11628,
+"population": 150,
+"kurtosis": -1.39554,
+"bins": [
+[
+1,
+1
+],
+[
+1.16667,
+3
+],
+[
+1.3,
+7
+],
+[
+1.4,
+13
+],
+[
+1.5,
+13
+],
+[
+1.6,
+7
+],
+[
+1.7,
+4
+],
+[
+1.9,
+2
+],
+[
+3,
+1
+],
+[
+3.3,
+2
+],
+[
+3.5,
+2
+],
+[
+3.6,
+1
+],
+[
+3.75,
+2
+],
+[
+3.9,
+3
+],
+[
+4.0375,
+8
+],
+[
+4.23333,
+6
+],
+[
+4.46667,
+12
+],
+[
+4.6,
+3
+],
+[
+4.74444,
+9
+],
+[
+4.94444,
+9
+],
+[
+5.1,
+8
+],
+[
+5.25,
+4
+],
+[
+5.46,
+5
+],
+[
+5.6,
+6
+],
+[
+5.75,
+6
+],
+[
+5.95,
+4
+],
+[
+6.1,
+3
+],
+[
+6.3,
+1
+],
+[
+6.4,
+1
+],
+[
+6.6,
+1
+],
+[
+6.7,
+2
+],
+[
+6.9,
+1
+]
+],
+"mean": 3.758
+},
+"column_number": 2,
+"order": 2
+},
+"000003": {
+"optype": "numeric",
+"name": "petal width",
+"datatype": "double",
+"preferred": true,
+"summary": {
+"skewness": -0.10193,
+"missing_count": 0,
+"sum": 179.9,
+"median": 1.3,
+"maximum": 2.5,
+"sum_squares": 302.33,
+"minimum": 0.1,
+"standard_deviation": 0.76224,
+"variance": 0.58101,
+"counts": [
+[
+0.1,
+5
+],
+[
+0.2,
+29
+],
+[
+0.3,
+7
+],
+[
+0.4,
+7
+],
+[
+0.5,
+1
+],
+[
+0.6,
+1
+],
+[
+1,
+7
+],
+[
+1.1,
+3
+],
+[
+1.2,
+5
+],
+[
+1.3,
+13
+],
+[
+1.4,
+8
+],
+[
+1.5,
+12
+],
+[
+1.6,
+4
+],
+[
+1.7,
+2
+],
+[
+1.8,
+12
+],
+[
+1.9,
+5
+],
+[
+2,
+6
+],
+[
+2.1,
+6
+],
+[
+2.2,
+3
+],
+[
+2.3,
+8
+],
+[
+2.4,
+3
+],
+[
+2.5,
+3
+]
+],
+"population": 150,
+"kurtosis": -1.33607,
+"mean": 1.19933
+},
+"column_number": 3,
+"order": 3
+},
+"000000": {
+"optype": "numeric",
+"name": "sepal length",
+"datatype": "double",
+"preferred": true,
+"summary": {
+"skewness": 0.31175,
+"splits": [
+4.51526,
+4.67252,
+4.81113,
+4.89582,
+4.96139,
+5.01131,
+5.05992,
+5.11148,
+5.18177,
+5.35681,
+5.44129,
+5.5108,
+5.58255,
+5.65532,
+5.71658,
+5.77889,
+5.85381,
+5.97078,
+6.05104,
+6.13074,
+6.23023,
+6.29578,
+6.35078,
+6.41459,
+6.49383,
+6.63013,
+6.70719,
+6.79218,
+6.92597,
+7.20423,
+7.64746
+],
+"missing_count": 0,
+"sum": 876.5,
+"median": 5.8,
+"maximum": 7.9,
+"sum_squares": 5223.85,
+"minimum": 4.3,
+"standard_deviation": 0.82807,
+"variance": 0.68569,
+"population": 150,
+"kurtosis": -0.57357,
+"bins": [
+[
+4.3,
+1
+],
+[
+4.425,
+4
+],
+[
+4.6,
+4
+],
+[
+4.77143,
+7
+],
+[
+4.9625,
+16
+],
+[
+5.1,
+9
+],
+[
+5.2,
+4
+],
+[
+5.3,
+1
+],
+[
+5.4,
+6
+],
+[
+5.5,
+7
+],
+[
+5.6,
+6
+],
+[
+5.7,
+8
+],
+[
+5.8,
+7
+],
+[
+5.9,
+3
+],
+[
+6,
+6
+],
+[
+6.1,
+6
+],
+[
+6.2,
+4
+],
+[
+6.3,
+9
+],
+[
+6.4,
+7
+],
+[
+6.5,
+5
+],
+[
+6.6,
+2
+],
+[
+6.7,
+8
+],
+[
+6.8,
+3
+],
+[
+6.9,
+4
+],
+[
+7,
+1
+],
+[
+7.1,
+1
+],
+[
+7.2,
+3
+],
+[
+7.3,
+1
+],
+[
+7.4,
+1
+],
+[
+7.6,
+1
+],
+[
+7.7,
+4
+],
+[
+7.9,
+1
+]
+],
+"mean": 5.84333
+},
+"column_number": 0,
+"order": 0
+},
+"000001": {
+"optype": "numeric",
+"name": "sepal width",
+"datatype": "double",
+"preferred": true,
+"summary": {
+"skewness": 0.31577,
+"missing_count": 0,
+"sum": 458.6,
+"median": 3,
+"maximum": 4.4,
+"sum_squares": 1430.4,
+"minimum": 2,
+"standard_deviation": 0.43587,
+"variance": 0.18998,
+"counts": [
+[
+2,
+1
+],
+[
+2.2,
+3
+],
+[
+2.3,
+4
+],
+[
+2.4,
+3
+],
+[
+2.5,
+8
+],
+[
+2.6,
+5
+],
+[
+2.7,
+9
+],
+[
+2.8,
+14
+],
+[
+2.9,
+10
+],
+[
+3,
+26
+],
+[
+3.1,
+11
+],
+[
+3.2,
+13
+],
+[
+3.3,
+6
+],
+[
+3.4,
+12
+],
+[
+3.5,
+6
+],
+[
+3.6,
+4
+],
+[
+3.7,
+3
+],
+[
+3.8,
+6
+],
+[
+3.9,
+2
+],
+[
+4,
+1
+],
+[
+4.1,
+1
+],
+[
+4.2,
+1
+],
+[
+4.4,
+1
+]
+],
+"population": 150,
+"kurtosis": 0.18098,
+"mean": 3.05733
+},
+"column_number": 1,
+"order": 1
+}
+},
+"eps": 0.1366,
+"regularization": "l1",
+"bias": 1,
+"missing_numerics": true,
+"balance_fields": true,
+"coefficients": [
+[
+"Iris-setosa",
+[
+0.00938964965721377,
+0,
+1.029257371467875,
+0,
+-0.6515547777565109,
+0,
+-2.397151558565854,
+0,
+0.38639619322418145
+]
+],
+[
+"Iris-versicolor",
+[
+0.07586139389920586,
+0,
+-0.6160335341643325,
+0,
+0.21698692482335874,
+0,
+-0.15828578279828165,
+0,
+0.046947455783277615
+]
+],
+[
+"Iris-virginica",
+[
+-0.5487798018752504,
+0,
+-1.099158805906241,
+0,
+0.7860456108391293,
+0,
+3.8810202407478163,
+0,
+-3.624862676292939
+]
+]
+]
+},
+"fields_meta": {
+"count": 5,
+"query_total": 5,
+"total": 5,
+"limit": 1000,
+"offset": 0
+},
+"api": false,
+"objective_field_name": "species",
+"fields_maps": null,
+"range": [
+1,
+150
+],
+"dataset_id": "56e9e446d16f0c3582000198",
+"id": "56f5480ed202bb8090000003",
+"execution_id": null,
+"number_of_predictions": 21,
+"category": 1,
+"modified_fields": {},
+"objective_field_type": "categorical",
+"out_of_bag": false,
+"source": "source/56d98875d202bb152c0000c2",
+"ordering": 0,
+"fields_to_show": [
+{
+"optype": "numeric",
+"is_objective": false,
+"name": "sepal length",
+"data_type": "numeric",
+"datatype_name": "Numeric",
+"stats": [
+[
+"Minimum",
+"4.30"
+],
+[
+"Mean",
+"5.84"
+],
+[
+"Median",
+"5.80"
+],
+[
+"Maximum",
+"7.90"
+],
+[
+"Std dev",
+"0.83"
+],
+[
+"Kurtosis",
+"-0.57"
+],
+[
+"Skewness",
+"0.31"
+]
+],
+"numeric_datetime": false,
+"id": "000000",
+"css": "numeric type_label datatype-tooltip",
+"tooltip": "Numeric"
+},
+{
+"optype": "numeric",
+"is_objective": false,
+"name": "sepal width",
+"data_type": "numeric",
+"datatype_name": "Numeric",
+"stats": [
+[
+"Minimum",
+"2.00"
+],
+[
+"Mean",
+"3.06"
+],
+[
+"Median",
+"3.00"
+],
+[
+"Maximum",
+"4.40"
+],
+[
+"Std dev",
+"0.44"
+],
+[
+"Kurtosis",
+"0.18"
+],
+[
+"Skewness",
+"0.32"
+]
+],
+"numeric_datetime": false,
+"id": "000001",
+"css": "numeric type_label datatype-tooltip",
+"tooltip": "Numeric"
+},
+{
+"optype": "numeric",
+"is_objective": false,
+"name": "petal length",
+"data_type": "numeric",
+"datatype_name": "Numeric",
+"stats": [
+[
+"Minimum",
+"1.00"
+],
+[
+"Mean",
+"3.76"
+],
+[
+"Median",
+"4.35"
+],
+[
+"Maximum",
+"6.90"
+],
+[
+"Std dev",
+"1.77"
+],
+[
+"Kurtosis",
+"-1.40"
+],
+[
+"Skewness",
+"-0.27"
+]
+],
+"numeric_datetime": false,
+"id": "000002",
+"css": "numeric type_label datatype-tooltip",
+"tooltip": "Numeric"
+},
+{
+"optype": "numeric",
+"is_objective": false,
+"name": "petal width",
+"data_type": "numeric",
+"datatype_name": "Numeric",
+"stats": [
+[
+"Minimum",
+"0.10"
+],
+[
+"Mean",
+"1.20"
+],
+[
+"Median",
+"1.30"
+],
+[
+"Maximum",
+"2.50"
+],
+[
+"Std dev",
+"0.76"
+],
+[
+"Kurtosis",
+"-1.34"
+],
+[
+"Skewness",
+"-0.10"
+]
+],
+"numeric_datetime": false,
+"id": "000003",
+"css": "numeric type_label datatype-tooltip",
+"tooltip": "Numeric"
+},
+{
+"optype": "categorical",
+"is_objective": true,
+"name": "species",
+"data_type": "categorical",
+"datatype_name": "Categorical",
+"numeric_datetime": false,
+"id": "000004",
+"css": "categorical type_label datatype-tooltip",
+"tooltip": "Categorical"
+}
+],
+"views": 0,
+"size": 4609,
+"name_options": "",
+"credits_per_prediction": 0,
+"number_of_batchpredictions": 3,
+"seeds": null,
+"number_of_public_predictions": 0,
+"out_of_bags": null,
+"sample_rate": 1,
+"is_identified_tree": true,
+"objective_fields": [
+"000004"
+],
+"type": 0,
+"columns": 5,
+"status": {
+"progress": 1,
+"message": "The logistic regression has been created",
+"code": 5,
+"elapsed": 87
+},
+"project": null,
+"sample_rates": null,
+"description": "",
+"tags": [],
+"price": 0,
+"default_numeric_value": null,
+"excluded_fields": [],
+"configuration_id": null,
+"execution_status": null,
+"ranges": null,
+"credits": 0.017581939697265625,
+"dataset_type": 0,
+"white_box": false,
+"objective_field": "000004",
+"clones": 0,
+"rows": 150,
+"orderings": null,
+"configuration": null,
+"generated_seed": true,
+"name": "iris datasetaaaaaa's logistic regression v1",
+"project_id": null,
+"datasets": [],
+"resource": "logisticregression/56f5480ed202bb8090000003",
+"all_fields_preferred": null,
+"created": "Fri, 25 Mar 2016 14:15:42 +0000",
+"url": "",
+"user_name": "fmartin",
+"dataset_status": true,
+"has_text_fields": false,
+"source_status": false,
+"configuration_status": false,
+"number_of_evaluations": 0,
+"max_columns": 5,
+"max_rows": 150,
+"seed": "##bigml-auto::0.8716545730194685",
+"input_fields": [
+"000000",
+"000001",
+"000002",
+"000003"
+],
+"published": null,
+"source_id": "56d98875d202bb152c0000c2",
+"shared": false,
+"private_image": "gallery/logisticregression.png",
+"has_items_fields": false,
+"replacements": null,
+"replacement": false
+}
