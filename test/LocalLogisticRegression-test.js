@@ -22,6 +22,7 @@ var scriptName = path.basename(__filename);
 
 describe(scriptName + ': Manage local logistic regression objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
+    logisticRegressionFile = './data/oldlrformat.json',
     datasetId, dataset = new bigml.Dataset(),
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
@@ -120,6 +121,20 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
         assert.equal(JSON.stringify(data), JSON.stringify(prediction1));
         done();
       });
+    });
+  });
+  describe('LocalLogisticRegression(localLogisticRegressionFile)', function () {
+    it('should create a LocalLogisticRegression from a logistic regression JSON file',
+      function (done) {
+      localLogisticRegression = new bigml.LocalLogisticRegression(logisticRegressionFile);
+      if (localLogisticRegression.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        localLogisticRegression.on('ready', function () {assert.ok(true);
+          done();
+          });
+      }
     });
   });
   after(function (done) {
