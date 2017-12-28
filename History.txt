@@ -1,3 +1,7 @@
+=== 1.13.7 / 2017-12-29
+
+* Changing local predictions with threshold to match the backend.
+
 === 1.13.6 / 2017-12-18
 
 * Fixing bug in local logistic regression when an old format was used in
