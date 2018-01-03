@@ -1026,6 +1026,24 @@ structure by setting the path to the file as first parameter:
                        function(error, prediction) {console.log(prediction)});
 ```
 
+For classifications, the prediction of a local model will be one of the
+available categories in the objective field and an associated `confidence`
+or `probability` that is used to decide which is the predicted category.
+If you prefer the model predictions to be operated using any of them, you can
+use the `operatingKind` argument in the `predict` method. Here's the example
+to use predictions based on `confidence`:
+
+```js
+    localModel.predict({'000002': 1},
+                       undefined,
+                       undefined,
+                       undefined,
+                       undefined,
+                       "confidence",
+                       function(error, prediction) {console.log(prediction)});
+```
+
+
 Predictions' Missing Strategy
 -----------------------------
 
@@ -1118,7 +1136,7 @@ create a `LocalEnsemble` is:
 ```js
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
-    localEnsemble.predict({'petal length': 1}, 0,
+    localEnsemble.predict({'petal length': 1},
                           function(error, prediction) {console.log(prediction)});
 ```
 
@@ -1134,52 +1152,50 @@ The example shows
 a `Decision Forest` using a majority system (classifications)
 or an average system
 (regressions) to combine the models' predictions.
-The first argument of the `LocalEnsemble.predict`
+
+For classifications
+the prediction will be one amongst the list of categories in the objective
+field. When each model in the ensemble
+is used to predict, each category has a confidence, a
+probability or a vote associated to this prediction.
+Then, through the collection
+of models in the
+ensemble, each category gets an averaged confidence, probabiity and number of
+votes. Thus you can decide whether to operate the ensemble using the
+``confidence``, the ``probability`` or the ``votes`` so that the predicted
+category is the one that scores higher in any of these quantities. The
+criteria can be set using the `operatingKind` option:
+
+
+```js
+    var bigml = require('bigml');
+    var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
+    localEnsemble.predict({'petal length': 1}, undefined,
+                          {operatingKind: "probability"},
+                          function(error, prediction) {console.log(prediction)});
+```
+
+
+The first argument in the `LocalEnsemble.predict`
 method
-is the input data to predict from, the second one is a code that sets the
-combination method (only useful in `Decision Forests`):
-
-- 0 for **plurality**: one vote per each model prediction
-- 1 for **confidence weighted**: each prediction's vote has its confidence as
-    associated weight.
-- 2 for **distribution weighted**: each model contributes to the final
-    prediction with the distribution of possible values in the final
-    prediction node weighted by its distribution weight (the number of
-    instances that have that value over the total number of instances in the
-    node).
-- 3 for **threshold**: one vote per each model prediction. Needs an additional
-    object with two properties: threshold and category. The category is
-    predicted if and only if the number of predictions for that category is
-    at least the threshold value.
-    Otherwise, the prediction is plurality for the rest of predicted
-    values. This combination method will be deprecated in favour of the `votes`
-    kind of operating point. Please check the
-    [Operating point's predictions](operating-point's-predictions) section
-    and the end of this section for more details.
-
-An there's an optional third argument named `options` that specify some
+is the input data to predict from. The second argument is a legacy
+parameter to be deprecated that used to decide the combination method. This
+parameter has been overridden by the ``operatingKind`` option that can be
+sent in the third argument, which is an object where you can specify some
 additional configuration values, such as the missing strategy used in each
 model's prediction:
 
 ```js
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
-    localEnsemble.predict({'petal length': 1}, 0, {missingStrategy: 1},
+    localEnsemble.predict({'petal length': 1},
+                          undefined,
+                          {missingStrategy: 1,
+                           operatingKind: "confidence"},
                           function(error, prediction) {console.log(prediction)});
 ```
 in this case the proportional missing strategy (default would be last
 prediction missing strategy) will be applied.
-
-Another example would be the `threshold` combination method, where the third
-argument contains the `threshold` and `category` values used in the algorithm:
-
-```js
-    var bigml = require('bigml');
-    var localEnsemble = new bigml.LocalEnsemble('ensemble/528ba06e37203f5bc3000000');
-    localEnsemble.predict({'petal length': 0.9, 'petal width': 3.0}, 3,
-                          {threshold: 3, category: 'Iris-virginica'},
-                          function(error, prediction) {console.log(prediction)});
-```
 
 As in `LocalModel`, the constructor of `LocalEnsemble` has as
 first argument the ensemble id (or object) or a list of model ids (or objects)
@@ -1198,7 +1214,7 @@ to the `ready` event. For instance,
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble('ensemble/51901f4337203f3a9a000215');
     function doPredictions() {
-      var prediction = localEnsemble.predict({'petal length': 1}, 2);
+      var prediction = localEnsemble.predict({'petal length': 1});
       console.log(prediction);
     }
     if (localEnsemble.ready) {
@@ -1209,8 +1225,6 @@ to the `ready` event. For instance,
 ```
 would first download the remote ensemble and its component models, then
 construct a local model for each one and predict using these local models.
-In this case, the final prediction is made by combining the individual local
-model's predictions using a distribution weighted method.
 
 The same can be done for an array containing a list of models (only bagging
 ensembles and random decision forests can be built this way), regardless of
@@ -1220,7 +1234,7 @@ whether they belong to a remote ensemble or not:
     var bigml = require('bigml');
     var localEnsemble = new bigml.LocalEnsemble([
       'model/51bb69b437203f02b50004ce', 'model/51bb69b437203f02b50004d0']);
-    localEnsemble.predict({'petal length': 1}, 0,
+    localEnsemble.predict({'petal length': 1},
                           function(error, prediction) {console.log(prediction)});
 ```
 
