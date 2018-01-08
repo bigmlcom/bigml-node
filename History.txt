@@ -1,6 +1,8 @@
-=== 1.13.8 / 2018-01-03
+=== 1.13.8 / 2018-01-08
 
 * Adding operatingKind to local model and ensemble predictions.
+* Fixing local predictions in logistic regressions using operating point.
+  Adapting probability precision to the one in the backend.
 
 === 1.13.7 / 2017-12-29
 
