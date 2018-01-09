@@ -30,8 +30,8 @@ describe(scriptName + ': Manage local model objects', function () {
     operatingKind1 = "confidence",
     operatingKind2 = "probability",
     prediction1 = 'Iris-setosa',
-    confidence = 0.9286499658256813,
-    probability = 0.9869281045751634;
+    confidence = 0.92865,
+    probability = 0.98693;
 
 
   before(function (done) {

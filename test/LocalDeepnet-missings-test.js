@@ -29,7 +29,7 @@ describe(scriptName + ': Manage local model objects', function () {
     localDeepnet, firstPredictionProbability,
     inputData1 = {}, remotePred,
     prediction = new bigml.Prediction(),
-    prediction1 = JSON.parse('{"prediction":"Iris-setosa","probability":0.9999548947838467,"distribution":[{"category":"Iris-setosa","probability":0.9999548947838467},{"category":"Iris-versicolor","probability":0.00004458379001939712},{"category":"Iris-virginica","probability":5.214261337996457e-7}]}');
+    prediction1 = JSON.parse('{"prediction":"Iris-setosa","probability":0.99995,"distribution":[{"category":"Iris-setosa","probability":0.99995},{"category":"Iris-versicolor","probability":0.00004},{"category":"Iris-virginica","probability":0}]}');
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -47,7 +47,7 @@ describe(scriptName + ': Manage local model objects', function () {
             prediction.create(deepnetId, inputData1, function(error, data) {
               remotePred = data.resource;
               assert.equal(data.object.output, prediction1.prediction);
-              assert.equal(data.object.probability, Math.round(prediction1.probability * 100000) / 100000.0) ;
+              assert.equal(data.object.probability, prediction1.probability) ;
               done();
             });
           });

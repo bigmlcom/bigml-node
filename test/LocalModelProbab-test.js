@@ -33,16 +33,17 @@ describe(scriptName + ': Manage local model objects', function () {
     predictionRes = new bigml.Prediction(),
     inputData1 = {'petal length': 0.5},
     inputData2 = {'petal length': 2.5},
-    prediction1 = [ { category: 'Iris-setosa', probability: 0.9869281045751634 },
+    prediction1 = [ { category: 'Iris-setosa', probability: 0.98693 },
   { category: 'Iris-versicolor',
-    probability: 0.0065359477124183 },
+    probability: 0.00654 },
   { category: 'Iris-virginica',
-    probability: 0.0065359477124183 } ],
-    prediction2 = [ { category: 'Iris-setosa', probability: 0.0033003300330033 },
+    probability: 0.00654 } ],
+    prediction2 = [ { category: 'Iris-setosa', probability: 0.0033 },
   { category: 'Iris-versicolor',
-    probability: 0.4983498349834984 },
+    probability: 0.49835 },
   { category: 'Iris-virginica',
-    probability: 0.4983498349834984 } ];
+    probability: 0.49835 } ];
+
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {

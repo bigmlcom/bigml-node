@@ -30,8 +30,8 @@ describe(scriptName + ': Manage local model objects', function () {
     inputData1 = {},
     inputData2 = {'petal length': 1, 'sepal length': 1, 'petal width': 1,
                   'sepal width': 1},
-    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.47036620815232166,"distribution":[{"category":"Iris-setosa","probability":0.424966613256369},{"category":"Iris-versicolor","probability":0.47036620815232166},{"category":"Iris-virginica","probability":0.10466717859130927}]}'),
-    prediction2 = JSON.parse('{"prediction":"Iris-setosa","probability":0.49544352896180605,"distribution":[{"category":"Iris-setosa","probability":0.49544352896180605},{"category":"Iris-versicolor","probability":0.4911110057138627},{"category":"Iris-virginica","probability":0.01344546532433121}]}')
+    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.47037,"distribution":[{"category":"Iris-setosa","probability":0.42497},{"category":"Iris-versicolor","probability":0.47037},{"category":"Iris-virginica","probability":0.10467}]}'),
+    prediction2 = JSON.parse('{"prediction":"Iris-setosa","probability":0.49544,"distribution":[{"category":"Iris-setosa","probability":0.49544},{"category":"Iris-versicolor","probability":0.49111},{"category":"Iris-virginica","probability":0.01345}]}')
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {

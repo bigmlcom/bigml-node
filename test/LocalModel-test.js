@@ -26,7 +26,7 @@ describe(scriptName + ': Manage local model objects', function () {
     missingSplits = {"missing_splits": false},
     modelId, model = new bigml.Model(), modelResource, modelFinishedResource,
     localModel, firstPredictionConfidence, secondPredictionConfidence,
-    proportionalConfidence = 0.8407512606105803,
+    proportionalConfidence = 0.84075,
     inputData1 = {'petal length': 0.5},
     inputData2 = {'petal length': 2.5},
     prediction1 = {

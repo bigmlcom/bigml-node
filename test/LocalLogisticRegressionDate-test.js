@@ -26,7 +26,7 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
     logisticId, logistic = new bigml.LogisticRegression(),
     logisticResource, logisticFinishedResource,
     localLogisticRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction":"Product2","probability":0.9984404979686002,"distribution":[{"category":"Product2","probability":0.9984404979686002},{"category":"Product1","probability":0.0015595020313997566}]},
+    prediction1 = {"prediction":"Product2","probability":0.99844,"distribution":[{"category":"Product2","probability":0.99844},{"category":"Product1","probability":0.00156}]},
     inputData1 = {'Price': 1200};
 
   before(function (done) {
