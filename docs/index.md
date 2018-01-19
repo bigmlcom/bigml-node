@@ -936,7 +936,8 @@ the `LocalModel` class.
 ```
 
 As you see, the first parameter to the `LocalModel` constructor is a model id
-(or object). The constructor allows a second optional argument, a connection
+(or object or the path to a JSON file containing the full model information).
+The constructor allows a second optional argument, a connection
 object (as described in the [Authentication section](#authentication)).
 
 ```js
