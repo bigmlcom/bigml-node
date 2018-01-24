@@ -1,3 +1,8 @@
+=== 1.14.0 / 2018-01-24
+
+* Removing development mode as option in the connections.
+* Adding local storage for local prediction objects.
+
 === 1.13.8 / 2018-01-08
 
 * Adding operatingKind to local model and ensemble predictions.

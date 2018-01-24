@@ -147,12 +147,8 @@ class as follows::
     connection = new bigml.BigML('myusername',
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291');
 
-Also, you can initialize the library to work in the Sandbox environment by
-setting the third parameter `devMode` to `true`::
-
-    connection = new bigml.BigML('myusername',
-                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
-                                 true);
+Connection information
+----------------------
 
 If your BigML installation is not in `bigml.io` you can adapt your connection
 to point to your customized domain. For instance, if your user is in the
@@ -167,11 +163,24 @@ with the protocol used, if you need to change it)::
 
     connection = new bigml.BigML('myusername',
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
-                                 true, {domain: 'au.bigml.io',
-                                        protocol: 'https'});
+                                 {domain: 'au.bigml.io',
+                                  protocol: 'https'});
 
 The default if no domain or protocol information is provided, the connection
 is uses `bigml.io` and `https` as default.
+
+Also, you can set a local directory to be used as storage. Using this
+mechanism, any resource you download using this connection object is stored
+as a json file in the directory. The name of the file is the resource ID string
+replacing the slash by an underscore::
+
+    connection = new bigml.BigML('myusername',
+                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
+                                 {storage: './my_storage'});
+
+Note that the old `devMode` parameter has been deprecated and will no longer
+be accepted.
+
 
 Quick Start
 -----------
@@ -950,6 +959,26 @@ object (as described in the [Authentication section](#authentication)).
                        function(error, prediction) {console.log(prediction)});
 ```
 
+The connection object can also include a storage directory. Setting that
+will cause the `LocalModel` to check whether it can find a local model JSON
+file in this directory before trying to download it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalModel` instance. Instances that use the same connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010',
+                                          connection);
+    localModel.predict({'petal length': 1},
+                       function(error, prediction) {console.log(prediction)});
+```
+
+
 The predict method can also be used labelling input data with the corresponding
 field id.
 
@@ -1270,6 +1299,27 @@ will use as threshold the
 number of models in the ensemble that vote for the positive class. The other
 two are already explained in the above mentioned section.
 
+
+The local ensemble constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalEnsemble` to check whether it can find a local ensemble
+JSON file in this directory before trying to download it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalEnsemble` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage';
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localEnsemble = new bigml.LocalEnsemble(
+      'ensemble/51922d0b37203f2a8c000010', connection);
+```
+
 Local Logistic Regressions
 --------------------------
 
@@ -1377,6 +1427,28 @@ operating points. For logistic regressions, the only available kind is
 `probability`, that sets the threshold of probability to be reached for the
 prediction to be the positive class.
 
+
+The local logistic regression constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalLogistic` to check whether it can find a local logistic
+regression JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalLogistic` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localLogistic = new bigml.LocalLogistic(
+      'logisticregression/51922d0b37203f2a8c000010', connection);
+```
+
 Local Deepnets
 --------------
 
@@ -1479,6 +1551,27 @@ operating points. For deepnets, the only available kind is
 `probability`, that sets the threshold of probability to be reached for the
 prediction to be the positive class.
 
+The local deepnet constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalDeepnet` to check whether it can find a local deepnet
+JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalDeepnet` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localDeepnet = new bigml.LocalDeepnet(
+      'deepnet/51922d0b37203f2a8c000010', connection);
+```
+
 Local Clusters
 --------------
 
@@ -1546,6 +1639,27 @@ filtered), an exception will arise. In this example, the connection to BigML
 is used only in the `get` method call to retrieve the remote cluster
 information. The callback code, where the `localCluster` and predictions
 are built, is strictly local.
+
+The local cluster constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalCluster` to check whether it can find a local cluster
+SON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalCluster` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localCluster = new bigml.LocalCluster(
+      'cluster/51922d0b37203f2a8c000010', connection);
+```
 
 Local Anomaly Detectors
 -----------------------
@@ -1630,6 +1744,27 @@ expression that can single out these rows can be extracted using the
 When the first argument is set to `true`, the filter corresponds to the top
 anomalies. On the contrary, if set to `false` the filter will exclude
 the top anomalies from the dataset.
+
+The local anomaly constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalAnomaly` to check whether it can find a local anomaly
+JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalAnomaly` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localAnomaly = new bigml.LocalAnomaly(
+      'anomaly/51922d0b37203f2a8c000010', connection);
+```
 
 Local Associations
 ------------------
@@ -1830,6 +1965,27 @@ is used only in the `get` method call to retrieve the remote topic model
 information. The callback code, where the `localTopicModel` and distributions
 are built, is strictly local.
 
+The local association constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalAssociation` to check whether it can find a local
+association JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalAssociation` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localAssociation = new bigml.LocalAssociation(
+      'association/51922d0b37203f2a8c000010', connection);
+```
+
 Local Time Series
 -----------------
 
@@ -1921,6 +2077,27 @@ the fields used in the time series models will be downloaded respectively.
 Beware of using
 filtered fields time series to instantiate a local time series
 object.
+
+The local time series constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalTimeSeries` to check whether it can find a local time
+series JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalTimeSeries` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localTimeSeries = new bigml.LocalTimeSeries(
+      'timeseries/51922d0b37203f2a8c000010', connection);
+```
 
 Logging configuration
 ---------------------

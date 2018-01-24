@@ -19,6 +19,7 @@ var assert = require('assert'),
   path = require('path');
 var scriptName = path.basename(__filename);
 
+
 describe(scriptName + ': Manage local ensemble objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -135,6 +136,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
       });
     });
   });
+/*
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
@@ -153,5 +155,5 @@ describe(scriptName + ': Manage local ensemble objects', function () {
       done();
     });
   });
-
+*/
 });
