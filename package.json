@@ -37,6 +37,7 @@
     "test": "mocha -t 80000"
   },
   "devDependencies": {
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "mocha": "^5.0.0"
   }
 }
