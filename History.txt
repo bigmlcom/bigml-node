@@ -1,3 +1,7 @@
+=== 1.14.1 / 2018-02-05
+
+* Fixing local predictions for Deepnets with text or item fields.
+
 === 1.14.0 / 2018-01-24
 
 * Removing development mode as option in the connections.

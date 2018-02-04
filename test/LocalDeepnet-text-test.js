@@ -23,27 +23,33 @@ var scriptName = path.basename(__filename);
 describe(scriptName + ': Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/spam.csv',
     datasetId, dataset = new bigml.Dataset(),
-    args = undefined,
+    args = {"objective_field": "000000"},
     deepnetId, deepnet = new bigml.Deepnet(),
     deepnetResource, deepnetFinishedResource,
     localDeepnet, firstPredictionProbability,
     inputData1 = {"Message": "Mobile phone"},
-    prediction1 = JSON.parse('{"prediction":"ham","probability":0.5,"distribution":[{"category":"ham","probability":0.5},{"category":"spam","probability":0.5}]}');
+    prediction1 = JSON.parse('{"prediction":"ham","probability":0.92243,"distribution":[{"category":"ham","probability":0.92243},{"category":"spam","probability":0.07757}]}');
 
   before(function (done) {
+    var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
+      textField = {'fields': {'000001': {'optype': 'text'}}};
     source.create(path, undefined, function (error, data) {
       assert.equal(data.code, bigml.constants.HTTP_CREATED);
       sourceId = data.resource;
-      dataset.create(sourceId, undefined, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_CREATED);
-        datasetId = data.resource;
-        deepnet.create(datasetId, args, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          deepnetId = data.resource;
-          deepnetResource = data;
-          deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
-            deepnetFinishedResource = data;
-            done();
+      source.get(sourceId, true, function (error, data) {
+        source.update(sourceId, textField, function (error, data) {
+          dataset.create(sourceId, undefined, function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            datasetId = data.resource;
+            deepnet.create(datasetId, args, function (error, data) {
+              assert.equal(data.code, bigml.constants.HTTP_CREATED);
+              deepnetId = data.resource;
+              deepnetResource = data;
+              deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
+                deepnetFinishedResource = data;
+                done();
+              });
+            });
           });
         });
       });
