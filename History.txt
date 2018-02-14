@@ -1,6 +1,7 @@
 === 1.15.0 / 2018-02-14
 
 * Adding organizations to the bindings.
+* Changing local predictions to avoid truncating integers in input data.
 
 === 1.14.1 / 2018-02-05
 
