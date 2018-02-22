@@ -13,6 +13,7 @@ env:
   - BML_TESTS="LocalM"
   - BML_TESTS="LocalT"
 install:
+ - rm -fr ./node_modules
  - npm install mocha
  - npm install
 script:
