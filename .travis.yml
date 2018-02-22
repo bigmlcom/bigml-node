@@ -2,6 +2,7 @@ language: node_js
 node_js:
  - "8.4.0"
 env:
+  - CXX=g++-4.8
   - BML_TESTS="-model"
   - BML_TESTS="-res"
   - BML_TESTS="-pred"
@@ -12,6 +13,12 @@ env:
   - BML_TESTS="LocalL"
   - BML_TESTS="LocalM"
   - BML_TESTS="LocalT"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 install:
  - rm -fr ./node_modules
  - npm install mocha
