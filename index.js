@@ -14,6 +14,9 @@
  * under the License.
  */
 
+// This will allow us to know we are running under node
+process.RUNNING_IN_NODEJS = 'true';
+
 module.exports = {
   // Common modules: connection, REST common interface, utilities and constants
   BigML: require('./lib/BigML'),
