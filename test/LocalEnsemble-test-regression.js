@@ -26,6 +26,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
     ensembleArgs = {missing_splits: false, number_of_models: 2,
                     sample_rate: 0.80, seed: "BigML"},
     prediction = new bigml.Prediction(), inputData = {}, method = 1,
+    operatingKind = "confidence",
     ensembleFinishedResource, modelsList, index, model = new bigml.Model(),
     reference, localEnsemble, len, finishedModelsList = [];
 
@@ -89,6 +90,13 @@ describe(scriptName + ': Manage local ensemble objects', function () {
   describe('#predict(inputData, method)', function () {
     it('should predict synchronously from input data', function () {
       var result = localEnsemble.predict(inputData, method);
+      assert.equal(result.prediction, reference);
+    });
+  });
+  describe('#predict(inputData, undefined, {operatingKind: "confidence"})', function () {
+    it('should predict synchronously from input data', function () {
+      var result = localEnsemble.predict(
+        inputData, undefined, {operatingKind: operatingKind});
       assert.equal(result.prediction, reference);
     });
   });
