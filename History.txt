@@ -1,3 +1,7 @@
+=== 1.16.0 / 2018-03-01
+
+* Upgrading versions of dependencies and adapting to their changes.
+
 === 1.15.1 / 2018-02-23
 
 * Fixing bug in local model and ensemble predictions for regressions in
