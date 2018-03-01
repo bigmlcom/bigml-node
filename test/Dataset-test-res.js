@@ -110,9 +110,8 @@ describe(scriptName + ': Manage dataset objects', function () {
         if (error == null) {
           fs.readFile(filename, "utf8", function (error2, dataf) {
             assert.equal(dataf, datap);
-            dataset.delete(datasetId, function (error3, data2) {
-              assert.equal(error3, null);
-              fs.unlink(filename);
+            fs.unlink(filename, function (error, data) {
+              assert.equal(error, null);
               done();
             });
           });
@@ -120,12 +119,13 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
-  describe('#delete(dataset, callback)', function () {
-    it('should delete the remote dataset', function (done) {
-      dataset.delete(datasetId2, function (error, data) {
-        assert.equal(error, null);
-        dataset.delete(datasetId3, function (error, data) {
-          assert.equal(error, null);
+  after(function (done) {
+    dataset.delete(datasetId3, function (error, data) {
+      assert.equal(error, null);
+      dataset.delete(datasetId2, function (error2, data2) {
+        assert.equal(error2, null);
+        dataset.delete(datasetId, function (error3, data3) {
+          assert.equal(error3, null);
           done();
         });
       });
