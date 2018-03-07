@@ -14,6 +14,33 @@
  * under the License.
  */
 
+// This will allow us to know we are running under node
+process.RUNNING_IN_NODEJS = 'true';
+
+if (process.env.BIGML_REQUIRE_PRELOAD &&
+   process.env.BIGML_REQUIRE_PRELOAD != "false" &&
+   process.env.BIGML_REQUIRE_PRELOAD != "no") {
+  require('./lib/sharedProtos');
+  require('./lib/LocalAnomaly');
+  require('./lib/LocalAssociation');
+  require('./lib/LocalCentroid');
+  require('./lib/LocalModel');
+  require('./lib/AnomalyTree');
+  require('./lib/AssociationRule');
+  require('./lib/Item');
+  require('./lib/Tree');
+  require('./lib/BoostedTree');
+  require('./lib/Predicates');
+  require('./lib/Predicate');
+  require('./lib/MultiVote');
+  require('./lib/MultiVote');
+  require('./lib/MultiVoteList');
+  require('./lib/tssubmodels');
+  require('./lib/math_ops');
+  require('jStat');
+  require('cwise');
+}
+
 module.exports = {
   // Common modules: connection, REST common interface, utilities and constants
   BigML: require('./lib/BigML'),
