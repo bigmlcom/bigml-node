@@ -47,7 +47,7 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
     objective1 = "000000",
     fieldCodings1 = [{"field": "species", "coding": "contrast",
                       "coefficients": [[1, 2, -1, -2]]}],
-    prediction1 = {"prediction":"5.0","probability":0.05107},
+    prediction1 = {"prediction":"5.0","probability":0.05104},
     inputData1 = {'species': 'Iris-setosa'},
     objective2 = "000000",
     fieldCodings2 = [{"field": "species", "coding": "other",
@@ -60,7 +60,7 @@ describe(scriptName + ': Manage local logistic regression objects', function () 
     objective4 = "000000",
     fieldCodings4 = [{"field": "species", "coding": "other",
                       "coefficients": [[1, 2, -1]]}],
-    prediction4 = {"prediction":"5.0","probability":0.05107};
+    prediction4 = {"prediction":"5.0","probability":0.05104};
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
