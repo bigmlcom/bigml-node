@@ -28,7 +28,7 @@ describe(scriptName + ': Manage local model objects', function () {
     deepnetResource, deepnetFinishedResource,
     localDeepnet, firstPredictionProbability,
     inputData1 = {"Message": "Mobile phone"},
-    prediction1 = JSON.parse('{"prediction":"ham","probability":0.92243,"distribution":[{"category":"ham","probability":0.92243},{"category":"spam","probability":0.07757}]}');
+    prediction1 = JSON.parse('{"prediction":"ham","probability":0.96319,"distribution":[{"category":"ham","probability":0.96319},{"category":"spam","probability":0.03681}]}');
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
