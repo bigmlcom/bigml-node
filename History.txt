@@ -1,3 +1,8 @@
+=== 1.16.2 / 2018-04-23
+
+* Fixing bug in local objects when retrieving model information from file
+  system.
+
 === 1.16.1 / 2018-03-29
 
 * Fixing bug in local logistic regression predictions
