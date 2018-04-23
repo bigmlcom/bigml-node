@@ -28,7 +28,7 @@ describe(scriptName + ': Manage local model objects', function () {
     deepnetResource, deepnetFinishedResource,
     localDeepnet, firstPredictionProbability,
     inputData1 = {"Message": "Mobile phone"},
-    prediction,
+    prediction = new bigml.Prediction(),
     prediction1 = JSON.parse('{"prediction":"ham","probability":0.9475,"distribution":[{"category":"ham","probability":0.9475},{"category":"spam","probability":0.0525}]}');
 
   before(function (done) {
