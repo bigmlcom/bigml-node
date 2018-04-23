@@ -2,6 +2,7 @@
 
 * Fixing bug in local objects when retrieving model information from file
   system.
+* Fixing bug in LocalDeepnet for datasets with text fields.
 
 === 1.16.1 / 2018-03-29
 
