@@ -28,7 +28,7 @@ describe(scriptName + ': Manage local model objects', function () {
     deepnetResource, deepnetFinishedResource,
     localDeepnet, firstPredictionProbability,
     inputData1 = {"Message": "Mobile phone"},
-    prediction1 = JSON.parse('{"prediction":"ham","probability":0.96319,"distribution":[{"category":"ham","probability":0.96319},{"category":"spam","probability":0.03681}]}');
+    prediction1 = JSON.parse('{"prediction":"ham","probability":0.9475,"distribution":[{"category":"ham","probability":0.9475},{"category":"spam","probability":0.0525}]}');
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},
@@ -47,7 +47,12 @@ describe(scriptName + ': Manage local model objects', function () {
               deepnetResource = data;
               deepnet.get(deepnetResource, true, 'only_model=true', function (error, data) {
                 deepnetFinishedResource = data;
-                done();
+                prediction.create(deepnetFinishedResource, inputData1, function(error, data) {
+                  remotePrediction1 = data;
+                  assert.equal(remotePrediction1.object.output, prediction1.prediction);
+                  assert.equal(remotePrediction1.object.probability, prediction1.probability);
+                  done();
+                });
               });
             });
           });
