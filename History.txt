@@ -1,3 +1,7 @@
+=== 1.16.3 / 2018-05-04
+
+* Fixing bug in local Association sets prediction
+
 === 1.16.2 / 2018-04-23
 
 * Fixing bug in local objects when retrieving model information from file
