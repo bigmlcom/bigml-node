@@ -56,8 +56,8 @@ describe(scriptName + ': Manage local cluster objects with summary fields', func
   });
 
   describe('LocalCluster(clusterId)', function () {
-    it('should create a localCluster from a cluster Id', function (done) {
-      localCluster = new bigml.LocalCluster(clusterId);
+    it('should create a localCluster from a cluster JSON', function (done) {
+      localCluster = new bigml.LocalCluster(clusterFinishedResource);
       if (localCluster.ready) {
         assert.ok(true);
         done();

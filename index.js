@@ -99,6 +99,10 @@ module.exports = {
   Forecast: require('./lib/Forecast'),
   // Deepnet REST API interface
   Deepnet: require('./lib/Deepnet'),
+  // OptiML REST API interface
+  OptiML: require('./lib/OptiML'),
+  // Fusion REST API interface
+  Fusion: require('./lib/Fusion'),
   // Script REST API interface
   Script: require('./lib/Script'),
   // Library REST API interface
