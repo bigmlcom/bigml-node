@@ -19,12 +19,10 @@ var assert = require('assert'),
   path = require('path');
 var scriptName = path.basename(__filename);
 
-describe(scriptName + ': Manage anomaly detector objects', function () {
+describe(scriptName + ': Manage OptiML detector objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/tiny_kdd.csv',
-    datasetId, dataset = new bigml.Dataset(), datasetId2,
-    dataset2 = new bigml.Dataset(),
-    optimlId, optiml = new bigml.OptiML(), optimlId2,
-    optiml2 = new bigml.OptiML();
+    datasetId, dataset = new bigml.Dataset(),
+    optimlId, optiml = new bigml.OptiML();
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -33,18 +31,16 @@ describe(scriptName + ': Manage anomaly detector objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        dataset2.create(sourceId, undefined, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
-          datasetId2 = data.resource;
-          done();
-        });
+        done();
       });
     });
   });
 
   describe('#create(dataset, args, callback)', function () {
     it('should create an optiml detector from a dataset', function (done) {
-      optiml.create(optimlId, undefined, function (error, data) {
+      optiml.create(datasetId, {model_types: ["model", "logisticregression"],
+        max_training_time: 10, number_of_model_candidates: 5},
+        function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         optimlId = data.resource;
         done();
@@ -64,7 +60,7 @@ describe(scriptName + ': Manage anomaly detector objects', function () {
   describe('#update(optiml, args, callback)', function () {
     it('should update properties in the optiml', function (done) {
       var newName = 'my new name';
-      optiml.update(anomalyId, {name: newName}, function (error, data) {
+      optiml.update(optimlId, {name: newName}, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_ACCEPTED);
         optiml.get(optimlId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
@@ -80,10 +76,7 @@ describe(scriptName + ': Manage anomaly detector objects', function () {
     it('should delete the remote optiml', function (done) {
       optiml.delete(optimlId, function (error, data) {
         assert.equal(error, null);
-        optiml2.delete(optimlId2, function (error, data) {
-          assert.equal(error, null);
-          done();
-        });
+        done();
       });
     });
   });
@@ -97,10 +90,7 @@ describe(scriptName + ': Manage anomaly detector objects', function () {
   after(function (done) {
     dataset.delete(datasetId, function (error, data) {
       assert.equal(error, null);
-      dataset2.delete(datasetId2, function (error, data) {
-        assert.equal(error, null);
-        done();
-      });
+      done();
     });
   });
 });} catch(e) {console.log(e);}
