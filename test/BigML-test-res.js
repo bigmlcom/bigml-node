@@ -55,6 +55,8 @@ describe(scriptName + ': Connect with a BigML object', function(){
     });
     it('should connect with an organization', function (done) {
       connectionOrg.request(projectReqOptions, function (error, data, response) {
+        console.log(projectReqOptions);
+        console.log(data);
         assert.equal(error, null);
         assert.equal(data.objects[0].organization, organization);
         done();
