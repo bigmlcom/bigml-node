@@ -126,5 +126,9 @@ module.exports = {
   // Local Time-series object for local predictions
   LocalTimeSeries: require('./lib/LocalTimeSeries'),
   // Local Deepnet object for local predictions
-  LocalDeepnet: require('./lib/LocalDeepnet')
+  LocalDeepnet: require('./lib/LocalDeepnet'),
+  // Local Supervised Model object for local predictions
+  LocalSupervised: require('./lib/LocalSupervised'),
+  // Local Supervised Model object for local predictions
+  LocalFusion: require('./lib/LocalFusion')
 };
