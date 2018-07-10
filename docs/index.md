@@ -108,6 +108,7 @@ this will give you access to the following library structure:
     - bigml.TopicDistribution           Topic Distribution API methods
     - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
     - bigml.Deepnet                     Deepnet API methods
+    - bigml.Fusion                      Fusion API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -120,6 +121,7 @@ this will give you access to the following library structure:
     - bigml.LocalTopicModel             Topic Model for local predictions
     - bigml.LocalTimeSeries             Time Series for local forecasts
     - bigml.LocalDeepnet                Deepnets for local predictions
+    - bigml.LocalFusion                 Fusions for local predictions
 
 
 Authentication
@@ -487,6 +489,12 @@ on deep neural networks. Check the
 [developers documentation](https://bigml.com/api/deepnets)
 for a detailed description. These resources
 are handled through `bigml.Deepnet`.
+
+- **fusions** These resources are classification and regression models based
+on mixed supervised models. Check the
+[developers documentation](https://bigml.com/api/fusions)
+for a detailed description. These resources
+are handled through `bigml.Fusion`.
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
@@ -1571,6 +1579,109 @@ object will read the local file instead.
     var localDeepnet = new bigml.LocalDeepnet(
       'deepnet/51922d0b37203f2a8c000010', connection);
 ```
+
+Local Fusions
+-------------
+
+A remote fusion model encloses all the information
+required to predict the value of the objective field associated
+to a given input data set. The fusion model is composed of a list of
+supervised models whose predictions are aggregated to produce a final
+fusion prediction. You can build a local version of
+a fusion and predict the category (or numeric objective) locally using
+the `LocalFusion` class.
+
+```js
+    var bigml = require('bigml');
+    var localFusion = new bigml.LocalFusion(
+        'fusion/51922d0b37203f2a8c001013');
+    localFusion.predict({'petal length': 1, 'petal width': 1,
+                         'sepal length': 1, 'sepal width': 1},
+                         function(error, prediction) {
+                           console.log(prediction)});
+```
+
+As you see, the first parameter to the `LocalFusion` constructor
+is a fusion id (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localFusion = new bigml.LocalFusion(
+        'fusion/51922d0b37203f2a8c001010',
+        new bigml.BigML(myUser, myKey));
+    localFusion.predict({'000000': 1, '000001': 1,
+                         '000002': 1, '000003': 1},
+                        function(error, prediction) {
+                          console.log(prediction)});
+```
+
+When the first argument is a finished fusion object,
+the constructor creates immediately
+a `LocalFusion` instance ready to predict. Then,
+the `LocalFusion.predict`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var fusion = new bigml.Fusion();
+    fusion.get('fusion/51b3c45a37203f16230000b5', true,
+               'only_model=true;limit=-1',
+               function (error, resource) {
+        if (!error && resource) {
+          var localFusion = new bigml.LocalFusion(
+            resource);
+          var prediction = localFusion.predict(
+            {'000000': 1, '000001': 1,
+             '000002': 1, '000003': 1});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the fusion will be downloaded.
+Beware of using
+a fusion with filtered fields information to instantiate a local fusion
+object. If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote fusion
+information. The callback code, where the `localFusion`
+and predictions
+are built, is strictly local.
+
+Operating point predictions are also available for local fusions
+and an example of it would be:
+
+```js
+    var operatingPoint = {kind: 'probability',
+                          positiveClass: 'True',
+                          threshold: 0.8};
+    locaFusion.predictOperating(inputData,
+                                operatingPoint,
+                                cb);
+```
+
+or using the `predict` method:
+
+```js
+    localFusion.predict(inputData,
+                        operatingPoint,
+                        cb);
+```
+
+You can check the
+[Operating point's predictions](#operating-point's-predictions) section
+to learn about
+operating points. For fusions, the only available kind is
+`probability`, that sets the threshold of probability to be reached for the
+prediction to be the positive class.
+
 
 Local Clusters
 --------------
