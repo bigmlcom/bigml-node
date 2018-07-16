@@ -29,7 +29,7 @@ describe(scriptName + ': Manage local model objects', function () {
     localDeepnet, firstPredictionProbability,
     inputData1 = {"Message": "Mobile phone"},
     prediction = new bigml.Prediction(),
-    prediction1 = JSON.parse('{"prediction":"ham","probability":0.9475,"distribution":[{"category":"ham","probability":0.9475},{"category":"spam","probability":0.0525}]}');
+    prediction1 = JSON.parse('{"prediction":"ham","probability":0.92703,"distribution":[{"category":"ham","probability":0.92703},{"category":"spam","probability":0.07297}]}');
 
   before(function (done) {
     var tokenMode = {'fields': {'000001': {'term_analysis': {'token_mode': 'all'}}}},

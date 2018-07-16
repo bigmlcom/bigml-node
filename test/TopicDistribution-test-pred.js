@@ -25,9 +25,8 @@ describe(scriptName + ': Manage topic distribution objects', function () {
     topicModelId, topicModel = new bigml.TopicModel(),
     topicDistributionId, topicDistribution = new bigml.TopicDistribution(),
     inputData = {"Message": "mobile"},
-    testDistribution = [0.00741,0.00741,0.00741,0.00741,0.00741,
-                        0.00741,0.00741,0.91845,0.00741,0.00741,
-                        0.00741,0.00741],
+    testDistribution = [0.82592,0.00919,0.00741,0.00741,0.00741,0.00741,
+                        0.09816,0.00741,0.00741,0.00741,0.00741,0.00741]
     inputDataId = {'000001': "mobile"},
     seed = "BigML tests";
   before(function (done) {
