@@ -1,6 +1,6 @@
 === 1.17.2 / 2018-07-25
 
-* Fixin Fusion create call to accept a list of objects
+* Fixing Fusion create call to accept a list of objects
 
 === 1.17.1 / 2018-07-10
 
