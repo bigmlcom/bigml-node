@@ -88,7 +88,23 @@ describe(scriptName + ': Manage ensemble objects', function () {
       });
     });
   });
-
+  describe('#create([{"id": model, "weight": 1}], args, callback)', function () {
+    it('should create a fusion from a list of supervised models', function (done) {
+      fusion.create([{id: modelId, weight: 1}], undefined, function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        fusionId = data.resource;
+        done();
+      });
+    });
+  });
+  describe('#delete(fusion, callback)', function () {
+    it('should delete the remote fusion', function (done) {
+      fusion.delete(fusionId, function (error, data) {
+        assert.equal(error, null);
+        done();
+      });
+    });
+  });
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
