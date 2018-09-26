@@ -20,6 +20,7 @@ var assert = require('assert'),
   path = require('path');
 var scriptName = path.basename(__filename);
 
+
 describe(scriptName + ': Manage local model objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
@@ -35,7 +36,8 @@ describe(scriptName + ': Manage local model objects', function () {
       confidence: 0.92865,
       distribution: [ [ 'Iris-setosa', 50 ] ],
       count: 50,
-      nextPredicates: [] },
+      nextPredicates: [],
+      probability: 0.98693 },
     prediction2 = {
       prediction: 'Iris-versicolor',
       path: [ 'petal length > 2.45' ],
@@ -44,8 +46,8 @@ describe(scriptName + ': Manage local model objects', function () {
       count: 100,
       nextPredicates:
         [ { operator: '>', field: '000003', value: 1.75, count: 46 },
-          { operator: '<=', field: '000003', value: 1.75, count: 54 } ] }
-
+          { operator: '<=', field: '000003', value: 1.75, count: 54 } ],
+      probability: 0.49835 }
 
 
   before(function (done) {
