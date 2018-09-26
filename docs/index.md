@@ -1163,6 +1163,7 @@ You can also use the `predict` method in its most general form:
                                         operatingPoint,
                                         cb);
 
+```
 
 Local Ensembles
 ---------------
@@ -1682,6 +1683,28 @@ operating points. For fusions, the only available kind is
 `probability`, that sets the threshold of probability to be reached for the
 prediction to be the positive class.
 
+
+Local predictions' distribution
+-------------------------------
+
+For classification models, the local model, ensemble, logistic regression,
+deepnet or fusion objects offer a method that
+produces the predicted distribution of probabilities
+for each of the categories in the objective field.
+
+```js
+    var probabilities = localModel.predictProbability(inputData,
+                                                      missingStrategy,
+                                                      cb);
+```
+The result of this call will generate list of objects that contain the
+category name and the probability predicted for that category, for instance:
+
+```js
+    [{"category": "Iris-setosa", "probability": 0.53},
+     {"category": "Iris-virginica", "probability": 0.20},
+     {"category": "Iris-versicolor", "probability": 0.27}]
+```
 
 Local Clusters
 --------------

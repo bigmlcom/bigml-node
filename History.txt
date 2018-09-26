@@ -1,3 +1,8 @@
+=== 1.17.3 / 2018-09-27
+
+* Fixing local model predictions: adding probability
+* Improving docs for the classification local models methods.
+
 === 1.17.2 / 2018-07-25
 
 * Fixing Fusion create call to accept a list of objects
