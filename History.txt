@@ -1,3 +1,7 @@
+=== 1.18.0 / 2018-11-20
+
+* Adding new PCA resource REST calls.
+
 === 1.17.5 / 2018-11-28
 
 * Fixing automatic storage when downloading resources.
@@ -9,7 +13,7 @@
 
 === 1.17.3 / 2018-09-27
 
-* Fixing local model predictions: adding probability
+* Fixing local model predictions: adding probability.
 * Improving docs for the classification local models methods.
 
 === 1.17.2 / 2018-07-25

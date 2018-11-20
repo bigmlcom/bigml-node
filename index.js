@@ -103,6 +103,8 @@ module.exports = {
   OptiML: require('./lib/OptiML'),
   // Fusion REST API interface
   Fusion: require('./lib/Fusion'),
+  // PCA REST API interface
+  PCA: require('./lib/PCA'),
   // Script REST API interface
   Script: require('./lib/Script'),
   // Library REST API interface
