@@ -105,6 +105,10 @@ module.exports = {
   Fusion: require('./lib/Fusion'),
   // PCA REST API interface
   PCA: require('./lib/PCA'),
+  // Projection REST API interface
+  Projection: require('./lib/Projection'),
+  // BatchProjection REST API interface
+  BatchProjection: require('./lib/BatchProjection'),
   // Script REST API interface
   Script: require('./lib/Script'),
   // Library REST API interface
