@@ -28,7 +28,7 @@
     "jStat": "1.7.1",
     "mersenne-twister": "1.1.0",
     "mime": "2.2.0",
-    "numjs": "0.15.1",
+    "numjs": "0.16.0",
     "request": "2.83.0",
     "snowball": "0.3.1",
     "winston": "2.4.0"
