@@ -26,7 +26,9 @@ describe(scriptName + ': Manage local ensemble objects', function () {
                   "model/5a8c5fec8a318f490a00400e",
                   "model/5a8c5feb8a318f490a004008"],
     index,
+    ensembleId = "ensemble/5a8c5fe792fb5601d20003b1",
     reference = '{"prediction":97330,"confidence":0.368635}',
+    reference2 = '{"prediction":97330,"confidence":1.68006}',
     localEnsemble, len, missingStrategy = 1;
 
   describe('LocalEnsemble(ensemble)', function () {
@@ -66,4 +68,44 @@ describe(scriptName + ': Manage local ensemble objects', function () {
       assert.equal(JSON.stringify(result), reference);
     });
   });
+
+  describe('LocalEnsemble(ensembleId)', function () {
+    it('should create a localEnsemble from an ensemble Id', function (done) {
+      localEnsemble = new bigml.LocalEnsemble(
+        ensembleId,
+        new bigml.BigML(undefined, undefined, {storage: "data/storage"}));
+      if (localEnsemble.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        localEnsemble.on('ready', function () {assert.ok(true);
+          done();
+          });
+      }
+    });
+  });
+  describe('#predict(inputData, method, callback)', function () {
+    it('should predict asynchronously from input data', function (done) {
+      localEnsemble.predict(inputData, undefined, {missingStrategy: missingStrategy},
+        function (error, data) {
+          assert.equal(JSON.stringify(data), reference2);
+          done();
+      });
+    });
+  });
+  describe('#predict(inputData, method)', function () {
+    it('should predict synchronously from input data', function () {
+      var result = localEnsemble.predict(inputData, undefined,
+        {missingStrategy: missingStrategy});
+      assert.equal(JSON.stringify(result), reference2);
+    });
+  });
+  describe('#predict(inputData, method)', function () {
+    it('should predict synchronously from input data', function () {
+      var result = localEnsemble.predict(inputData, undefined, {missingStrategy: missingStrategy});
+      assert.equal(JSON.stringify(result), reference2);
+    });
+  });
+
+
 });
