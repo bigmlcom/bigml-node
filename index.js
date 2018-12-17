@@ -136,5 +136,7 @@ module.exports = {
   // Local Supervised Model object for local predictions
   LocalSupervised: require('./lib/LocalSupervised'),
   // Local Supervised Model object for local predictions
-  LocalFusion: require('./lib/LocalFusion')
+  LocalFusion: require('./lib/LocalFusion'),
+  // Local PCA object for local projections
+  LocalPCA: require('./lib/LocalPCA')
 };
