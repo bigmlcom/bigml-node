@@ -109,6 +109,9 @@ this will give you access to the following library structure:
     - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
     - bigml.Deepnet                     Deepnet API methods
     - bigml.Fusion                      Fusion API methods
+    - bigml.PCA                         PCA API methods
+    - bigml.Projection                  Projection API methods
+    - bigml.BatchProjection             Batch Projection API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -122,6 +125,7 @@ this will give you access to the following library structure:
     - bigml.LocalTimeSeries             Time Series for local forecasts
     - bigml.LocalDeepnet                Deepnets for local predictions
     - bigml.LocalFusion                 Fusions for local predictions
+    - bigml.LocalPCA                    PCA for local projections
 
 
 Authentication
@@ -495,6 +499,24 @@ on mixed supervised models. Check the
 [developers documentation](https://bigml.com/api/fusions)
 for a detailed description. These resources
 are handled through `bigml.Fusion`.
+
+- **PCAs** These resources are models for dimensional reduction. Check the
+[developers documentation](https://bigml.com/api/fusions)
+for a detailed description. These resources
+are handled through `bigml.PCA`.
+
+- **projections** These resources are the result of applying PCAs to get
+a smaller features set covering the variance in data. Check the
+[developers documentation](https://bigml.com/api/fusions)
+for a detailed description. These resources
+are handled through `bigml.Projection`.
+
+- **batch projections** These resources are the result of applying PCAs to
+a dataset to get a smaller features set covering the variance in data.
+Check the
+[developers documentation](https://bigml.com/api/fusions)
+for a detailed description. These resources
+are handled through `bigml.Fusion`
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
@@ -1682,6 +1704,91 @@ to learn about
 operating points. For fusions, the only available kind is
 `probability`, that sets the threshold of probability to be reached for the
 prediction to be the positive class.
+
+Local PCA
+---------
+
+A remote PCA model describes the set of orthogonal features best adapted to
+a particular dataset to describe the variance in its data. These features
+are built by linearly combining the original set of features.
+You can build a local version of
+a PCA and use it to compute the projections of every instance from the
+original feature set to the PCA one using
+the `LocalPCA` class.
+
+```js
+    var bigml = require('bigml');
+    var localPCA = new bigml.LocalPCA(
+        'pca/51922d0b37203f2a8c001017');
+    localPCA.projection({'petal length': 1, 'petal width': 1,
+                         'sepal length': 1, 'sepal width': 1},
+                         function(error, prediction) {
+                           console.log(prediction)});
+```
+
+As you see, the first parameter to the `LocalPCA` constructor
+is a PCA id (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication))
+that can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalPCA` to check whether it can find a local
+PCA JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalPCA` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localPCA = new bigml.PCA(
+      'pca/51922d0b37203f2a8c000010', connection);
+    localPCA.projection({'000000': 1, '000001': 1,
+                         '000002': 1, '000003': 1},
+                        function(error, projection) {
+                          console.log(projection)});
+```
+
+When the first argument is a finished PCA object,
+the constructor creates immediately
+a `LocalPCA` instance ready to work. Then,
+the `LocalPCA.predict`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var pca = new bigml.PCA();
+    pca.get('pca/51b3c45a37203f16230000b5', true,
+            'only_model=true;limit=-1',
+            function (error, resource) {
+      if (!error && resource) {
+      var localPCA = new bigml.LocalPCA(
+        resource);
+      var projection = localPCA.predict(
+        {'000000': 1, '000001': 1,
+         '000002': 1, '000003': 1});
+      console.log(projection);
+    }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the PCA will be downloaded.
+Beware of using
+a PCA with filtered fields information to instantiate a local PCA
+object. If an important field
+is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote PCA
+information. The callback code, where the `localPCA`
+and projections
+are built, is strictly local.
 
 
 Local predictions' distribution
