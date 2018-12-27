@@ -20,33 +20,43 @@ var assert = require('assert'),
   path = require('path');
 var scriptName = path.basename(__filename);
 
+
 function jsonEqual(a, b) {
-  assert.equal(JSON.stringify(a), JSON.stringify(b));
+  assert.equal(Object.keys(a).length, Object.keys(b).length);
+  for (key in a) {
+    if (a.hasOwnProperty(key)) {
+      a[key] = Math.round(a[key] * 100000, 5) /100000.0;
+      b[key] = Math.round(b[key] * 100000, 5) /100000.0;
+      assert.equal(a[key], b[key], "Mismatch in key " + key + ": "
+        + a[key] + ", " + b[key]);
+    }
+  }
 }
 
 describe(scriptName + ': Manage local PCA objects', function () {
   var sourceId, source = new bigml.Source(), path = './data/iris.csv',
     datasetId, dataset = new bigml.Dataset(),
+    projection = new bigml.Projection(), projectionRemote1,
     pcaId, pca = new bigml.PCA(), pcaResource, pcaFinishedResource,
-    localPCA,
+    localPCA, projectionId,
     inputData1 = {'species': 'Iris-versicolor'},
     inputData2 = {'petal length': 1},
     inputDataId1 = {'000004': 'Iris-versicolor'},
     inputDataId2 = {'000002': 1},
     projection1 = {
-      PC1: -1.2033563979505828,
-      PC2: 2.159142364135116,
-      PC3: -1.547341364180193,
-      PC4: -0.9609793323190531,
-      PC5: 0.07090847599313028,
-      PC6: -0.08232799297844741 },
+      PC1: -0.611163519495484,
+      PC2: 1.8601984603787987,
+      PC3: -2.0086444976166247,
+      PC4: -2.446175191831889,
+      PC5: 0.4341354957946381,
+      PC6: -0.6698283452388474 },
     projection2 = {
-      PC1: 3.0731408872030146,
-      PC2: 0.10108614810462188,
-      PC3: 0.1612293693124448,
-      PC4: 0.28663062094189423,
-      PC5: -0.16476904318225724,
-      PC6: -0.16520366449476293 }
+      PC1: 1.5608361320468902,
+      PC2: 0.08708275165829191,
+      PC3: 0.2092936861794336,
+      PC4: 0.729496876659828,
+      PC5: -1.0087611428279308,
+      PC6: -1.3446331970093408}
 
 
 
@@ -63,7 +73,12 @@ describe(scriptName + ': Manage local PCA objects', function () {
           pcaResource = data;
           pca.get(pcaResource, true, undefined, function (error, data) {
             pcaFinishedResource = data;
-            done();
+            projection.create(pcaId, inputData1, function (error, data){
+              projectionRemote1 = data.object.projection.result;
+              projectionId = data.resource;
+              jsonEqual(projection1, projectionRemote1);
+              done();
+            });
           });
         });
       });
@@ -174,4 +189,11 @@ describe(scriptName + ': Manage local PCA objects', function () {
       done();
     });
   });
+  after(function (done) {
+    projection.delete(projectionId, function (error, data) {
+      assert.equal(error, null);
+      done();
+    });
+  });
+
 });

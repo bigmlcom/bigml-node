@@ -27,12 +27,13 @@ describe(scriptName + ': Manage prediction objects', function () {
     projectionId, projection = new bigml.Projection(),
     inputData = {'petal width': 0.5},
     testProjection = {
-     PC1: 0.46547,
-     PC2: 0.13724,
-     PC3: -0.01666,
-     PC4: 3.28995,
-     PC5: 4.60383,
-     PC6: 2.22108 },
+        "PC1":0.91648,
+        "PC2":0.1593,
+        "PC3":-0.01286,
+        "PC4":1.29255,
+        "PC5":0.75196,
+        "PC6":0.27284
+    },
     inputDataId = {'000003': 0.5};
 
   before(function (done) {
