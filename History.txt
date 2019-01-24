@@ -1,3 +1,7 @@
+=== 1.18.2 / 2019-01-24
+
+* Fixing problem in local ensemble when downloading more than 20 models
+
 === 1.18.1 / 2019-01-24
 
 * Fixing problem in local objects when using connection object without storage
