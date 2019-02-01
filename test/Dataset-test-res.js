@@ -25,7 +25,8 @@ describe(scriptName + ': Manage dataset objects', function () {
     datasetId, dataset = new bigml.Dataset(), dataset2 = new bigml.Dataset(),
     dataset3 = new bigml.Dataset(), dataset4 = new bigml.Dataset(),
     cluster = new bigml.Cluster(), filename = '/tmp/exported.csv',
-    datasetId2, datasetId3, datasetId4, clusterId, centroidId;
+    datasetId2, datasetId3, datasetId4, clusterId, centroidId,
+    dataset5 = new bigml.Dataset(), datasetId5;
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
@@ -88,6 +89,16 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
+  describe('#create([{id: dataset}], callback)', function () {
+    it('should create a new dataset from a list of the same dataset', function (done) {
+      dataset5.create([datasetId, {id: datasetId, sample_rate: 0.5}], undefined,
+                      function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        datasetId5 = data.resource;
+        done();
+      });
+    });
+  });
   describe('#create(cluster, {centroid: centroidId}, callback)', function () {
     it('should create a new dataset from cluster and a centroid id',
       function (done) {
@@ -126,7 +137,10 @@ describe(scriptName + ': Manage dataset objects', function () {
         assert.equal(error2, null);
         dataset.delete(datasetId, function (error3, data3) {
           assert.equal(error3, null);
-          done();
+          dataset.delete(datasetId5, function (error5, data) {
+            assert.equal(error5, null);
+            done();
+          })
         });
       });
     });
