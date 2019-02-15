@@ -130,6 +130,7 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
+    /*
   after(function (done) {
     dataset.delete(datasetId3, function (error, data) {
       assert.equal(error, null);
@@ -145,6 +146,7 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
+    */
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);

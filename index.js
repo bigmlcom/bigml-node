@@ -109,6 +109,8 @@ module.exports = {
   Projection: require('./lib/Projection'),
   // BatchProjection REST API interface
   BatchProjection: require('./lib/BatchProjection'),
+  // LinearRegression REST API interface
+  LinearRegression: require('./lib/LinearRegression'),
   // Script REST API interface
   Script: require('./lib/Script'),
   // Library REST API interface
@@ -138,5 +140,7 @@ module.exports = {
   // Local Supervised Model object for local predictions
   LocalFusion: require('./lib/LocalFusion'),
   // Local PCA object for local projections
-  LocalPCA: require('./lib/LocalPCA')
+  LocalPCA: require('./lib/LocalPCA'),
+  // Local Linear Regression object for local predictions
+  LocalLinearRegression: require('./lib/LocalLinearRegression')
 };
