@@ -112,6 +112,11 @@ this will give you access to the following library structure:
     - bigml.TopicDistribution           Topic Distribution API methods
     - bigml.BatchTopicDistribution      Batch Topic Distribution API methods
     - bigml.Deepnet                     Deepnet API methods
+    - bigml.Fusion                      Fusion API methods
+    - bigml.PCA                         PCA API methods
+    - bigml.Projection                  Projection API methods
+    - bigml.BatchProjection             Batch Projection API methods
+    - bigml.LinearRegression            Linear Regression API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -124,6 +129,9 @@ this will give you access to the following library structure:
     - bigml.LocalTopicModel             Topic Model for local predictions
     - bigml.LocalTimeSeries             Time Series for local forecasts
     - bigml.LocalDeepnet                Deepnets for local predictions
+    - bigml.LocalFusion                 Fusions for local predictions
+    - bigml.LocalPCA                    PCA for local projections
+    - bigml.LocalLinearRegression       Linear Regression for local predictions
 
 
 Authentication

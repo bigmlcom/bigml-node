@@ -112,6 +112,7 @@ this will give you access to the following library structure:
     - bigml.PCA                         PCA API methods
     - bigml.Projection                  Projection API methods
     - bigml.BatchProjection             Batch Projection API methods
+    - bigml.LinearRegression            Linear Regression API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -126,6 +127,7 @@ this will give you access to the following library structure:
     - bigml.LocalDeepnet                Deepnets for local predictions
     - bigml.LocalFusion                 Fusions for local predictions
     - bigml.LocalPCA                    PCA for local projections
+    - bigml.LocalLinearRegression       Linear Regression for local predictions
 
 
 Authentication
@@ -501,22 +503,29 @@ for a detailed description. These resources
 are handled through `bigml.Fusion`.
 
 - **PCAs** These resources are models for dimensional reduction. Check the
-[developers documentation](https://bigml.com/api/fusions)
+[developers documentation](https://bigml.com/api/pcas)
 for a detailed description. These resources
 are handled through `bigml.PCA`.
 
 - **projections** These resources are the result of applying PCAs to get
 a smaller features set covering the variance in data. Check the
-[developers documentation](https://bigml.com/api/fusions)
+[developers documentation](https://bigml.com/api/projections)
 for a detailed description. These resources
 are handled through `bigml.Projection`.
 
 - **batch projections** These resources are the result of applying PCAs to
 a dataset to get a smaller features set covering the variance in data.
 Check the
-[developers documentation](https://bigml.com/api/fusions)
+[developers documentation](https://bigml.com/api/batchprojections)
 for a detailed description. These resources
 are handled through `bigml.Fusion`
+
+- **linear regressions** These resources are regression models based on the
+assumption of a linear relation between the predictors and the outcome.
+Check the
+[developers documentation](https://bigml.com/api/linearregressions)
+for a detailed description. These resources
+are handled through `bigml.LinearRegression`
 
 - **scripts** These resources are Whizzml scripts, that can be created
 to handle workflows, which provide a means of automating the creation and
@@ -1791,11 +1800,110 @@ and projections
 are built, is strictly local.
 
 
+Local Linear Regressions
+------------------------
+
+A remote linear regression model encloses all the information
+required to predict the numeric value of the objective field associated
+to a given input data set.
+Thus, you can build a local version of
+a linear regression model and predict the numeric objective locally using
+the `LocalLinearRegression` class.
+
+```js
+    var bigml = require('bigml');
+    var localLinearRegression = new bigml.LocalLinearRegression(
+        'linearregression/51922d0b37203f2a8c001010');
+    localLinearRegression.predict({'petal length': 1, 'petal width': 1,
+                                   'sepal length': 1, 'species': 'Iris-setosa'},
+                          function(error, prediction) {
+                            console.log(prediction)});
+```
+
+Note that, to find the associated prediction, input data cannot contain missing
+values in fields that had not missings in the training data.
+The predict method can also be used labelling
+input data with the corresponding field id.
+
+As you see, the first parameter to the `LocalLinearRegression` constructor
+is a linear regression id (or object). The constructor allows a second
+optional argument, a connection
+object (as described in the [Authentication section](#authentication)).
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var localLinearRegression = new bigml.LocalLinearRegression(
+        'linearregression/51922d0b37203f2a8c001010',
+        new bigml.BigML(myUser, myKey));
+    localLinearRegression.predict({'000000': 1, '000001': 1,
+                                   '000002': 1, '000004': 'Iris-setosa'},
+                          function(error, prediction) {
+                            console.log(prediction)});
+```
+
+When the first argument is a finished linear regression object,
+the constructor creates immediately
+a `LocalLinearRegression` instance ready to predict. Then,
+the `LocalLinearRegression.predict`
+method can be immediately called in a synchronous way.
+
+
+```js
+    var bigml = require('bigml');
+    var linearRegression = new bigml.LinearRegression();
+    linearRegression.get('linearregression/51b3c45a37203f16230000b5', true,
+                'only_model=true;limit=-1',
+                function (error, resource) {
+        if (!error && resource) {
+          var localLinearRegression = new bigml.LocalLinearRegression(
+            resource);
+          var prediction = localLinearRegression.predict(
+            {'000000': 1, '000001': 1,
+             '000002': 1, '000004': 'Iris-setosa'});
+          console.log(prediction);
+        }
+      })
+```
+Note that the `get` method's second and third arguments ensure that the
+retrieval waits for the model to be finished before retrieving it and that all
+the fields used in the linear regression will be downloaded respectively.
+Beware of using filtered fields linear regressions to
+instantiate a local linear regression
+object. If an important field is missing (because it has been excluded or
+filtered), an exception will arise. In this example, the connection to BigML
+is used only in the `get` method call to retrieve the remote linear
+regression information. The callback code, where the `localLinearRegression`
+and predictions are built, is strictly local.
+
+The local linear regression constructor accepts also a connection object.
+The connection object can also include the user's credentials and
+a storage directory. Setting that
+will cause the `LocalLinear` to check whether it can find a local linear
+regression JSON file in this directory before trying to download
+it from the server. This
+means that your model information will only be downloaded the first time
+you use it in a `LocalLinear` instance. Instances that use the same
+connection
+object will read the local file instead.
+
+```js
+    var bigml = require('bigml');
+    var myUser = 'myuser';
+    var myKey = 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291';
+    var my_storage = './my_storage'
+    var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
+    var localLinear = new bigml.LocalLinear(
+      'linearregression/51922d0b37203f2a8c000010', connection);
+```
+
+
 Local predictions' distribution
 -------------------------------
 
 For classification models, the local model, ensemble, logistic regression,
-deepnet or fusion objects offer a method that
+deepnet, linear regression, or fusion objects offer a method that
 produces the predicted distribution of probabilities
 for each of the categories in the objective field.
 
