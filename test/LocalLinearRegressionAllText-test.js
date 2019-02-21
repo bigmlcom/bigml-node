@@ -38,7 +38,7 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     linearId, linear = new bigml.LinearRegression(),
     linearResource, prediction = new bigml.Prediction(),
     localLinearRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction": 3.36655},
+    prediction1 = {"prediction": 3.42809},
     inputData1 = {genres: "Action", title: "1999"};
 
   before(function (done) {
