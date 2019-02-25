@@ -20,15 +20,17 @@ var assert = require('assert'),
   path = require('path');
 var scriptName = path.basename(__filename);
 
-function jsonEqual(a, b) {
+
+function jsonEqual(a, b, keys) {
+  var index, len, key;
   assert.equal(Object.keys(a).length, Object.keys(b).length);
-  for (key in a) {
-    if (a.hasOwnProperty(key)) {
-      a[key] = Math.round(a[key] * 100000, 5) /100000.0;
-      b[key] = Math.round(b[key] * 100000, 5) /100000.0;
-      assert.equal(a[key], b[key], "Mismatch in key " + key + ": "
-        + a[key] + ", " + b[key]);
-    }
+  keys = (typeof keys === "undefined") ? Object.keys(a) : keys;
+  for (index = 0, len = keys.length; index < len; index++) {
+    key = keys[index];
+    a[key] = Math.round(a[key] * 100000, 5) /100000.0;
+    b[key] = Math.round(b[key] * 100000, 5) /100000.0;
+    assert.equal(a[key], b[key], "Mismatch in key " + key + ": "
+      + a[key] + ", " + b[key]);
   }
 }
 
@@ -38,7 +40,9 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     linearId, linear = new bigml.LinearRegression(),
     linearResource, prediction = new bigml.Prediction(),
     localLinearRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction": 0.42077},
+    prediction1 = {prediction: 0.42077,
+                   confidenceBounds: {confidenceInterval: 0,
+                                      predictionInterval: 0}},
     inputData1 = {'000000': 1, '000001': 1,
                   '000002': 1, '000004': 'Iris-setosa'};
 
@@ -62,6 +66,9 @@ describe(scriptName + ': Manage local linear regression objects', function () {
             function (error, data) {
             prediction.create(linearId, inputData1, function(error, data) {
               assert.equal(data.object.output, prediction1.prediction);
+              assert.equal(data.object["confidence_bounds"]["confidence_interval"], prediction1.confidenceBounds.confidenceInterval);
+              assert.equal(data.object["confidence_bounds"]["prediction_interval"],
+                          prediction1.confidenceBounds.predictionInterval);
               done();
             });
           });
@@ -87,7 +94,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localLinearRegression.predict(inputData1, false, function (error, data) {
-        jsonEqual({"prediction": data}, prediction1);
+        jsonEqual(data, prediction1, ["prediction"]);
+        jsonEqual(data.confidenceBounds, prediction1.confidenceBounds);
         done();
       });
     });
@@ -95,7 +103,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
   describe('#predict(inputData)', function () {
     it('should predict synchronously from input data', function () {
       var prediction = localLinearRegression.predict(inputData1);
-      jsonEqual({"prediction": prediction}, prediction1);
+        jsonEqual(prediction, prediction1, ["prediction"]);
+        jsonEqual(prediction.confidenceBounds, prediction1.confidenceBounds);
     });
   });
   describe('LocalLinearRegression(localRegressionResource)', function () {
@@ -115,7 +124,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localLinearRegression.predict(inputData1, function (error, data) {
-        jsonEqual({prediction: data}, prediction1);
+        jsonEqual(data, prediction1, ["prediction"]);
+        jsonEqual(data.confidenceBounds, prediction1.confidenceBounds);
         done();
       });
     });
