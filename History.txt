@@ -1,18 +1,22 @@
+=== 1.18.5 / 2019-03-14
+
+* Fixing bug in local ensemble with more than 200 models.
+
 === 1.18.4 / 2019-03-01
 
 * Adding multidatasets origin argument new syntax
 
 === 1.18.3 / 2019-02-26
 
-* Fixing problem in dataset downloads
+* Fixing problem in dataset downloads.
 
 === 1.18.2 / 2019-01-24
 
-* Fixing problem in local ensemble when downloading more than 20 models
+* Fixing problem in local ensemble when downloading more than 20 models.
 
 === 1.18.1 / 2019-01-24
 
-* Fixing problem in local objects when using connection object without storage
+* Fixing problem in local objects when using connection object without storage.
 
 === 1.18.0 / 2018-11-20
 
