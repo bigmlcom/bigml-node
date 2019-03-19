@@ -1,3 +1,7 @@
+=== 1.18.6 / 2019-03-19
+
+* Fixing bug in local deepnet regression predictions.
+
 === 1.18.5 / 2019-03-14
 
 * Fixing bug in local ensemble with more than 200 models.
