@@ -89,14 +89,14 @@ describe(scriptName + ': Manage local ensemble objects', function () {
   describe('#predict(inputData, method, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(truncate(data, decimals), reference);
+        assert.equal(truncate(data.prediction, decimals), reference);
         done();
       });
     });
   });
   describe('#predict(inputData, method)', function () {
     it('should predict synchronously from input data', function () {
-      var result = localEnsemble.predict(inputData, method);
+      var result = localEnsemble.predict(inputData, method).prediction;
       assert.equal(truncate(result, decimals), reference);
     });
   });
@@ -116,7 +116,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
   describe('#predict(inputData, method, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(truncate(data, decimals), reference);
+        assert.equal(truncate(data.prediction, decimals), reference);
         done();
       });
     });
@@ -137,7 +137,7 @@ describe(scriptName + ': Manage local ensemble objects', function () {
   describe('#predict(inputData, method)', function () {
     it('should predict asynchronously from input data', function (done) {
       localEnsemble.predict(inputData, method, function (error, data) {
-        assert.equal(truncate(data, decimals), reference);
+        assert.equal(truncate(data.prediction, decimals), reference);
         done();
       });
     });
