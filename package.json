@@ -34,7 +34,7 @@
     "winston": "2.4.0"
   },
   "scripts": {
-    "test": "mocha -t 3500000"
+    "test": "mocha -t 3600000"
   },
   "devDependencies": {
     "jshint": "^2.9.5",
