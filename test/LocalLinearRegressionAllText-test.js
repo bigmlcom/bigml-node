@@ -23,8 +23,10 @@ var scriptName = path.basename(__filename);
 
 function jsonEqual(a, b, keys) {
   var index, len, key;
-  assert.equal(Object.keys(a).length, Object.keys(b).length);
-  keys = (typeof keys === "undefined") ? Object.keys(a) : keys;
+  if (typeof keys === 'undefined') {
+    assert.equal(Object.keys(a).length, Object.keys(b).length);
+    keys = Object.keys(a);
+  }
   for (index = 0, len = keys.length; index < len; index++) {
     key = keys[index];
     a[key] = Math.round(a[key] * 100000, 5) /100000.0;
@@ -42,7 +44,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     localLinearRegression, prediction = new bigml.Prediction(),
     prediction1 = {prediction: 2.42506,
                    confidenceBounds: {confidenceInterval: 0,
-                                      predictionInterval: 0}},
+                                      predictionInterval: 0,
+                                      valid: false}},
     inputData1 = {title: "1999"};
 
   before(function (done) {

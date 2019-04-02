@@ -27,11 +27,17 @@ function jsonEqual(a, b, keys) {
   keys = (typeof keys === "undefined") ? Object.keys(a) : keys;
   for (index = 0, len = keys.length; index < len; index++) {
     key = keys[index];
+    a[key] = isNaN(a[key]) ? 0 : a[key]
+    b[key] = isNaN(b[key]) ? 0 : b[key]
     a[key] = Math.round(a[key] * 100000, 5) /100000.0;
     b[key] = Math.round(b[key] * 100000, 5) /100000.0;
     assert.equal(a[key], b[key], "Mismatch in key " + key + ": "
       + a[key] + ", " + b[key]);
   }
+}
+
+function nanToZero(value) {
+  return isNaN(value) ? 0 : value;
 }
 
 describe(scriptName + ': Manage local linear regression objects', function () {
@@ -42,7 +48,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     localLinearRegression, prediction = new bigml.Prediction(),
     prediction1 = {prediction: 0.42077,
                    confidenceBounds: {confidenceInterval: 0,
-                                      predictionInterval: 0}},
+                                      predictionInterval: 0.28244,
+                                      valid: false}},
     inputData1 = {'000000': 1, '000001': 1,
                   '000002': 1, '000004': 'Iris-setosa'};
 
@@ -66,8 +73,8 @@ describe(scriptName + ': Manage local linear regression objects', function () {
             function (error, data) {
             prediction.create(linearId, inputData1, function(error, data) {
               assert.equal(data.object.output, prediction1.prediction);
-              assert.equal(data.object["confidence_bounds"]["confidence_interval"], prediction1.confidenceBounds.confidenceInterval);
-              assert.equal(data.object["confidence_bounds"]["prediction_interval"],
+              assert.equal(nanToZero(data.object["confidence_bounds"]["confidence_interval"]), prediction1.confidenceBounds.confidenceInterval);
+              assert.equal(nanToZero(data.object["confidence_bounds"]["prediction_interval"]),
                           prediction1.confidenceBounds.predictionInterval);
               done();
             });

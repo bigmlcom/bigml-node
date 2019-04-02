@@ -40,8 +40,9 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     linearResource, prediction = new bigml.Prediction(),
     localLinearRegression, prediction = new bigml.Prediction(),
     prediction1 = {prediction: 8.83835,
-                   confidenceBounds: {confidenceInterval: 27.57217,
-                                      predictionInterval: 37.25583}},
+                   confidenceBounds: {confidenceInterval: 27.57223,
+                                      predictionInterval: 37.25588,
+                                      valid: true}},
     inputData1 = {'000000': 1, '000001': 1,
                   '000002': 1, '000003': 1};
 
