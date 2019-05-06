@@ -7,7 +7,7 @@
     "bindings",
     "BigML"
   ],
-  "version": "1.19.2",
+  "version": "1.20.0",
   "author": {
     "name": "BigML",
     "email": "info@bigml.com"
@@ -22,6 +22,7 @@
   "main": "index.js",
   "dependencies": {
     "async": "2.6.0",
+    "cache-manager": "^2.9.0",
     "combined-stream": "1.0.6",
     "fast-csv": "2.4.1",
     "form-data": "2.3.2",

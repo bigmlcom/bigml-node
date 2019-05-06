@@ -1,3 +1,7 @@
+=== 1.20.0 / 2019-05-07
+
+* Adding the ability to use cache-managers from Local Predictors.
+
 === 1.19.2 / 2019-04-09
 
 * Fixing bug in local fusion predictions for regressions.
