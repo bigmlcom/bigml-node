@@ -978,7 +978,7 @@ or assing centroids, compute anomaly scores, etc. Thus, these classes allow
 you to use your BigML model locally, with no connection whatsoever to
 BigML's servers.
 
-The following sections explain each of these classes and its methods. As a
+The following sections explain each of these classes and their methods. As a
 general summary, in order to create a local model from a BigML `model`
 resource, the class to use is called `LocalModel`. You can make a local model
 from a remote model by providing its ID.
