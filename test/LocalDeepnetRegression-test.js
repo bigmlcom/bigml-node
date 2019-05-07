@@ -41,7 +41,7 @@ describe(scriptName + ': Manage local deepnet objects', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localDeepnet.predict(inputData1, 0, function (error, data) {
-        assert.equal(data, prediction1);
+        assert.equal(data.prediction, prediction1);
         done();
       });
     });

@@ -967,6 +967,83 @@ we asked for the 2 most recent sources:
       error: null }
 ```
 
+Local Predictions: file system or cache storage
+-----------------------------------------------
+
+Every model available in BigML is white-box and can be downloaded from the
+API as a JSON. This response can either be stored in the file system as a file
+or stored in a cache-manager. In both cases, the bindings provide a class
+for every model which can interpret this JSON and predict (supervised models),
+or assing centroids, compute anomaly scores, etc. Thus, these classes allow
+you to use your BigML model locally, with no connection whatsoever to
+BigML's servers.
+
+The following sections explain each of these classes and its methods. As a
+general summary, in order to create a local model from a BigML `model`
+resource, the class to use is called `LocalModel`. You can make a local model
+from a remote model by providing its ID.
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel('model/51922d0b37203f2a8c000010');
+```
+
+In this case, the localModel object will create a default connection object
+that will retrieve your credentials from the environment variables and will
+create a `./storage` directory in your current directory to be used as
+local storage. Once this is done, it will download the JSON of the model
+into the `./storage` directory, naming the file after the model ID
+(replacing `/` by `_`). This stored file will be used the next time you
+instantiate the `LocalModel` class for the same model ID. Thus, the connection
+to BigML's servers is only needed the first time you use a model to download
+its JSON information and once it's stored, the local version in your file
+system will be used.
+
+If you prefer to use another directory to store your models, you can provide
+a different connection object that specifies the folder to be used:
+
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel(
+      'model/51922d0b37203f2a8c000010',
+      new bigml.BigML(undefined,
+                      undefined,
+                      {storage: './my_storage_dir'}));
+```
+
+If you stored the model JSON in your local system by any other means, you
+can use the path to the file as first argument too:
+
+```js
+    var bigml = require('bigml');
+    var localModel = new bigml.LocalModel(
+      '/my_dir/my_model_json');
+```
+
+You can also use some cache-manager to store the JSON. In that case, the
+`storage` attribute in the connection should contain the cache-manager
+object that provides the `.get` and `.set` methods to manage the cache.
+The cache-manager mechanism itself is not included in the bindings code
+or its dependencies. Here's an example of use:
+
+```js
+    var bigml = require('bigml');
+    var cacheManager = require('cache-manager');
+    var memoryCache = cacheManager.caching({store: 'memory',
+                                            max: 100,
+                                            ttl: 100});
+    var localModel = new bigml.LocalModel(
+      'model/51922d0b37203f2a8c000010',
+      new bigml.BigML(undefined,
+                      undefined,
+                      {storage: memoryCache}));
+```
+
+Other types of local model classes (LocalCluster, LocalAnomaly,
+etc.) offer the same kind of mechanisms.
+Please, check the following sections for details.
+
 
 Local Models
 ------------
