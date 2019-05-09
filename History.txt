@@ -1,3 +1,7 @@
+=== 1.20.1 / 2019-05-09
+
+* Fixing bug in Local Predictor objects when handling cache response.
+
 === 1.20.0 / 2019-05-07
 
 * Adding the ability to use cache-managers from Local Predictors.
