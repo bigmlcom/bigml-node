@@ -254,7 +254,7 @@ use:
 ```js
     bigml = require('bigml');
     var source = new bigml.Source();
-    source.get('source/51b25fb237203f4410000010' function (error, resource) {
+    source.get('source/51b25fb237203f4410000010', function (error, resource) {
         if (!error && resource) {
           console.log(resource);
         }
