@@ -2525,11 +2525,17 @@ object will read the local file instead.
       'timeseries/51922d0b37203f2a8c000010', connection);
 ```
 
-Logging configuration
----------------------
+Logging configuration and Exceptions
+------------------------------------
 
-Logging is configured at startup and uses the
-[winston](https://github.com/flatiron/winston) logging library. Logs are sent
+Logging is configured at startup to use the
+[winston](https://github.com/flatiron/winston) logging library. The environment
+variables ``BIGML_LOG_EXCEPTIONS`` and ``BIGML_EXIT_ON_ERROR`` can be set to
+``0`` or ``1`` to control whether BigML takes care of logging the errors and/or
+causes exiting. By default, BigML will use ``winston`` to handle errors and
+will exit when an uncaught exception is raised.
+
+Logs will be sent
 both to console and a `bigml.log` file by default. You can change this
 behaviour by using:
 

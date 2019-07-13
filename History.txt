@@ -1,3 +1,7 @@
+=== 1.20.2 / 2019-07-13
+
+* Adding configuration capabilities to handle exceptions and logs.
+
 === 1.20.1 / 2019-05-09
 
 * Fixing bug in Local Predictor objects when handling cache response.
