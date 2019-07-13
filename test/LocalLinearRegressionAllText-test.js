@@ -42,7 +42,7 @@ describe(scriptName + ': Manage local linear regression objects', function () {
     linearId, linear = new bigml.LinearRegression(),
     linearResource, prediction = new bigml.Prediction(),
     localLinearRegression, prediction = new bigml.Prediction(),
-    prediction1 = {prediction: 2.42506,
+    prediction1 = {prediction: 3.2336,
                    confidenceBounds: {confidenceInterval: 0,
                                       predictionInterval: 0,
                                       valid: false}},
