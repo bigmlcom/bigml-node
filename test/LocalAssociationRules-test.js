@@ -27,22 +27,25 @@ describe(scriptName + ': Manage local association objects', function () {
     localAssociation,
     inputData = {"gender": "Male"},
     testAssociationSet = [ { score: 0.11294811139635622,
-    rules: [ '000015', '00003b' ],
+    rules: [ '000016', '000033' ],
     item: { complement: false, count: 60, fieldId: '000008', name: 'Bin 4' } },
   { score: 0.11204146783773694,
-    rules: [ '000022', '000032' ],
+    rules: [ '000020', '00002c' ],
     item:
      { complement: false,
        count: 121,
        fieldId: '000002',
        name: '25-34' } },
   { score: 0.06558415395505228,
-    rules: [ '000009' ],
+    rules: [ '000008' ],
     item:
      { complement: false,
        count: 30,
        fieldId: '000003',
-       name: 'scientist' } } ];
+       name: 'scientist' } },
+  { score: 0.0412,
+    rules: [ '00005a' ],
+    item: { complement: false, count: 45, fieldId: '000004', name: 'Bin 4' } } ];
 
 
   before(function (done) {

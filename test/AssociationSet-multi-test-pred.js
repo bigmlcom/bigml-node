@@ -33,22 +33,31 @@ describe(scriptName + ': Manage association set objects', function () {
        count: 60,
        field_id: '000008',
        name: 'Bin 4' },
-    rules: [ '000015', '00003b' ],
+    rules: [ '000016', '000033' ],
     score: 0.11295 },
   { item:
      { complement: false,
        count: 121,
        field_id: '000002',
        name: '25-34' },
-    rules: [ '000022', '000032' ],
+    rules: [ '000020', '00002c' ],
     score: 0.11204 },
   { item:
      { complement: false,
        count: 30,
        field_id: '000003',
        name: 'scientist' },
-    rules: [ '000009' ],
-    score: 0.06558 } ];
+    rules: [ '000008' ],
+    score: 0.06558 },
+  { item:
+     { bin_end: 61614,
+       bin_start: 55117,
+       complement: false,
+       count: 45,
+       field_id: '000004',
+       name: 'Bin 4' },
+    rules: [ '00005a' ],
+    score: 0.0412 } ];
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
