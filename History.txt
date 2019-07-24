@@ -1,3 +1,7 @@
+=== 1.20.3 / 2019-07-25
+
+* Fixing local predictors download mechanism.
+
 === 1.20.2 / 2019-07-13
 
 * Adding configuration capabilities to handle exceptions and logs.
