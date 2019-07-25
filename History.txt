@@ -1,3 +1,7 @@
+=== 1.20.4 / 2019-07-25
+
+* Fixing local predictors when stored files are tuncated.
+
 === 1.20.3 / 2019-07-25
 
 * Fixing local predictors download mechanism.
