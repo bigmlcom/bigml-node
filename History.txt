@@ -1,3 +1,7 @@
+=== 1.20.5 / 2019-12-13
+
+* Add support for "lazy" Local Anomalies.
+
 === 1.20.4 / 2019-07-25
 
 * Fixing local predictors when stored files are tuncated.

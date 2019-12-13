@@ -24,7 +24,8 @@ describe(scriptName + ': Manage local anomaly objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     anomalyId, anomaly = new bigml.Anomaly(), anomalyResource,
     anomalyFinishedResource,
-    localAnomaly, firstScore = 0.5098650089562002,
+    localAnomaly, lazyLocalAnomaly,
+    firstScore = 0.5098650089562002,
     inputDataById = {'000020': 9.0, '000004': 181.0, '000016': 8.0,
                      '000024': 0.0, '000025': 0.0, '000026': 0.0,
                      '000019': 0.0, '000017': 8.0, '000018': 0.0,
@@ -71,7 +72,22 @@ describe(scriptName + ': Manage local anomaly objects', function () {
         assert.ok(true);
         done();
       } else {
-        localAnomaly.on('ready', function () {assert.ok(true);
+        localAnomaly.on('ready', function () {
+          assert.ok(true);
+          done();
+          });
+      }
+    });
+  });
+  describe('LocalAnomaly(anomalyId, lazy)', function () {
+    it('should create a lazy localAnomaly from an anomaly detector Id', function (done) {
+      lazyLocalAnomaly = new bigml.LocalAnomaly(anomalyId, undefined, { lazy: true });
+      if (lazyLocalAnomaly.ready) {
+        assert.ok(true);
+        done();
+      } else {
+        lazyLocalAnomaly.on('ready', function () {
+          assert.ok(true);
           done();
           });
       }
@@ -92,6 +108,29 @@ describe(scriptName + ': Manage local anomaly objects', function () {
   describe('#anomalyScore(inputData)', function () {
     it('should predict anomaly scores synchronously from input data', function (done) {
       var prediction = localAnomaly.anomalyScore(inputData);
+      assert.equal(prediction, firstScore);
+      var anomalyScore = new bigml.AnomalyScore();
+      anomalyScore.create(anomalyId, inputData, function (error, data) {
+          assert.equal(Math.round(prediction * 100000, 5) / 100000, data['object']['score']);
+          done();
+      });
+    });
+  });
+  describe('#anomalyScore(inputData, callback) lazy', function () {
+    it('should lazily predict anomaly scores asynchronously from input data', function (done) {
+      lazyLocalAnomaly.anomalyScore(inputData, function (error, data) {
+        assert.equal(data, firstScore);
+        var anomalyScore = new bigml.AnomalyScore();
+        anomalyScore.create(anomalyId, inputData, function (error, data) {
+            assert.equal(Math.round(firstScore * 100000, 5) / 100000, data['object']['score']);
+            done();
+        });
+      });
+    });
+  });
+  describe('#anomalyScore(inputData) lazy', function () {
+    it('should lazily predict anomaly scores synchronously from input data', function (done) {
+      var prediction = lazyLocalAnomaly.anomalyScore(inputData);
       assert.equal(prediction, firstScore);
       var anomalyScore = new bigml.AnomalyScore();
       anomalyScore.create(anomalyId, inputData, function (error, data) {
