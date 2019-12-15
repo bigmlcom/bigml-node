@@ -37,7 +37,7 @@ function jsonEqual(a, b, keys) {
 }
 
 function nanToZero(value) {
-  return isNaN(value) ? 0 : value;
+  return (isNaN(value) || value == null) ? 0 : value;
 }
 
 describe(scriptName + ': Manage local linear regression objects', function () {
