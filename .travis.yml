@@ -26,4 +26,4 @@ install:
 script:
   - export TESTS=$(for t in $BML_TESTS; do ls test/*$t*;done|paste -sd " ")
   - echo $TESTS
-  - mocha -t 200000 $TESTS
+  - mocha -t 5600000 $TESTS
