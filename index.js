@@ -142,5 +142,10 @@ module.exports = {
   // Local PCA object for local projections
   LocalPCA: require('./lib/LocalPCA'),
   // Local Linear Regression object for local predictions
-  LocalLinearRegression: require('./lib/LocalLinearRegression')
+  LocalLinearRegression: require('./lib/LocalLinearRegression'),
+
+  private: { Predicates : require('./lib/Predicates'),
+             AnomalyTree : require('./lib/AnomalyTree'),
+             utils: require('./lib/utils')}
+
 };
