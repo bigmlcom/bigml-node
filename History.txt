@@ -1,3 +1,7 @@
+=== 1.20.7 / 2020-03-13
+
+* Fixing bug handling DNS failures.
+
 === 1.20.6 / 2020-02-28
 
 * Fixing bug in local weighted models confidences.
