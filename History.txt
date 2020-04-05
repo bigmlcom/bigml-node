@@ -1,3 +1,7 @@
+=== 1.21.0 / 2020-04-5
+
+* Updating dependencies for compatibility with node 12.
+
 === 1.20.7 / 2020-03-13
 
 * Fixing bug handling DNS failures.
