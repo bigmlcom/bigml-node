@@ -20,6 +20,9 @@
     "node >= 8.4.0"
   ],
   "main": "index.js",
+  "optionalDependencies": {
+    "numjs": "0.16.0"
+  },
   "dependencies": {
     "async": "2.6.0",
     "combined-stream": "1.0.6",
@@ -28,7 +31,7 @@
     "jStat": "1.7.1",
     "mersenne-twister": "1.1.0",
     "mime": "2.2.0",
-    "numjs": "git://github.com/aas395/numjs",
+    "numjs_v12": "git://github.com/aas395/numjs",
     "request": "2.86.0",
     "snowball": "0.3.1",
     "winston": "2.4.0"
