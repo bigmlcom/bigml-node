@@ -1,3 +1,7 @@
+=== 1.22.0 / 2020-05-4
+
+* Adding External Connectors REST methods.
+
 === 1.21.0 / 2020-04-5
 
 * Updating dependencies for compatibility with node 12.

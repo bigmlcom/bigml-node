@@ -113,6 +113,7 @@ this will give you access to the following library structure:
     - bigml.Projection                  Projection API methods
     - bigml.BatchProjection             Batch Projection API methods
     - bigml.LinearRegression            Linear Regression API methods
+    - bigml.ExternalConnector           External Connector API methods
     - bigml.Script                      Script API methods
     - bigml.Execution                   Execution API methods
     - bigml.Library                     Library API methods
@@ -334,7 +335,11 @@ through this `LocalEnsemble` object.
 Types of resources
 ------------------
 
-Currently there are six types of resources in bigml.com:
+Currently these are the types of resources in bigml.com:
+
+- **external connectors** Contain the information to connect to an external
+database manager. They can be used to upload data to BigML to build `sources`.
+These resources are handled through `bigml.ExternalConnector`.
 
 - **sources** Contain the data uploaded from your local data file after
 processing (interpreting field types or missing characters, for instance).
@@ -2523,6 +2528,42 @@ object will read the local file instead.
     var connection = new bigml.BigML(myUser, myKey, {storage: my_storage});
     var localTimeSeries = new bigml.LocalTimeSeries(
       'timeseries/51922d0b37203f2a8c000010', connection);
+```
+
+External Connectors
+-------------------
+
+BigML offers an `externalconnector` resource that can be used to connect to
+external data sources. The description of the API requirements to create an
+`ExternalConnector` can be found at the
+[API documentation](https://bigml.com/api/externalconnectors). The compulsory
+information to create an external connector are parameters like the type
+of database manager, the host, user, password and table that we need to access.
+This must be provided as first argument to the `bigml.ExternalConnector`
+create method or can be set in environment variables:
+
+```batch
+export BIGML_EXTERNAL_CONN_HOST=db.host.com
+export BIGML_EXTERNAL_CONN_PORT=4324
+export BIGML_EXTERNAL_CONN_USER=my_user
+export BIGML_EXTERNAL_CONN_PWD=my_password
+export BIGML_EXTERNAL_CONN_DB=my_database
+export BIGML_EXTERNAL_CONN_SOURCE="postgresql"
+```
+
+
+```js
+    var bigml = require('bigml');
+    var externalConnectorConn = new bigml.ExternalConnector(),
+      externalConnectorId, connectionInfo,
+      args = {"name": "my connector"}, retry = false;
+    externalConnectorConn.create(connectionInfo, args, retry,
+      function(error, data) {
+        if (error) {console.log(error);
+        } else {
+          externalConnectorId = data.resource;
+        }
+      });
 ```
 
 Logging configuration and Exceptions
