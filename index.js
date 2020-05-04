@@ -117,6 +117,8 @@ module.exports = {
   Library: require('./lib/Library'),
   // Execution REST API interface
   Execution: require('./lib/Execution'),
+  // External Connector REST API interface
+  ExternalConnector: require('./lib/ExternalConnector'),
   // Local Model object for local predictions
   LocalModel: require('./lib/LocalModel'),
   // Local Ensemble object for local predictions
