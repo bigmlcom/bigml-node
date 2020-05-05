@@ -2535,8 +2535,8 @@ External Connectors
 
 BigML offers an `externalconnector` resource that can be used to connect to
 external data sources. The description of the API requirements to create an
-`ExternalConnector` can be found at the
-[API documentation](https://bigml.com/api/externalconnectors). The compulsory
+`ExternalConnector` can be found in the
+[API documentation](https://bigml.com/api/externalconnectors). The required
 information to create an external connector are parameters like the type
 of database manager, the host, user, password and table that we need to access.
 This must be provided as first argument to the `bigml.ExternalConnector`
@@ -2556,7 +2556,7 @@ export BIGML_EXTERNAL_CONN_SOURCE="postgresql"
     var bigml = require('bigml');
     var externalConnectorConn = new bigml.ExternalConnector(),
       externalConnectorId, connectionInfo,
-      args = {"name": "my connector"}, retry = false;
+      args = {"name": "my connector", "source": "postgresql"}, retry = false;
     externalConnectorConn.create(connectionInfo, args, retry,
       function(error, data) {
         if (error) {console.log(error);
@@ -2564,6 +2564,15 @@ export BIGML_EXTERNAL_CONN_SOURCE="postgresql"
           externalConnectorId = data.resource;
         }
       });
+    // As connectionInfo is undefined, the environment variables are retrieved
+    // and the information used to create the external connector is
+    // {"host": "db.host.com",
+    //  "port": 4321,
+    //  "user": "my_user",
+    //  "password": "my_password",
+    //  "database": "my_database"}
+    // Alternatively, you can provide this information as first argument
+    // for the ExternalConnector create method.
 ```
 
 Logging configuration and Exceptions
