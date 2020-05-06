@@ -341,8 +341,9 @@ Currently these are the types of resources in bigml.com:
 database manager. They can be used to upload data to BigML to build `sources`.
 These resources are handled through `bigml.ExternalConnector`.
 
-- **sources** Contain the data uploaded from your local data file after
-processing (interpreting field types or missing characters, for instance).
+- **sources** Contain the data uploaded from your local data file, inline data
+or an external data source after processing (interpreting field types
+or missing characters, for instance).
 You can set their locale settings or their field names or types. These resources
 are handled through `bigml.Source`.
 
@@ -2540,7 +2541,8 @@ external data sources. The description of the API requirements to create an
 information to create an external connector are parameters like the type
 of database manager, the host, user, password and table that we need to access.
 This must be provided as first argument to the `bigml.ExternalConnector`
-create method or can be set in environment variables:
+create method or can be set in environment variables (leaving the first
+argument undefined):
 
 ```batch
 export BIGML_EXTERNAL_CONN_HOST=db.host.com
