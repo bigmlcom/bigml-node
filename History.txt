@@ -1,3 +1,8 @@
+=== 1.22.1 / 2020-06-27
+
+* Fixing bug in local models. Decimals in input data are truncated to five
+  digits.
+
 === 1.22.0 / 2020-05-4
 
 * Adding External Connectors REST methods.
