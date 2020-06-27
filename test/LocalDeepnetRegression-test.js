@@ -23,7 +23,7 @@ var scriptName = path.basename(__filename);
 describe(scriptName + ': Manage local deepnet objects', function () {
   var deepnetFile = "data/test_deepnet.json",
     inputData1 = {},
-    prediction1 = 60.67205790874436;
+    prediction1 = 60.672057908744364;
 
   describe('LocalDeepnet(deepnetId)', function () {
     it('should create a localDeepnet from a deepnet Id', function (done) {
