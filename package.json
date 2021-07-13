@@ -7,7 +7,7 @@
     "bindings",
     "BigML"
   ],
-  "version": "1.22.2",
+  "version": "1.23.0",
   "author": {
     "name": "BigML",
     "email": "info@bigml.com"
@@ -21,18 +21,18 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "latest",
     "combined-stream": "^1.0.8",
-    "fast-csv": "^2.5.0",
+    "fast-csv": "latest",
     "form-data": "^2.5.1",
     "jstat": "latest",
-    "mathjs": "^7.0.2",
+    "mathjs": "latest",
     "mersenne-twister": "^1.1.0",
     "mime": "^2.4.4",
-    "mocha": "^8.0.1",
+    "mocha": "latest",
     "request": "^2.88.2",
     "snowball": "^0.3.1",
-    "winston": "^2.4.4"
+    "winston": "latest"
   },
   "scripts": {
     "test": "mocha -t 3600000"

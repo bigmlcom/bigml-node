@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2020 BigML
+ * Copyright 2019-2021 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -38,14 +38,14 @@ describe(scriptName + ': Manage local fusion objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        model1.create(datasetId, modelArgs, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        model1.createAndWait(datasetId, modelArgs, function (error, data) {
+          assert.equal(data.code, bigml.constants.HTTP_OK);
           modelRId1 = data.resource;
-          model2.create(datasetId, undefined, function (error, data) {
-            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+          model2.createAndWait(datasetId, undefined, function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_OK);
             modelRId2 = data.resource;
-            model3.create(datasetId, undefined, function (error, data) {
-              assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            model3.createAndWait(datasetId, undefined, function (error, data) {
+              assert.equal(data.code, bigml.constants.HTTP_OK);
               modelRId3 = data.resource;
                 fusion.create([modelRId1, modelRId2, modelRId3],
                                undefined, function (error, data) {

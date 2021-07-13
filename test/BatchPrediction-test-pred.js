@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2020 BigML
+ * Copyright 2017-2021 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -50,7 +50,9 @@ describe(scriptName + ': Manage batch prediction objects', function () {
                 model.create(trainingDatasetId, undefined, function (error, data) {
                   assert.equal(data.code, bigml.constants.HTTP_CREATED);
                   modelId = data.resource;
-                  done();
+                  model.get(modelId, true, function (errorcb, datacb) {
+                    done();
+                  });
                 });
               });
           });

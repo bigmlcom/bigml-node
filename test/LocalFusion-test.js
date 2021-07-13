@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2020 BigML
+ * Copyright 2018-2021 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -40,17 +40,17 @@ describe(scriptName + ': Manage local fusion objects', function () {
       dataset.create(sourceId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId = data.resource;
-        ensemble.create(datasetId, ensembleArgs, function (error, data) {
-          assert.equal(data.code, bigml.constants.HTTP_CREATED);
+        ensemble.createAndWait(datasetId, ensembleArgs, function (error, data) {
+          assert.equal(data.code, bigml.constants.HTTP_OK);
           ensembleId = data.resource;
-          model.create(datasetId, undefined, function (error, data) {
-            assert.equal(data.code, bigml.constants.HTTP_CREATED);
+          model.createAndWait(datasetId, undefined, function (error, data) {
+            assert.equal(data.code, bigml.constants.HTTP_OK);
             modelId = data.resource;
-            logistic.create(datasetId, undefined, function (error, data) {
-              assert.equal(data.code, bigml.constants.HTTP_CREATED);
+            logistic.createAndWait(datasetId, undefined, function (error, data) {
+              assert.equal(data.code, bigml.constants.HTTP_OK);
               logisticId = data.resource;
-              deepnet.create(datasetId, undefined, function (error, data) {
-                assert.equal(data.code, bigml.constants.HTTP_CREATED);
+              deepnet.createAndWait(datasetId, undefined, function (error, data) {
+                assert.equal(data.code, bigml.constants.HTTP_OK);
                 deepnetId = data.resource;
                 fusion.create([modelId, ensembleId, logisticId, deepnetId],
                                undefined, function (error, data) {

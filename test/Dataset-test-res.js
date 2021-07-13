@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2020 BigML
+ * Copyright 2017-2021 BigML
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain
@@ -75,7 +75,9 @@ describe(scriptName + ': Manage dataset objects', function () {
       dataset2.create(datasetId, undefined, function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId2 = data.resource;
-        done();
+        dataset.get(datasetId2, true, function (errorcb, datacb) {
+          done();
+        });
       });
     });
   });
@@ -95,7 +97,9 @@ describe(scriptName + ': Manage dataset objects', function () {
                       function (error, data) {
         assert.equal(data.code, bigml.constants.HTTP_CREATED);
         datasetId5 = data.resource;
-        done();
+        dataset.get(datasetId5, true, function (errorcb, datacb) {
+          done();
+        });
       });
     });
   });
@@ -104,12 +108,14 @@ describe(scriptName + ': Manage dataset objects', function () {
       function (done) {
         cluster.create(datasetId, {k:8}, function (error, data) {
           clusterId = data.resource;
-          centroidId = "000000"
-          dataset4.create(clusterId, {centroid: centroidId},
-                          function (error, data) {
-            assert.equal(data.code, bigml.constants.HTTP_CREATED);
-            datasetId4 = data.resource;
-            done();
+          centroidId = "000000";
+          cluster.get(clusterId, true, function (errorcb, datacb) {
+            dataset4.create(clusterId, {centroid: centroidId},
+                            function (error, data) {
+              assert.equal(data.code, bigml.constants.HTTP_CREATED);
+              datasetId4 = data.resource;
+              done();
+            });
           });
         });
     });
@@ -130,7 +136,6 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
-    /*
   after(function (done) {
     dataset.delete(datasetId3, function (error, data) {
       assert.equal(error, null);
@@ -146,7 +151,6 @@ describe(scriptName + ': Manage dataset objects', function () {
       });
     });
   });
-    */
   after(function (done) {
     source.delete(sourceId, function (error, data) {
       assert.equal(error, null);
