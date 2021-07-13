@@ -49,11 +49,11 @@ describe(scriptName + ': Manage local Time-series objects', function () {
                                                           "limit": 3}}};
 
   before(function (done) {
-    source.create(path, undefined, function (error, data) {
-      assert.equal(data.code, bigml.constants.HTTP_CREATED);
+    source.createAndWait(path, undefined, function (error, data) {
+      assert.equal(data.code, bigml.constants.HTTP_OK);
       sourceId = data.resource;
-      dataset.create(sourceId, undefined, function (error, data) {
-        assert.equal(data.code, bigml.constants.HTTP_CREATED);
+      dataset.createAndWait(sourceId, undefined, function (error, data) {
+        assert.equal(data.code, bigml.constants.HTTP_OK);
         datasetId = data.resource;
         timeSeries.create(datasetId, {objective_fields: ["000001", "000005"],
                                       period: 12},
