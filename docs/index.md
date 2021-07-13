@@ -279,13 +279,38 @@ use:
 ```js
     bigml = require('bigml');
     var source = new bigml.Source();
-    source.get('source/51b25fb237203f4410000010' function (error, resource) {
+    source.get('source/51b25fb237203f4410000010', function (error, resource) {
         if (!error && resource) {
           console.log(resource);
         }
       })
 ```
 to recover and show the source information.
+
+When a resource `create` call is sent,
+the request creates an evolving resource that will go through some stages
+till it ends up being finished or faulty.
+BigML's API will give asynchronous access to the resource at any time,
+so the `create` method response might contain an in-process resource that
+will lack some of the properties that it will have when finished.
+That is helpful to build any-time models and to use non-blocking
+calls. However, in order to have the complete information that a finished
+resource contains, we will probably need to wait till it
+reaches its final state. The `createAndWait` methods provide alternatives
+to `create` that wait for the resource to be finished before returning the
+result.
+
+```js
+    bigml = require('bigml');
+    var dataset = new bigml.Dataset();
+    dataset.createAndWait('source/51b25fb237203f4410000010',
+      function (error, resource) {
+        if (!error && resource) {
+          console.log("The dataset has been completely created.")
+          console.log(resource);
+        }
+      })
+```
 
 You can work with different credentials by setting them in the connection
 object, as explained in the Authentication section.

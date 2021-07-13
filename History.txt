@@ -1,7 +1,7 @@
 === 1.23.0 / 2021-07-13
 
 * Adding new method to connection objects to wait for the finished resource
-* Updating some dependencies to use the latests version
+* Updating some dependencies to use the latest version
 * Handling logger exceptions if the Winston library is missing
 * Adapting local objects and auxiliary functions to be used in browsers
 
