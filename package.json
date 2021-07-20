@@ -22,6 +22,7 @@
   "main": "index.js",
   "dependencies": {
     "async": "latest",
+    "axios": "^0.21.1",
     "combined-stream": "^1.0.8",
     "fast-csv": "latest",
     "form-data": "^2.5.1",

@@ -1,3 +1,7 @@
+=== 1.24.0 / 2021-07-20
+
+* Changing to axios as http calls manager for cross-platform compatibility.
+
 === 1.23.0 / 2021-07-13
 
 * Adding new method to connection objects to wait for the finished resource
