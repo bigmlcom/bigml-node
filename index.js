@@ -36,7 +36,7 @@ if (process.env.BIGML_REQUIRE_PRELOAD &&
   require('./lib/MultiVote');
   require('./lib/MultiVoteList');
   require('./lib/tssubmodels');
-  require('./lib/math_ops');
+  require('./lib/mathOps');
   require('jStat');
   require('cwise');
 }
