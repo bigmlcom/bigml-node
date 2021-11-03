@@ -126,11 +126,16 @@ describe(scriptName + ': Manage dataset objects', function () {
       dataset.download(datasetId, filename, function (error, data) {
         if (error == null) {
           fs.readFile(filename, "utf8", function (error2, dataf) {
-            assert.equal(dataf, datap);
-            fs.unlink(filename, function (error, data) {
-              assert.equal(error, null);
+            if (error2 == null) {
+              assert.equal(dataf, datap);
+              fs.unlink(filename, function (error, data) {
+                assert.equal(error, null);
+                done();
+              });
+            } else {
+              console.log("Failed to read the downloaded file");
               done();
-            });
+            }
           });
         }
       });
