@@ -26,9 +26,9 @@ describe(scriptName + ': Manage association set objects', function () {
     associationId, association = new bigml.Association(),
     associationSetId, associationSet = new bigml.AssociationSet(),
     inputData = {"field1": "cat food"},
-    testAssociationSet = [{"rules": ["000003"], "item": {
-      "count": 16, "complement": false, "field_id": "000000",
-      "name": "hygiene articles"}, "score": 0.01609}];
+    testAssociationSet = [{"item": {
+      "complement": false, "count": 16, "field_id": "000000",
+      "name": "hygiene articles"}, "rules": ["000002"], "score": 0.01609}];
 
   before(function (done) {
     var tokenMode = {"fields": {"00000": {"optype": "text",
@@ -66,9 +66,9 @@ describe(scriptName + ': Manage association set objects', function () {
       associationSet.get(associationSetId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           var associationSetRules = data.object.association_set.result;
-          assert.deepEqual(associationSetRules, testAssociationSet);
-          done();
-        }
+          assert.equal(JSON.stringify(associationSetRules),
+                       JSON.stringify(testAssociationSet));
+          done();}
       });
     });
   });
