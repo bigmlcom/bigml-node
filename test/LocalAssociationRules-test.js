@@ -109,7 +109,7 @@ describe(scriptName + ': Manage local association objects', function () {
       localAssociation.associationSet(inputData, function (error, data) {
         try {
             assert.deepEqual(data, testAssociationSet);
-        catch (e) {return done(e);}
+        } catch (e) {return done(e);}
         return done();
       });
     });
