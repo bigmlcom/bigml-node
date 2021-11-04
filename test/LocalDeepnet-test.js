@@ -56,9 +56,10 @@ function afterFunc(context, done) {
   function deleteOneByOne(resourceList, failedList) {
     var handler, resourceId;
     if (resourceList.length == 0) {
-      assert.deepEqual(failedList, []);
-      done();
-      return;
+      try {
+          assert.deepEqual(failedList, []);
+      } catch(e) {return done(e);}
+      return done();
     }
     [handler, resourceId] = resourceList.shift();
     handler.delete(resourceId, function (error, data) {
@@ -68,7 +69,7 @@ function afterFunc(context, done) {
       deleteOneByOne(resourceList, failedList);
     });
   }
-  
+
   deleteOneByOne(context.cleanUp, []);
 }
 
@@ -82,7 +83,7 @@ describe(scriptName + ': Manage local model objects', function () {
     prediction2 = JSON.parse('{"prediction":"Iris-setosa","probability":0.50504,"distribution":[{"category":"Iris-setosa","probability":0.50504},{"category":"Iris-versicolor","probability":0.48348},{"category":"Iris-virginica","probability":0.01149}]}')
 
   before(beforeFunc('./data/iris.csv', undefined, context));
- 
+
   describe('LocalDeepnet(deepnetId)', function () {
     it('should create a localDeepnet from a deepnet Id', function (done) {
       localDeepnet = new bigml.LocalDeepnet(context.deepnetId);
@@ -173,14 +174,14 @@ describe(scriptName + ': Local Regression Deepnets with Search', function () {
     localDeepnet,
     inputData1 = {},
     inputData2 = {'Midterm': 50, 'Assignment': 19, 'Unknown': 1},
-    prediction1 = JSON.parse('{ "prediction": 66.42764400447102, ' + 
+    prediction1 = JSON.parse('{ "prediction": 66.42764400447102, ' +
                              '"unusedFields": ["Unknown"] }')
-    prediction2 = JSON.parse('{ "prediction": -6.74669884503282, ' + 
+    prediction2 = JSON.parse('{ "prediction": -6.74669884503282, ' +
                              '"unusedFields": ["Unknown"] }'),
-    prediction3 = JSON.parse('{ "prediction": 38.31076738844381, ' + 
+    prediction3 = JSON.parse('{ "prediction": 38.31076738844381, ' +
                              '"unusedFields": ["Unknown"] }');
 
-  before(beforeFunc('./data/grades.csv', 
+  before(beforeFunc('./data/grades.csv',
                     { search : true,
                       max_training_time: 120,
                       number_of_model_candidates: 10 },
@@ -246,7 +247,7 @@ describe(scriptName + ': Local Regression Deepnets with Search', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localDeepnet.predict(inputData2, true, function (error, data) {
-        assert.equal(JSON.stringify(data.unusedFields), 
+        assert.equal(JSON.stringify(data.unusedFields),
                      JSON.stringify(prediction2.unusedFields));
         done();
       });
@@ -255,7 +256,7 @@ describe(scriptName + ': Local Regression Deepnets with Search', function () {
   describe('#predict(inputData, callback)', function () {
     it('should predict asynchronously from input data', function (done) {
       localDeepnet.predict(inputData2, true, function (error, data) {
-        assert.equal(JSON.stringify(data.unusedFields), 
+        assert.equal(JSON.stringify(data.unusedFields),
                      JSON.stringify(prediction2.unusedFields));
         done();
       });

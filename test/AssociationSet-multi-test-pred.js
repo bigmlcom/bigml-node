@@ -40,7 +40,7 @@ describe(scriptName + ': Manage association set objects', function () {
        count: 121,
        field_id: '000002',
        name: '25-34' },
-    rules: [ '000020', '00002c' ],
+    rules: [ '000020', '00002b' ],
     score: 0.11204 },
   { item:
      { complement: false,
@@ -91,8 +91,10 @@ describe(scriptName + ': Manage association set objects', function () {
       associationSet.get(associationSetId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           var associationSetRules = data.object.association_set.result;
-          assert.deepEqual(associationSetRules, testAssociationSet);
-          done();
+          try {
+              assert.deepEqual(associationSetRules, testAssociationSet);
+          } catch(e) {return done(e);}
+          return done();
         }
       });
     });

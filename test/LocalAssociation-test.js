@@ -89,16 +89,20 @@ describe(scriptName + ': Manage local association objects', function () {
   describe('#associationset(inputData, callback)', function () {
     it('should predict association sets asynchronously from input data', function (done) {
       localAssociation.associationSet(inputData, function (error, data) {
-        assert.deepEqual(data, testAssociationSet);
-        done();
+        try {
+            assert.deepEqual(data, testAssociationSet);
+        } catch (e) {return done(e);}
+        return done();
       });
     });
   });
   describe('#associationset(inputData)', function () {
     it('should predict association set synchronously from input data', function (done) {
       localAssociation.associationSet(inputData, function (error, data) {
-        assert.deepEqual(data, testAssociationSet);
-        done();
+        try {
+            assert.deepEqual(data, testAssociationSet);
+        } catch(e) {return done(e);}
+        return done();
       });
     });
   });

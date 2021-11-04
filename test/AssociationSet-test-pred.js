@@ -66,9 +66,10 @@ describe(scriptName + ': Manage association set objects', function () {
       associationSet.get(associationSetId, true, function (error, data) {
         if (data.object.status.code === bigml.constants.FINISHED) {
           var associationSetRules = data.object.association_set.result;
-          assert.equal(JSON.stringify(associationSetRules),
-                       JSON.stringify(testAssociationSet));
-          done();}
+          try {
+            assert.deepEqual(associationSetRules, testAssociationSet);
+          catch (e) {return done(e);}
+          return done();}
       });
     });
   });

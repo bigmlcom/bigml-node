@@ -25,7 +25,7 @@ describe(scriptName + ': Manage batch prediction objects', function () {
     datasetId, dataset = new bigml.Dataset(),
     modelId, model = new bigml.Model(),
     batchPredictionId, batchPrediction = new bigml.BatchPrediction(),
-    trainingDatasetId, testDatasetId,
+    trainingDatasetId, testDatasetId, testRows,
     tmpFileName = '/tmp/testBatchPrediction.csv';
 
   before(function (done) {
@@ -47,12 +47,15 @@ describe(scriptName + ': Manage batch prediction objects', function () {
                            function (error, data) {
                 assert.equal(data.code, bigml.constants.HTTP_CREATED);
                 testDatasetId = data.resource;
-                model.create(trainingDatasetId, undefined, function (error, data) {
-                  assert.equal(data.code, bigml.constants.HTTP_CREATED);
-                  modelId = data.resource;
-                  model.get(modelId, true, function (errorcb, datacb) {
-                    done();
-                  });
+                dataset.get(testDatasetId, true, function(error, data) {
+                  testRows = data.object.rows;
+                  model.create(trainingDatasetId, undefined, function (error, data) {
+                    assert.equal(data.code, bigml.constants.HTTP_CREATED);
+                    modelId = data.resource;
+                    model.get(modelId, true, function (errorcb, datacb) {
+                      done();
+                    });
+                  })
                 });
               });
           });
@@ -86,13 +89,16 @@ describe(scriptName + ': Manage batch prediction objects', function () {
         if (!error && cbFilename) {
           fs.exists(cbFilename, function (exists) {
             assert.ok(exists);
+            assert.equal(
+              testRows + 2,
+              fs.readFileSync(cbFilename, 'utf-8').split(/\r?\n/).length);
             try {
               fs.unlink(cbFilename);
             } catch (err) {}
-            done();
+            return done();
           });
         } else {
-          assert.ok(false);
+          return done(error);
         }
       });
     });
@@ -105,7 +111,6 @@ describe(scriptName + ': Manage batch prediction objects', function () {
         batchPrediction.get(batchPredictionId, true, function (errorcb, datacb) {
           if (datacb.object.status.code === bigml.constants.FINISHED &&
               datacb.object.name === newName) {
-            assert.ok(true);
             done();
           }
         });
