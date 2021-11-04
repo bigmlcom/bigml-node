@@ -68,7 +68,7 @@ describe(scriptName + ': Manage association set objects', function () {
           var associationSetRules = data.object.association_set.result;
           try {
             assert.deepEqual(associationSetRules, testAssociationSet);
-          catch (e) {return done(e);}
+          } catch (e) {return done(e);}
           return done();}
       });
     });

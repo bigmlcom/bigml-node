@@ -134,7 +134,7 @@ describe(scriptName + ': Manage dataset objects', function () {
               });
             } else {
               console.log("Failed to read the downloaded file");
-              done();
+              done(error2);
             }
           });
         }
