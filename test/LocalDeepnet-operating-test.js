@@ -27,7 +27,7 @@ describe(scriptName + ': Manage local deepnet regression objects', function () {
     deepnetResource, deepnetFinishedResource,
     prediction = new bigml.Prediction(),
     localDeepnetRegression, prediction = new bigml.Prediction(),
-    prediction1 = {"prediction":"Iris-setosa","probability":0.50504,"distribution":[{"category":"Iris-setosa","probability":0.50504},{"category":"Iris-versicolor","probability":0.48348},{"category":"Iris-versicolor","probability":0.01149}]},
+    prediction1 = {"prediction":"Iris-versicolor","probability":0.89472},
     inputData1 = {'petal length': 1, 'sepal length': 1,
                   'petal width': 1, 'sepal width': 1},
     operatingPoint1 = {"kind": "probability",

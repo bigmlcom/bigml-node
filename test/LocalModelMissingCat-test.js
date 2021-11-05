@@ -85,7 +85,6 @@ describe(scriptName + ': Manage local model objects', function () {
       var prediction = localModel.predict(firstInput);
       assert.equal(prediction.prediction, firstPrediction);
       assert.equal(prediction.confidence.toFixed(5), firstPredictionConfidence);
-      console.log(prediction.confidence);
       var confidences = localModel.predictConfidence(firstInput);
       var maxConfidence = 0;
       for (var i = 0; i < confidences.length; i++) {

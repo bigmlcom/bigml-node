@@ -29,7 +29,7 @@ describe(scriptName + ': Manage local model objects', function () {
     localDeepnet, firstPredictionProbability,
     inputData1 = {}, remotePred,
     prediction = new bigml.Prediction(),
-    prediction1 = JSON.parse('{"prediction":"Iris-setosa","probability":0.99995,"distribution":[{"category":"Iris-setosa","probability":0.99995},{"category":"Iris-versicolor","probability":0.00004},{"category":"Iris-virginica","probability":0}]}');
+    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.99292,"distribution":[{"category":"Iris-setosa","probability":0.00708},{"category":"Iris-versicolor","probability":0.99292},{"category":"Iris-virginica","probability":0}]}');
 
   before(function (done) {
     source.create(path, undefined, function (error, data) {
