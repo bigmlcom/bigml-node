@@ -79,8 +79,8 @@ describe(scriptName + ': Manage local model objects', function () {
     inputData1 = {},
     inputData2 = {'petal length': 1, 'sepal length': 1, 'petal width': 1,
                   'sepal width': 1},
-    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.46999,"distribution":[{"category":"Iris-setosa","probability":0.4257},{"category":"Iris-versicolor","probability":0.46999},{"category":"Iris-virginica","probability":0.10432}]}'),
-    prediction2 = JSON.parse('{"prediction":"Iris-setosa","probability":0.50504,"distribution":[{"category":"Iris-setosa","probability":0.50504},{"category":"Iris-versicolor","probability":0.48348},{"category":"Iris-virginica","probability":0.01149}]}')
+    prediction1 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.96375,"distribution":[{"category":"Iris-setosa","probability":0.03624},{"category":"Iris-versicolor","probability":0.96375},{"category":"Iris-virginica","probability":0.00001}]}'),
+    prediction2 = JSON.parse('{"prediction":"Iris-versicolor","probability":0.89472,"distribution":[{"category":"Iris-setosa","probability":0.04698},{"category":"Iris-versicolor","probability":0.89472},{"category":"Iris-virginica","probability":0.0583}]}')
 
   before(beforeFunc('./data/iris.csv', undefined, context));
 

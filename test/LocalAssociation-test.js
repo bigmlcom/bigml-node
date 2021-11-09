@@ -26,7 +26,7 @@ describe(scriptName + ': Manage local association objects', function () {
     associationFinishedResource,
     localAssociation,
     inputData = {"field1": "cat food"},
-    testAssociationSet = [{"rules": ["000003"], "item": {
+    testAssociationSet = [{"rules": ["000002"], "item": {
       "count": 16, "complement": false, "fieldId": "000000",
       "name": "hygiene articles"}, "score": 0.01609}];
 
