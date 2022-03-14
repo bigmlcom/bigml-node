@@ -1,3 +1,7 @@
+=== 1.25.1 / 2022-03-14
+
+* Fixing local ensemble class to control maximum parallel downloads.
+
 === 1.25.0 / 2021-10-22
 
 * Adding activators for local deepnet predictions.
