@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/bigmlcom/bigml-node"
+    "url": "git@github.com:bigmlcom/bigml-node.git"
   },
   "engines": [
     "node >= 8.4.0"
