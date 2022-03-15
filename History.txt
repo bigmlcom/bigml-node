@@ -1,3 +1,7 @@
+=== 1.25.2 / 2022-03-15
+
+* Fixing docs and version bump
+
 === 1.25.1 / 2022-03-14
 
 * Fixing local ensemble class to control maximum parallel downloads.

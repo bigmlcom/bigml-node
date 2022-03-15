@@ -159,13 +159,6 @@ class as follows::
     connection = new bigml.BigML('myusername',
                                  'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291')
 
-Also, you can initialize the library to work in the Sandbox environment by
-setting the third parameter `devMode` to `true`::
-
-    connection = new bigml.BigML('myusername',
-                                 'ae579e7e53fb9abd646a6ff8aa99d4afe83ac291',
-                                 true)
-
 Quick Start
 -----------
 
