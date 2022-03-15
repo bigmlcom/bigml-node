@@ -1468,6 +1468,40 @@ object will read the local file instead.
       'ensemble/51922d0b37203f2a8c000010', connection);
 ```
 
+As ensembles can contain many models, they tend to be heavy objects. This has
+an impact both in the initial resources download (as all the models that
+the ensemble contains need to be downloaded at least once for local
+predictions to work) and on the amount of memory needed when predicting.
+The ensemble constructor offers two additional parameter to help control
+these factors: `maxModels` will control list of models that will be used
+as a batch to predict, so the final prediction will be computed by batches
+of `max_models` models, and `maxParallelDownloads` which will control the
+maximum number of models that will be retrieved from BigML simultaneously.
+A full example using all parameters would be:
+
+
+```js
+    var bigml = require('bigml');
+    var maxModels = 200;
+    var maxParallelDownloads = 10;
+    var connection = new bigml.BigML({storage: "./my_cache_dir"});
+    var localEnsemble = new bigml.LocalEnsemble(
+      'ensemble/51901f4337203f3a9a000215',
+      connection,
+      maxModels,
+      maxParallelDownloads);
+    function doPredictions() {
+      var prediction = localEnsemble.predict({'petal length': 1});
+      console.log(prediction);
+    }
+    if (localEnsemble.ready) {
+      doPredictions();
+    } else {
+      localEnsemble.on('ready', function () {doPredictions()});
+    }
+```
+
+
 Local Logistic Regressions
 --------------------------
 
