@@ -597,12 +597,46 @@ by uploading a local csv file:
           }
       });
 ```
-The first argument in the `create` method of the `bigml.Source` is the csv
+
+The first argument in the `create` method of the `bigml.Source` is the CSV
 file, the next one is an object to set some of the source properties,
 in this case its name, a boolean that determines if retries will be used
 in case a resumable error occurs, and finally the chosen callback.
 The arguments are optional (for this method and all
 the `create` methods of the rest of resources).
+
+You can also upload inline data by providing the list of maps that define
+the data rows
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.create([{"id": 1, "field": "a"}, {"id": 2, "field": "b"}],
+      {name: 'my source'}, true,
+      function(error, sourceInfo) {
+          if (!error && sourceInfo) {
+            console.log(sourceInfo);
+          }
+      });
+```
+
+or use an external connector previously defined in BigML to extract
+the data from external databases. The information about the connector should
+be specified as an object. Please, check the
+[API documentation](https://bigml.com/api/external_connectors) to learn about
+the attributes needed to define an external connector.
+
+```js
+    var bigml = require('bigml');
+    var source = new bigml.Source();
+    source.create(connectorInfo,
+      {name: 'my source'}, true,
+      function(error, sourceInfo) {
+          if (!error && sourceInfo) {
+            console.log(sourceInfo);
+          }
+      });
+```
 
 It is important to instantiate a new resource object (`new bigml.Source()` in
 this case) for each different resource, because each one stores internally the

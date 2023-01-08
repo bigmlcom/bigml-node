@@ -1,6 +1,10 @@
+=== 1.26.0 / 2023-01-08
+
+* Allowing inline data upload.
+
 === 1.25.2 / 2022-03-15
 
-* Fixing docs and version bump
+* Fixing docs and version bump.
 
 === 1.25.1 / 2022-03-14
 
