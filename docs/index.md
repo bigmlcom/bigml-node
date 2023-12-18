@@ -763,7 +763,7 @@ method of the corresponding class. Let's see an example of model retrieval:
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true;limit=-1',
+              'only_model=true&limit=-1',
               function (error, resource) {
         if (!error && resource) {
           console.log(resource);
@@ -1181,7 +1181,7 @@ method can be immediately called in a synchronous way.
     var model = new bigml.Model();
     model.get('model/51b3c45a37203f16230000b5',
               true,
-              'only_model=true;limit=-1',
+              'only_model=true&limit=-1',
               function (error, resource) {
         if (!error && resource) {
           var localModel = new bigml.LocalModel(resource);
@@ -1589,7 +1589,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var logisticRegression = new bigml.LogisticRegression();
     logisticRegression.get('logisticregression/51b3c45a37203f16230000b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localLogisticRegression = new bigml.LocalLogisticRegression(
@@ -1714,7 +1714,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var deepnet = new bigml.Deepnet();
     deepnet.get('deepnet/51b3c45a37203f16230000b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localDeepnet = new bigml.LocalDeepnet(
@@ -1838,7 +1838,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var fusion = new bigml.Fusion();
     fusion.get('fusion/51b3c45a37203f16230000b5', true,
-               'only_model=true;limit=-1',
+               'only_model=true&limit=-1',
                function (error, resource) {
         if (!error && resource) {
           var localFusion = new bigml.LocalFusion(
@@ -1950,7 +1950,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var pca = new bigml.PCA();
     pca.get('pca/51b3c45a37203f16230000b5', true,
-            'only_model=true;limit=-1',
+            'only_model=true&limit=-1',
             function (error, resource) {
       if (!error && resource) {
       var localPCA = new bigml.LocalPCA(
@@ -2030,7 +2030,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var linearRegression = new bigml.LinearRegression();
     linearRegression.get('linearregression/51b3c45a37203f16230000b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localLinearRegression = new bigml.LocalLinearRegression(
@@ -2144,7 +2144,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var cluster = new bigml.Cluster();
     cluster.get('cluster/51b3c45a37203f16230000b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localCluster = new bigml.LocalCluster(resource);
@@ -2233,7 +2233,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var anomaly = new bigml.Anomaly();
     anomaly.get('anomaly/51b3c45a37203f16230030b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localAnomaly = new bigml.LocalAnomaly(resource);
@@ -2393,7 +2393,7 @@ method can be immediately called to predict in a synchronous way.
     var bigml = require('bigml');
     var association = new bigml.Association();
     association.get('association/51b3c45a37203f16230530b5', true,
-                    'only_model=true;limit=-1',
+                    'only_model=true&limit=-1',
                     function (error, resource) {
             if (!error && resource) {
               var localAssociation = new bigml.LocalAssociation(resource);
@@ -2467,7 +2467,7 @@ in a synchronous way.
     var bigml = require('bigml');
     var topicModel = new bigml.TopicModel();
     topicModel.get('topicmodel/51b3c45a47203f16230000b5', true,
-                   'only_model=true;limit=-1',
+                   'only_model=true&limit=-1',
                    function (error, resource) {
         if (!error && resource) {
           var localTopicModel = new bigml.LocalTopicModel(resource);
@@ -2584,7 +2584,7 @@ method can be immediately called in a synchronous way.
     var bigml = require('bigml');
     var timeSeries = new bigml.TimeSeries();
     timeSeries.get('timeseries/51b3c45a37203f16230000b5', true,
-                'only_model=true;limit=-1',
+                'only_model=true&limit=-1',
                 function (error, resource) {
         if (!error && resource) {
           var localTimeSeries = new bigml.LocalTimeSeries(

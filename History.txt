@@ -1,3 +1,7 @@
+=== 1.28.0 / 2023-12-18
+
+* Changing query string separator.
+
 === 1.27.0 / 2023-04-27
 
 * Allowing the delete method to include query strings.
